@@ -1,0 +1,174 @@
+/**
+ * Eight Day Week
+ * http://10up.com
+ *
+ * Copyright (c) 2015 10up, Josh Levinson, Brent Schultz
+ * Licensed under the GPLv2+ license.
+ */
+
+
+// Hide status, visibility, move to trash
+#minor-publishing-actions,
+.misc-pub-section.misc-pub-visibility,
+.misc-pub-section.misc-pub-post-status{
+  display: none;
+}
+
+$box_border: 1px solid #e5e5e5;
+
+//mock publish as separate metabox
+#submitdiv{
+  border: none;
+  display: block;
+  margin-bottom: 20px;
+  background: none !important;
+  .hndle{
+    background: white;
+    border: $box_border;
+  }
+}
+
+#minor-publishing{
+  background: white;
+  border: $box_border;
+  border-top: 0;
+}
+
+#major-publishing-actions{
+  padding: 0;
+  border: none;
+  margin-top: 20px;
+  background: white;
+  .hndle{
+    border: $box_border;
+  }
+}
+
+#publishing-actions{
+  padding: 8px 12px;
+  border: $box_border;
+  border-top: 0;
+}
+
+.timestamp-wrap, #timestamp{
+  hide{
+    display: none;
+  }
+}
+
+.button-secondary.dashicons{
+  width: 50px;
+}
+
+// sections
+
+.edw-loading{
+  width: 20px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+//hide template metabox
+.postbox[id^="pi-sections-template"]{
+  display: none;
+}
+
+#pi-section-add-info{
+  display: none;
+}
+
+.pi-error-msg{
+  display: none;
+}
+
+#pi-section-name{
+  width: 232px;
+}
+
+#pi-section-add-confirm,
+#pi-section-name{
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.postbox span[contenteditable]{
+  cursor: text;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  &.locked{
+    cursor: wait;
+    color: grey;
+  }
+}
+
+//articles
+.pi-article-add-info{
+  display: none;
+}
+
+.pi-article-results{
+  display: block;
+  clear: both;
+  display: none;
+}
+
+.pi-article-title{
+  width: 182px;
+}
+
+.pi-article-title,
+.pi-article-search{
+  display: inline-block;
+  vertical-align: middle;
+}
+
+select.pi-article-dropdown{
+  max-width: 300px;
+}
+
+//article list table
+.pi-articles tfoot{
+  display: none;
+}
+
+.pi-article-view,
+.pi-article-remove{
+  visibility: hidden;
+  margin-left: 10px;
+}
+
+.pi-articles .column-title:hover{
+  .pi-article-view,
+  .pi-article-remove{
+    visibility: visible;
+  }
+}
+
+.pi-article-remove{
+  color: #a00;
+  &:hover{
+    color: #f00;
+  }
+}
+
+//bulk article status
+
+.column-bulk-article-status input.cb-select-all-article-status{
+  margin-left: 0;
+}
+
+th#bulk-article-status{
+  width: 2.2em;
+}
+th.column-article-status{
+  width: 15%;
+}
+th.column-date{
+  width: auto !important;
+}
+th.column-title{
+  width: 28%;
+}
+
+@import "article-export";

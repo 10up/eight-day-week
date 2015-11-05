@@ -1,0 +1,27 @@
+{
+	"name": "print-production",
+	"description": "Tools that help improve the digital/print production workflows.",
+	"version": "0.0.1",
+	"type": "wordpress-plugin",
+	"keywords": [],
+	"homepage": "http://10up.com",
+	"license": "GPLv2.0+",
+	"authors": [
+		{
+			"name": "10up, Josh Levinson, Brent Schultz",
+			"email": "josh.levinson@10up.com",
+		"homepage": "http://10up.com",
+			"role": "Developer"
+		}
+	],
+    "minimum-stability": "dev",
+	"require": {
+		"php": ">=5.4"
+	},
+    "require-dev": {
+	    "antecedent/patchwork": "1.2.*",
+        "phpunit/phpunit"     : "*@stable",
+	    "brianium/paratest"   : "dev-master",
+        "10up/wp_mock"        : "dev-master"
+    }
+}
