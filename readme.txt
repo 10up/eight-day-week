@@ -12,7 +12,7 @@ Optimize publication workflows by using WordPress as your print CMS
 == Description ==
 
 Eight Day Week provides a set of tools to manage your print workflow directly in your WordPress dashboard–right where your posts are!
-Primarily, it offers an interface to group, label, and manage the workflow status of posts in a printed \"Issue\".
+Primarily, it offers an interface to group, label, and manage the workflow status of posts in a printed "Issue".
 It also offers one-click export to an XML file specifically formatted for import into InDesign, providing a means to shifting the focus to further preparing your content for publication in print.
 
 == Installation ==
@@ -70,5 +70,5 @@ The best reference would be to read through `includes/functions/plugins/article-
 
 == Changelog ==
 
-= 1.0 =
+= 1.0.0 =
 Initial Release
