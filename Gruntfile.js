@@ -100,6 +100,7 @@ module.exports = function( grunt ) {
 		copy: {
 			// Copy the plugin to a versioned release directory
 			main: {
+				expand: true,
 				src:  [
 					'**',
 					'!**/.*',
@@ -109,8 +110,7 @@ module.exports = function( grunt ) {
 					'!release/**',
 					'!assets/css/sass/**',
 					'!assets/css/src/**',
-					'!assetsjs/src/**',
-					'!images/src/**',
+					'!assets/js/src/**',
 					'!bootstrap.php',
 					'!bower.json',
 					'!composer.json',
@@ -120,19 +120,19 @@ module.exports = function( grunt ) {
 					'!phpunit.xml',
 					'!phpunit.xml.dist'
 				],
-				dest: 'release/<%= pkg.version %>/'
+				dest: './release/<%= pkg.version %>/'
 			}		
 		},
 		compress: {
 			main: {
 				options: {
 					mode: 'zip',
-					archive: './release/nyopp.<%= pkg.version %>.zip'
+					archive: './release/eight-day-week.<%= pkg.version %>.zip'
 				},
 				expand: true,
-				cwd: 'release/<%= pkg.version %>/',
+				cwd: './release/<%= pkg.version %>/',
 				src: ['**/*'],
-				dest: 'nyopp/'
+				dest: 'eight-day-week/'
 			}		
 		},
 		wp_readme_to_markdown: {
