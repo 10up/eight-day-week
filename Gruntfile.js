@@ -88,6 +88,10 @@ module.exports = function( grunt ) {
 				options: {
 					debounceDelay: 500
 				}
+			},
+			readme: {
+				files: [ 'readme.txt' ],
+				tasks: [ 'wp_readme_to_markdown' ]
 			}
 		},
 		clean: {
@@ -130,6 +134,13 @@ module.exports = function( grunt ) {
 				src: ['**/*'],
 				dest: 'nyopp/'
 			}		
+		},
+		wp_readme_to_markdown: {
+			target: {
+				files: {
+					'README.md': 'readme.txt'
+				}
+			}
 		}
 	} );
 	

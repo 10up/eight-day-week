@@ -3,6 +3,7 @@ namespace Eight_Day_Week\Sections;
 
 use Eight_Day_Week\Core as Core;
 use Eight_Day_Week\User_Roles as User;
+use Eight_Day_Week\Print_Issue as Print_Issue;
 
 	/**
 	 * Sections are used as an "in between" p2p relationship
@@ -112,7 +113,7 @@ function add_sections_meta_box( $post ) {
 			$id = ( 0 === $i ) ? "pi-sections-template-{$section_id}" : "pi-sections-box-{$section_id}";
 			add_meta_box(
 				$id,
-				get_the_title( $section_id ),
+				( 0 === $i ? 'Template' : get_the_title( $section_id ) ),
 				__NAMESPACE__ . '\\sections_meta_box',
 				EDW_PRINT_ISSUE_CPT,
 				'normal',
@@ -231,11 +232,6 @@ function update_print_issue_sections( $post_id, $post, $update ) {
 
 	$section_ids = $_POST['pi-section-ids'];
 
-	//sanitize - only allow comma delimited integers
-	if ( ! ctype_digit( str_replace( ',', '', $section_ids ) ) ) {
-		return;
-	}
-
 	$existing = get_sections( $post_id );
 	$delete   = array_diff( explode( ',', $existing ), explode( ',', $section_ids ) );
 	if ( $delete ) {
@@ -244,12 +240,30 @@ function update_print_issue_sections( $post_id, $post, $update ) {
 		}
 	}
 
-	update_post_meta( $post_id, 'pi-sections', $section_ids );
-
-	//allow other parts to hook
-	do_action( 'save_print_issue_sections', $post_id, $post, $update, $section_ids );
+	set_print_issue_sections( $section_ids, $post_id );
 
 }
+/**
+ * Saves section IDs to the DB
+ *
+ * @param $section_ids string Comma separated section IDs
+ * @param $print_issue_id int The Print Issue post ID
+ * @param $print_issue \WP_Post the Print Issue
+ */
+function set_print_issue_sections( $section_ids, $print_issue_id ) {
+
+	//sanitize - only allow comma delimited integers
+	if ( ! ctype_digit( str_replace( ',', '', $section_ids ) ) ) {
+		return;
+	}
+
+	update_post_meta( $print_issue_id, 'sections', $section_ids );
+
+	//allow other parts to hook
+	do_action( 'save_print_issue_sections', $print_issue_id, $section_ids );
+
+}
+
 
 /**
  * Class Section_Factory
@@ -257,7 +271,7 @@ function update_print_issue_sections( $post_id, $post, $update ) {
  *
  * Factory that creates + updates sections
  *
- * @todo Refactor this (possibly trash it)
+ * @todo Refactor this (possibly trash it). Was just an experiment, really.
  */
 class Section_Factory {
 
@@ -269,6 +283,7 @@ class Section_Factory {
 	 * @return int|Section|\WP_Error
 	 */
 	public static function create( $name ) {
+
 		$info       = [
 			'post_title' => $name,
 			'post_type' => EDW_SECTION_CPT,
@@ -281,8 +296,15 @@ class Section_Factory {
 		return $section_id;
 	}
 
+	public static function assign_to_print_issue( $section, $print_issue ) {
+		$current_sections = get_sections( $print_issue->ID );
+		$new_sections = $current_sections ? $current_sections . ',' . $section->ID : $section->ID;
+		set_print_issue_sections( $new_sections, $print_issue->ID );
+		return $new_sections;
+	}
+
 	/**
-	 * Handles an ajax request to create a section
+	 * Handles an ajax request to create a section, and assigns it to the current print issuez
 	 *
 	 * @todo refactor to use exceptions and one json response vs pepper-style
 	 */
@@ -295,6 +317,13 @@ class Section_Factory {
 			Core\send_json_error( [ 'message' => __( 'Please enter a section name.', 'eight-day-week' ) ] );
 		}
 
+		$print_issue_id = absint( $_POST['print_issue_id'] );
+
+		$print_issue = get_post( $print_issue_id );
+		if ( ! $print_issue ) {
+			throw new \Exception( 'Invalid print issue specified.' );
+		}
+
 		try {
 			$section = self::create( $name );
 		} catch ( \Exception $e ) {
@@ -303,6 +332,7 @@ class Section_Factory {
 		}
 
 		if ( $section instanceof Section ) {
+			self::assign_to_print_issue( $section, $print_issue );
 			Core\send_json_success( [ 'section_id' => $section->ID ] );
 		}
 
@@ -355,7 +385,7 @@ class Section_Factory {
  *
  * Class that represents a section object + offers utility functions for it
  *
- * @todo Refactor this (possibly trash it)
+ * @todo Refactor this (possibly trash it). Was just an experiment, really.
  */
 class Section {
 
@@ -541,5 +571,8 @@ function get_section_order( $result ) {
  * Outputs a Save button
  */
 function section_save_button(){
+	if ( Print_Issue\is_read_only_view() || ! User\current_user_can_edit_print_issue() ) {
+		return;
+	}
 	echo '<button class="button button-primary">' . esc_html( 'Save', 'eight-day-week' ) . '</button>';
 }

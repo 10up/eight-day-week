@@ -121,7 +121,7 @@ function filter_pi_columns_issue_status( $columns ) {
 	];
 
 	//put status after date
-	$title_offset = array_search( 'date', array_keys( $columns ) );
+	$title_offset = array_search( 'custom-date', array_keys( $columns ) );
 	if ( $title_offset ) {
 		$end = $status + array_slice( $columns, $title_offset + 1, null );
 		$columns = array_slice( $columns, 0, $title_offset + 1 ) + $end;

@@ -32,7 +32,7 @@ function print_issue_cpt_columns( $columns ) {
 	$custom = [];
 	$custom['cb'] = $columns['cb'];
 	$custom['title'] = $columns['title'];
-	$custom['date'] = __( 'Issue Date', 'eight-day-week' );
+	$custom['custom-date'] = __( 'Issue Date', 'eight-day-week' );
 	$custom['modified'] = __( 'Last Modified', 'eight-day-week' );
 
 	return apply_filters( __NAMESPACE__ . '\pi_columns', $custom );
@@ -57,9 +57,24 @@ function print_issue_sortable_columns($columns){
  */
 function populate_print_issue_cpt_columns( $colname, $post_id ) {
 
+	$post = get_post( $post_id );
+
 	if ( 'modified' === $colname ) {
-		//pub date is duplicated to post meta
-		echo esc_html( get_the_modified_date() );
+		$t_time = get_the_time( __( 'Y/m/d g:i:s a' ) );
+		$m_time = $post->post_date;
+		$time = get_post_time( 'G', true, $post );
+
+		$time_diff = time() - $time;
+
+		if ( $time_diff > 0 && $time_diff < DAY_IN_SECONDS ) {
+			$h_time = sprintf( __( '%s ago' ), human_time_diff( $time ) );
+		} else {
+			$h_time = mysql2date( __( 'Y/m/d' ), $m_time );
+		}
+		echo esc_html( $h_time );
+	}
+	if( 'custom-date' === $colname ) {
+		echo esc_html( get_the_date() );
 	}
 }
 

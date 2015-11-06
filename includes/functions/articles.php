@@ -524,7 +524,7 @@ function save_section_articles( $post_id, $post, $update ) {
 		$article_ids = explode( ',', $article_ids );
 		$article_ids = array_unique( $article_ids );
 
-		update_post_meta( absint( $section_id ), 'pp-articles', implode( ',', $article_ids ) );
+		update_post_meta( absint( $section_id ), 'articles', implode( ',', $article_ids ) );
 	}
 
 }

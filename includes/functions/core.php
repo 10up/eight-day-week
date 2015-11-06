@@ -107,7 +107,7 @@ function send_json_error( $data = [] ) {
 
 /**
  * Tacks a nonce onto designated data,
- * and converts a string response to a message array
+ * and converts a string response to a sanitized message in an array
  *
  * @param array|object $data Data to combine
  *
@@ -119,10 +119,14 @@ function tack_on_ajax_response( $data = [] ) {
 	$nonce = create_nonce();
 	if( is_array( $data ) ) {
 		$data['_ajax_nonce'] = $nonce;
-		$data['message'] = esc_html( $data['message'] );
+		if( isset( $data['message'] ) ) {
+			$data['message'] = esc_html( $data['message'] );
+		}
 	} else {
 		$data->_ajax_nonce = $nonce;
-		$data->message = esc_html( $data->message );
+		if ( property_exists( $data, 'message' ) ) {
+			$data->message = esc_html( $data->message );
+		}
 	}
 
 	return $data;

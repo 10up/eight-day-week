@@ -202,6 +202,7 @@
 		$section_ids: $('#pi-section-ids'),
 		$titles: $('[id^="pi-sections-box"].postbox .hndle span'),
 		$pi_section_name: $('#pi-section-name'),
+		print_issue_id: $('#post_ID').val(),
 
 		init: function () {
 			var sm = this;
@@ -401,8 +402,10 @@
 		},
 
 		create_section: function (name, $input, button) {
+			var that = this;
 			return PP_Ajax.post('pp-create-section', {
 				name: name,
+				print_issue_id: that.print_issue_id,
 			}, $input, button);
 		},
 
