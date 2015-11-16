@@ -6,7 +6,7 @@
  * Author:      10up - Josh Levinson, Brent Schultz
  * Author URI:  http://10up.com
  * License:     GPLv2+
- * Text Domain: print-production
+ * Text Domain: eight-day-week
  * Domain Path: /languages
  */
 
