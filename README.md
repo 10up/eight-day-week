@@ -1,4 +1,4 @@
-# Eight Day Week #
+# Eight Day Week Print Workflow #
 **Contributors:** 10up  
 **Tags:** print, workflow, editorial  
 **Requires at least:** 4.3  
@@ -88,16 +88,16 @@ The best reference would be to read through `includes/functions/plugins/article-
 ## Screenshots ##
 
 ##### 1. The Print Issue list table #####
-![The Print Issue list table](http://ps.w.org/eight-day-week/assets/screenshot-1.png)
+![The Print Issue list table](http://ps.w.org/eight-day-week-print-workflow/assets/screenshot-1.png)
 
 ##### 2. The Print Issue editor, showing the sections and contained articles, as well as several modules at play. #####
-![The Print Issue editor, showing the sections and contained articles, as well as several modules at play.](http://ps.w.org/eight-day-week/assets/screenshot-2.png)
+![The Print Issue editor, showing the sections and contained articles, as well as several modules at play.](http://ps.w.org/eight-day-week-print-workflow/assets/screenshot-2.png)
 
 ##### 3. Further down the page of the Print Issue Editor, showing buttons to add sections & articles. Each section has a Save button for convenience; all Save buttons simply save the entire Issue. #####
-![Further down the page of the Print Issue Editor, showing buttons to add sections & articles. Each section has a Save button for convenience; all Save buttons simply save the entire Issue.](http://ps.w.org/eight-day-week/assets/screenshot-3.png)
+![Further down the page of the Print Issue Editor, showing buttons to add sections & articles. Each section has a Save button for convenience; all Save buttons simply save the entire Issue.](http://ps.w.org/eight-day-week-print-workflow/assets/screenshot-3.png)
 
 ##### 4. A Print Issue in "read only view". This view allows anyone with access to view a Print Issue without inducing a post lock, or being locked out by another editor. Note that the Export tools are still available in read only view. #####
-![A Print Issue in "read only view". This view allows anyone with access to view a Print Issue without inducing a post lock, or being locked out by another editor. Note that the Export tools are still available in read only view.](http://ps.w.org/eight-day-week/assets/screenshot-4.png)
+![A Print Issue in "read only view". This view allows anyone with access to view a Print Issue without inducing a post lock, or being locked out by another editor. Note that the Export tools are still available in read only view.](http://ps.w.org/eight-day-week-print-workflow/assets/screenshot-4.png)
 
 
 ## Changelog ##

@@ -1,4 +1,4 @@
-=== Eight Day Week ===
+=== Eight Day Week Print Workflow ===
 Contributors: 10up
 Tags: print, workflow, editorial
 Requires at least: 4.3
