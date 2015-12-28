@@ -10,18 +10,18 @@
 		{
 			"name": "10up, Josh Levinson, Brent Schultz",
 			"email": "josh.levinson@10up.com",
-		"homepage": "http://10up.com",
+			"homepage": "http://10up.com",
 			"role": "Developer"
 		}
 	],
-    "minimum-stability": "dev",
+    	"minimum-stability": "dev",
 	"require": {
 		"php": ">=5.4"
 	},
-    "require-dev": {
-	    "antecedent/patchwork": "1.2.*",
-        "phpunit/phpunit"     : "*@stable",
-	    "brianium/paratest"   : "dev-master",
-        "10up/wp_mock"        : "dev-master"
+    	"require-dev": {
+		"antecedent/patchwork": "1.2.*",
+		"phpunit/phpunit": "*@stable",
+	    	"brianium/paratest": "dev-master",
+        	"10up/wp_mock": "dev-master"
     }
 }
