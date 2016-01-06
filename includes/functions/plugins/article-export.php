@@ -730,8 +730,8 @@ class Articles_Zip {
 	 * @return string The zip file name
 	 */
 	function get_zip_file_name( ) {
-		date_default_timezone_set( Core\get_timezone() );
-		return sprintf( __( 'Issue %1$s exported on %2$s at %3$s', 'eight-day-week' ), $this->issue_title, date( 'm-d-y' ), date( 'h:ia' ) );
+		$date = new \DateTime( 'now', new \DateTimeZone( get_option( 'timezone_string' ) ) );
+		return 'Issue ' . $this->issue_title . ' exported on ' . $date->format( 'm-d-y' ) . ' at ' . $date->format( 'h:ia' );
 	}
 
 	/**
