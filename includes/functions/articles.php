@@ -426,10 +426,12 @@ function get_articles( $title ) {
 		throw new \Exception( __( 'Please enter a valid/non-empty title.', 'eight-day-week' ) );
 	}
 
+	$post_types = apply_filters( __NAMESPACE__ . '\\post_types', [ 'post' ] );
+
 	$args = [
 		'search_by_title'        => sanitize_text_field( $title ),
 		'posts_per_page'         => 20,
-		'post_type'              => 'post',
+		'post_type'              => $post_types,
 		'post_status'            => 'any',
 		'order'                  => 'DESC',
 		'orderby'                => 'post_date',
