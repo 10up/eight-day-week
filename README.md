@@ -1,15 +1,17 @@
-# Eight Day Week Print Workflow #
+# Eight Day Week Print Workflow
+
+> Optimize publication workflows by using WordPress as your print CMS
+
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level)
+
 **Contributors:** 10up  
-**Tags:** print, workflow, editorial  
 **Requires at least:** 4.3  
 **Tested up to:** 4.4  
 **Stable tag:** trunk  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
-Optimize publication workflows by using WordPress as your print CMS
-
-## Description ##
+## Description
 
 Eight Day Week provides a set of tools to manage your print workflow directly in your WordPress dashboard–right where your posts are!
 Primarily, it offers an interface to group, label, and manage the workflow status of posts in a printed "Issue".
@@ -36,11 +38,11 @@ Two custom roles are added by this plugin to best model a real-world print team.
 
 - Export XML files specifically formatted for import into InDesign
 
-## Installation ##
+## Installation
 
 Print Production has no settings or configurations to set up. It just works!
 
-## Filters & Hooks ##
+## Filters & Hooks
 Eight Day Week provides a number of filters and hooks for customizing and extending the plugin.
 
 **Modules**
@@ -85,7 +87,7 @@ The export of posts in a Print Issue is highly customizeable, from the file name
 The best reference would be to read through `includes/functions/plugins/article-export.php`.
 [Here's](https://gist.github.com/joshlevinson/4a2c3ed78b21b3c54eba) a few examples used on the *Observer*.
 
-## Screenshots ##
+## Screenshots
 
 ##### 1. The Print Issue list table #####
 ![The Print Issue list table](http://ps.w.org/eight-day-week-print-workflow/assets/screenshot-1.png)
@@ -99,8 +101,15 @@ The best reference would be to read through `includes/functions/plugins/article-
 ##### 4. A Print Issue in "read only view". This view allows anyone with access to view a Print Issue without inducing a post lock, or being locked out by another editor. Note that the Export tools are still available in read only view. #####
 ![A Print Issue in "read only view". This view allows anyone with access to view a Print Issue without inducing a post lock, or being locked out by another editor. Note that the Export tools are still available in read only view.](http://ps.w.org/eight-day-week-print-workflow/assets/screenshot-4.png)
 
+## Support Level
+
+**Active:** 10up is actively working on this, and we expect to continue work for the foreseeable future including keeping tested up to the most recent version of WordPress.  Bug reports, feature requests, questions, and pull requests are welcome.
 
 ## Changelog ##
 
 ### 1.0.0 ###
 Initial Release
+
+## Like what you see?
+
+<a href="http://10up.com/contact/"><img src="https://10updotcom-wpengine.s3.amazonaws.com/uploads/2016/10/10up-Github-Banner.png" width="850" alt="Work with us at 10up"></a>
