@@ -1,9 +1,10 @@
 === Eight Day Week Print Workflow ===
-Contributors: 10up
+Contributors: 10up, observerteam, joshlevinson, BrentSchultz
 Tags: print, workflow, editorial
 Requires at least: 4.3
 Tested up to: 4.4
-Stable tag: trunk
+Stable tag: 1.0.0
+Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,6 +13,7 @@ Optimize publication workflows by using WordPress as your print CMS
 == Description ==
 
 Eight Day Week provides a set of tools to manage your print workflow directly in your WordPress dashboard–right where your posts are!
+
 Primarily, it offers an interface to group, label, and manage the workflow status of posts in a printed "Issue".
 
 **Features:**
@@ -95,4 +97,4 @@ The best reference would be to read through `includes/functions/plugins/article-
 == Changelog ==
 
 = 1.0.0 =
-Initial Release
+* Initial Release
