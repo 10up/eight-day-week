@@ -2,11 +2,10 @@
 
 > Optimize publication workflows by using WordPress as your print CMS
 
-[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level)
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) ![WordPress tested up to version](https://img.shields.io/badge/WordPress-v4.4%20tested-success.svg)
 
 **Contributors:** 10up  
 **Requires at least:** 4.3  
-**Tested up to:** 4.4  
 **Stable tag:** trunk  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
