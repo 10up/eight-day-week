@@ -1,5 +1,5 @@
 === Eight Day Week Print Workflow ===
-Contributors: 10up, ObserverTeam
+Contributors: 10up, observerteam, joshlevinson, BrentSchultz
 Tags: print, workflow, editorial
 Requires at least: 4.3
 Tested up to: 4.4
