@@ -94,7 +94,7 @@ function add_issue_status_filters() {
 		echo '<select name="' . esc_attr( $tax_slug ) . '" id="' . esc_attr( $tax_slug ) . '" class="postform">';
 		echo '<option value="">' . sprintf( esc_html_x( 'Show All %s', 'Select option for filtering all issue statuses', 'eight-day-week' ) , esc_html( $tax_name ) ) . '</option>';
 		foreach ( $terms as $term ) {
-			echo '<option value="' . esc_attr( $term->slug ) . '"' . selected( $_GET[ $tax_slug ], $term->slug ) . '>' . esc_html( $term->name ) . '</option>';
+			echo '<option value="' . esc_attr( $term->slug ) . '"' . selected( isset( $_GET[ $tax_slug ] ) && $_GET[ $tax_slug ], $term->slug ) . '>' . esc_html( $term->name ) . '</option>';
 		}
 		echo '</select>';
 	}
