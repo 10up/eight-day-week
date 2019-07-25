@@ -96,5 +96,17 @@ The best reference would be to read through `includes/functions/plugins/article-
 
 == Changelog ==
 
+= 1.1.0 =
+### Added
+* German translation files (props @adamsilverstein, @maryisdead via #31)
+* Plugin banner and icon images (props @chriswallace via #30)
+
+### Updated
+* Update dependencies in `package.json` and `composer.json` to current versions (props @adamsilverstein via #28)
+
+### Fixed
+* DateTimeZone setup: fall back to `gmt_offset` (props @adamsilverstein, @Jared-Williams via #32)
+* PHP notices w/PHP 5.6 and fatals with PHP 7.2/3 (props @adamsilverstein via #28)
+
 = 1.0.0 =
 * Initial Release
