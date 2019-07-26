@@ -1,4 +1,4 @@
-# Eight Day Week Print Workflow
+# ![Eight Day Week Print Workflow](https://github.com/10up/eight-day-week/blob/develop/.wordpress-org/banner-1544x500.png "Eight Day Week Print Workflow")
 
 > Optimize publication workflows by using WordPress as your print CMS.  Eight Day Week provides a set of tools to manage your print workflow directly in your WordPress dashboard–right where your posts are!  Primarily, it offers an interface to group, label, and manage the workflow status of posts in a printed "Issue".
 
