@@ -2,7 +2,7 @@
 Contributors: 10up, observerteam, joshlevinson, BrentSchultz
 Tags: print, workflow, editorial
 Requires at least: 4.3
-Tested up to: 4.4
+Tested up to: 5.2
 Stable tag: 1.0.0
 Requires PHP: 5.6
 License: GPLv2 or later
