@@ -5,3 +5,4 @@ phpunit.xml
 .sass-cache
 *.map
 release
+.DS_Store
