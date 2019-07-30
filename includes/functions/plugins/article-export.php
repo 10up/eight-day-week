@@ -210,7 +210,7 @@ function get_export_status( $article_id ) {
 
 
 	$zone = new \DateTimeZone( Core\get_timezone() );
-	
+
 	$export_datetime = new \DateTime( 'now', $zone );
 	$export_datetime->setTimestamp( $timestamp );
 
@@ -516,6 +516,10 @@ class Article_XML {
 
 		$author = $authors[0];
 
+		if ( ! $author ) {
+			return '';
+		}
+
 		if ( $author->last_name ) {
 			return $author->last_name;
 		}
@@ -674,7 +678,7 @@ class Article_XML {
 		foreach ( $content->childNodes as $el ) {
 			$content_element->appendChild( $xml_document->importNode( $el, true ) );
 		}
-		
+
 		$article_xml = new \stdClass;
 		$article_xml->xml_document = $xml_document;
 		$article_xml->root_element = $article_element;
@@ -730,7 +734,14 @@ class Articles_Zip {
 	 * @return string The zip file name
 	 */
 	function get_zip_file_name( ) {
-		$date = new \DateTime( 'now', new \DateTimeZone( get_option( 'timezone_string' ) ) );
+		$timezone_string = get_option( 'timezone_string' );
+		if ( empty( $timezone_string ) ) {
+			$offset  = get_option( 'gmt_offset' );
+			$hours   = (int) $offset;
+			$minutes = abs( ( $offset - (int) $offset ) * 60 );
+			$timezone_string  = sprintf( '%+03d:%02d', $hours, $minutes );
+		}
+		$date = new \DateTime( 'now', new \DateTimeZone( $timezone_string ) );
 		return 'Issue ' . $this->issue_title . ' exported on ' . $date->format( 'm-d-y' ) . ' at ' . $date->format( 'h:ia' );
 	}
 

@@ -10,3 +10,7 @@ This file is a work-in-progress attempt to display the various contributors to E
 - [Jeff Sternberg](https://github.com/sternb0t)
 - [Anthony Castro](https://github.com/anthony-j-castro)
 - [Josh Pollock](https://github.com/Shelob9)
+- [Adam Silverstein](https://github.com/adamsilverstein)
+- [Matthias Wehrlein](https://github.com/maryisdead)
+- [Chris Wallace](https://github.com/chriswallace)
+- [Jared Williams](https://github.com/Jared-Williams)

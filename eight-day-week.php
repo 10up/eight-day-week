@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Eight Day Week
  * Description: Tools that help improve digital & print workflows.
- * Version:     1.0.0
+ * Version:     1.1.0
  * Author:      10up
  * Author URI:  http://10up.com
  * License:     GPLv2+
@@ -35,7 +35,7 @@ require_once __DIR__ . '/vip-compat.php';
 require_once __DIR__ . '/plugins.php';
 
 // Useful global constants
-define( 'EDW_VERSION', '1.0.0' );
+define( 'EDW_VERSION', '1.1.0' );
 define( 'EDW_URL',     Eight_Day_Week\plugins_url(  __FILE__ ) );
 define( 'EDW_PATH',    dirname( __FILE__ ) . '/' );
 define( 'EDW_INC',     EDW_PATH . 'includes/' );

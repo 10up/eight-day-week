@@ -2,8 +2,8 @@
 Contributors: 10up, observerteam, joshlevinson, BrentSchultz
 Tags: print, workflow, editorial
 Requires at least: 4.3
-Tested up to: 4.4
-Stable tag: 1.0.0
+Tested up to: 5.2
+Stable tag: 1.1.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -56,8 +56,10 @@ Article Status
 Issue Publication
 Issue Status
 Any of these can be disabled by returning a falsey value from the following filter format:
-`add_filter( 'Eight_Day_Week\Plugins\load_$plugin', '__return_false' );`
-The `$plugin` value is a slug version of the plugin nam e, i.e. article-byline
+`
+add_filter( 'Eight_Day_Week\Plugins\load_$plugin', '__return_false' );
+`
+The `$plugin` value is a slug version of the plugin name, i.e. article-byline.
 
 **Article Table**
 
@@ -77,15 +79,11 @@ add_filter( 'Eight_Day_Week\Articles\article_meta_byline', function( $incoming_v
 **Print Issue Table**
 
 The information displayed in the list of Print Issues is filterable. Custom columns can be added via the following filter:
-`Eight_Day_Week\Print_Issue_Columns\pi_columns`
-Note that this is a convenience filter, the base filter is `manage_edit-print-issue_columns`
-See `includes/functions/print-issue-columns.php` for sample usage.
+`Eight_Day_Week\Print_Issue_Columns\pi_columns`.  Note that this is a convenience filter, the base filter is `manage_edit-print-issue_columns`.  See `includes/functions/print-issue-columns.php` for sample usage.
 
 **Article Export**
 
-The export of posts in a Print Issue is highly customizeable, from the file name of the zip, to the file name of the individual files, to the contents of the files themselves.
-The best reference would be to read through `includes/functions/plugins/article-export.php`.
-[Here's](https://gist.github.com/joshlevinson/4a2c3ed78b21b3c54eba) a few examples used on the *Observer*.
+The export of posts in a Print Issue is highly customizeable, from the file name of the zip, to the file name of the individual files, to the contents of the files themselves.  The best reference would be to read through `includes/functions/plugins/article-export.php`.  [Here's](https://gist.github.com/joshlevinson/4a2c3ed78b21b3c54eba) a few examples used on the *Observer*.
 
 == Screenshots ==
 
@@ -96,5 +94,17 @@ The best reference would be to read through `includes/functions/plugins/article-
 
 == Changelog ==
 
+= 1.1.0 =
+### Added
+- German translation files
+- Plugin banner and icon images
+
+### Updated
+- Update dependencies in `package.json` and `composer.json` to current versions
+
+### Fixed
+- DateTimeZone setup: fall back to `gmt_offset`
+- PHP notices w/PHP 5.6 and fatals with PHP 7.2/3
+
 = 1.0.0 =
-* Initial Release
+- Initial Release
