@@ -19,7 +19,7 @@ module.exports = function( grunt ) {
 				'Gruntfile.js',
 				'assets/js/src/**/*.js',
 				'assets/js/test/**/*.js'
-			]		
+			]
 		},
 		uglify: {
 			all: {
@@ -28,12 +28,12 @@ module.exports = function( grunt ) {
 				},
 				options: {
 					mangle: {
-						except: ['jQuery']
+						reserved: ['jQuery']
 					}
 				}
 			}
 		},
-		
+
 		sass:   {
 			all: {
 				files: {
@@ -41,29 +41,29 @@ module.exports = function( grunt ) {
 				}
 			}
 		},
-		
-		
+
+
 		autoprefixer: {
 			dist: {
 				options: {
 					browsers: [ 'last 1 version', '> 1%', 'ie 8' ]
 				},
-				files: { 
+				files: {
 					'assets/css/style.css': [ 'assets/css/style.css' ]
 				}
 			}
 		},
-		
+
 		cssmin: {
 			options: {
 				processImport: false
 			},
 			minify: {
 				expand: true,
-				
-				cwd: 'assets/css/',				
+
+				cwd: 'assets/css/',
 				src: ['style.css'],
-				
+
 				dest: 'assets/css/',
 				ext: '.min.css'
 			}
@@ -121,7 +121,7 @@ module.exports = function( grunt ) {
 					'!phpunit.xml.dist'
 				],
 				dest: './release/<%= pkg.version %>/'
-			}		
+			}
 		},
 		compress: {
 			main: {
@@ -133,7 +133,7 @@ module.exports = function( grunt ) {
 				cwd: './release/<%= pkg.version %>/',
 				src: ['**/*'],
 				dest: 'eight-day-week/'
-			}		
+			}
 		},
 		wp_readme_to_markdown: {
 			target: {
@@ -143,10 +143,10 @@ module.exports = function( grunt ) {
 			}
 		}
 	} );
-	
+
 	// Load tasks
 	require('load-grunt-tasks')(grunt);
-	
+
 	// Register tasks
 	grunt.registerTask( 'default', ['jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin' ] );
 

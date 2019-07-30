@@ -244,7 +244,7 @@ class AL_Table extends \WP_Posts_List_Table {
 	 *
 	 * @return string
 	 */
-	function _column_title( $item, $classes, $data, $primary ) {
+	function _column_title( $item, $classes = '', $data = '', $primary = false ) {
 		$html = '<td class="' . esc_attr( $classes ) . ' page-title" '  . esc_attr( $data ) . '>';
 		$html .= $this->column_title( $item );
 		$html .= '</td>';
@@ -458,7 +458,7 @@ function get_articles( $title ) {
  *
  * @return string Modified WHERE SQL clause
  */
-function title_filter( $where, &$wp_query ) {
+function title_filter( $where, $wp_query ) {
 	global $wpdb;
 	if ( $title = $wp_query->get( 'search_by_title' ) ) {
 		/*using the esc_like() in here instead of other esc_sql()*/
