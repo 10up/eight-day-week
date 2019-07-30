@@ -846,8 +846,8 @@
 		},
 		ready: function() {
 			var $submitdiv = $('#submitdiv');
-			$submitdiv.removeClass('postbox');
-			$submitdiv.children('.hndle').children('span').text('Issue Date');
+			$submitdiv.children('.handlediv').hide();
+			$submitdiv.children('.hndle').off( 'click.postboxes' ).children('span').text('Issue Date');
 			var $mpa = $('#major-publishing-actions');
 			$mpa.wrapInner('<div id="publishing-actions"></div>');
 			$mpa.prepend('<h3 class="hndle">Actions</h3>');
