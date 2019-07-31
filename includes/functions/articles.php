@@ -155,7 +155,7 @@ class AL_Table extends \WP_Posts_List_Table {
 		return apply_filters( __NAMESPACE__ . '\article_columns',
 			[
 				'cb'             => '<input type="checkbox" />',
-				'title'          => _x( 'Article', 'eight-day-week' ),
+				'title'          => _x( 'Article', 'eight-day-week-print-workflow' ),
 			]
 		);
 	}

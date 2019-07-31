@@ -47,7 +47,7 @@ function setup() {
  * @return array modified columns
  */
 function filter_article_columns_byline( $columns ) {
-	$columns['byline'] = _x( 'Byline', 'Label for multiple, comma separated authors', 'eight-day-week' );
+	$columns['byline'] = _x( 'Byline', 'Label for multiple, comma separated authors', 'eight-day-week-print-workflow' );
 	return $columns;
 }
 

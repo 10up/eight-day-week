@@ -480,7 +480,7 @@ function is_read_only_view() {
  * @return string The rov HTML hyperlink
  */
 function get_rov_link( $post ) {
-	return '<a href="' . esc_url( get_rov_url( $post ) ) . '">' . esc_html_x( 'View', 'Link text to view a print issue', 'eight-day-week' ) . '</a>';
+	return '<a href="' . esc_url( get_rov_url( $post ) ) . '">' . esc_html_x( 'View', 'Link text to view a print issue', 'eight-day-week-print-workflow' ) . '</a>';
 }
 
 /**
