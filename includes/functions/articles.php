@@ -280,7 +280,7 @@ class AL_Table extends \WP_Posts_List_Table {
 		}
 
 		$title .= '<a class="pi-article-view" target="_blank" href="' .
-		          esc_url( get_permalink( $item->ID ) ) . '">' . __( 'View', 'eight-day-week' ) . '</a>';
+		          esc_url( get_permalink( $item->ID ) ) . '">' . __( 'View', 'eight-day-week-print-workflow' ) . '</a>';
 
 		//don't give remove link to print prod users
 		if( User\current_user_can_edit_print_issue() ) {
@@ -423,7 +423,7 @@ function get_articles_autocomplete( $title ) {
  */
 function get_articles( $title ) {
 	if ( ! $title ) {
-		throw new \Exception( __( 'Please enter a valid/non-empty title.', 'eight-day-week' ) );
+		throw new \Exception( __( 'Please enter a valid/non-empty title.', 'eight-day-week-print-workflow' ) );
 	}
 
 	$post_types = apply_filters( __NAMESPACE__ . '\\post_types', [ 'post' ] );
@@ -444,7 +444,7 @@ function get_articles( $title ) {
 	remove_filter( 'posts_where', __NAMESPACE__ . '\\title_filter', 10, 2 );
 
 	if ( ! $articles->posts ) {
-		throw new \Exception( __( 'No matching articles found.', 'eight-day-week' ) );
+		throw new \Exception( __( 'No matching articles found.', 'eight-day-week-print-workflow' ) );
 	}
 
 	return $articles->posts;
@@ -539,7 +539,6 @@ function save_section_articles( $post_id, $post, $update ) {
  * @return array Modified columns
  */
 function filter_article_columns_date( $columns ) {
-	$columns['date'] = __( 'Publish Date', 'eight-day-week' );
+	$columns['date'] = __( 'Publish Date', 'eight-day-week-print-workflow' );
 	return $columns;
 }
-

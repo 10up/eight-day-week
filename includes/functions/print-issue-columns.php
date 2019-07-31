@@ -32,8 +32,8 @@ function print_issue_cpt_columns( $columns ) {
 	$custom = [];
 	$custom['cb'] = $columns['cb'];
 	$custom['title'] = $columns['title'];
-	$custom['custom-date'] = __( 'Issue Date', 'eight-day-week' );
-	$custom['modified'] = __( 'Last Modified', 'eight-day-week' );
+	$custom['custom-date'] = __( 'Issue Date', 'eight-day-week-print-workflow' );
+	$custom['modified'] = __( 'Last Modified', 'eight-day-week-print-workflow' );
 
 	return apply_filters( __NAMESPACE__ . '\pi_columns', $custom );
 }
@@ -77,4 +77,3 @@ function populate_print_issue_cpt_columns( $colname, $post_id ) {
 		echo esc_html( get_the_date() );
 	}
 }
-

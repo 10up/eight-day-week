@@ -44,18 +44,18 @@ function setup() {
  */
 function register_taxonomy() {
 	$labels   = [
-		'name'                       => __( 'Issue Statuses', 'eight-day-week' ),
-		'singular_name'              => __( 'Issue Status', 'eight-day-week' ),
-		'search_items'               => __( 'Search Issue Statuses', 'eight-day-week' ),
-		'all_items'                  => __( 'All Issue Statuses', 'eight-day-week' ),
-		'edit_item'                  => __( 'Edit Issue Status', 'eight-day-week' ),
-		'update_item'                => __( 'Update Issue Status', 'eight-day-week' ),
-		'add_new_item'               => __( 'Add New Issue Status', 'eight-day-week' ),
-		'new_item_name'              => __( 'New Issue Status Name', 'eight-day-week' ),
-		'menu_name'                  => __( 'Issue Status', 'eight-day-week' ),
+		'name'                       => __( 'Issue Statuses', 'eight-day-week-print-workflow' ),
+		'singular_name'              => __( 'Issue Status', 'eight-day-week-print-workflow' ),
+		'search_items'               => __( 'Search Issue Statuses', 'eight-day-week-print-workflow' ),
+		'all_items'                  => __( 'All Issue Statuses', 'eight-day-week-print-workflow' ),
+		'edit_item'                  => __( 'Edit Issue Status', 'eight-day-week-print-workflow' ),
+		'update_item'                => __( 'Update Issue Status', 'eight-day-week-print-workflow' ),
+		'add_new_item'               => __( 'Add New Issue Status', 'eight-day-week-print-workflow' ),
+		'new_item_name'              => __( 'New Issue Status Name', 'eight-day-week-print-workflow' ),
+		'menu_name'                  => __( 'Issue Status', 'eight-day-week-print-workflow' ),
 		'separate_items_with_commas' => '',
-		'choose_from_most_used'      => __( 'Choose from an existing Issue Status', 'eight-day-week' ),
-		'not_found'                  => __( 'No Issue Statuses found.', 'eight-day-week' ),
+		'choose_from_most_used'      => __( 'Choose from an existing Issue Status', 'eight-day-week-print-workflow' ),
+		'not_found'                  => __( 'No Issue Statuses found.', 'eight-day-week-print-workflow' ),
 	];
 
 	$args = [
@@ -104,7 +104,7 @@ function add_issue_status_filters() {
  * Adds the Issue Status submenu to the parent print issue menu
  */
 function admin_menu() {
-	add_submenu_page( EDW_ADMIN_MENU_SLUG, __( 'Issue Statuses', 'eight-day-week' ), __( 'Issue Statuses', 'eight-day-week' ), 'manage_' . EDW_PRINT_ISSUE_CPT, 'edit-tags.php?taxonomy=print_issue_status&amp;post_type=' . EDW_PRINT_ISSUE_CPT );
+	add_submenu_page( EDW_ADMIN_MENU_SLUG, __( 'Issue Statuses', 'eight-day-week-print-workflow' ), __( 'Issue Statuses', 'eight-day-week-print-workflow' ), 'manage_' . EDW_PRINT_ISSUE_CPT, 'edit-tags.php?taxonomy=print_issue_status&amp;post_type=' . EDW_PRINT_ISSUE_CPT );
 }
 
 /**

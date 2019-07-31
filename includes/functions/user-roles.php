@@ -64,7 +64,7 @@ function add_print_editor_role() {
 	PP\duplicate_role(
 		'subscriber',
 		'print_editor',
-		__( 'Print Editor', 'eight-day-week' ),
+		__( 'Print Editor', 'eight-day-week-print-workflow' ),
 		get_editor_caps()
 	);
 }
@@ -107,7 +107,7 @@ function add_print_production_role() {
 	PP\duplicate_role(
 		'subscriber',
 		'print_production',
-		__( 'Eight Day Week', 'eight-day-week' ),
+		__( 'Eight Day Week', 'eight-day-week-print-workflow' ),
 		get_production_caps()
 	);
 }
@@ -163,7 +163,7 @@ function editable_roles( $roles ) {
  */
 function output_print_role_on_user_list_table() {
 	global $edw_roles;
-	
+
 	$role_names = get_role_names();
 
 	echo '<select name="pp-print-role">';
@@ -253,7 +253,7 @@ function update_users_print_role() {
 
 	//validate requested print role
 	if ( 'remove' !== $new_role && ! in_array( $new_role, $edw_roles ) ) {
-		wp_die( __( 'You can&#8217;t give users that print role.', 'eight-day-week' ) );
+		wp_die( __( 'You can&#8217;t give users that print role.', 'eight-day-week-print-workflow' ) );
 	}
 
 	$userids = $_GET['users'];
@@ -348,7 +348,7 @@ function current_user_can_edit_print_issue( $capability = '' ) {
  * @return array
  */
 function add_print_role_column( $columns ) {
-	$columns['print_role'] = __( 'Print Role', 'eight-day-week' );
+	$columns['print_role'] = __( 'Print Role', 'eight-day-week-print-workflow' );
 	return $columns;
 }
 

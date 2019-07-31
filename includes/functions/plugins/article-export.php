@@ -63,7 +63,7 @@ function export_articles() {
 	Core\check_ajax_referer();
 
 	if ( ! isset( $_POST['article_ids'] ) ) {
-		die( __( 'No article IDs sent', 'eight-day-week' ) );
+		die( __( 'No article IDs sent', 'eight-day-week-print-workflow' ) );
 	}
 
 	$article_ids = $_POST['article_ids'];
@@ -73,7 +73,7 @@ function export_articles() {
 
 	//sanitize - only allow comma delimited integers
 	if ( ! ctype_digit( str_replace( ',', '', $article_ids ) ) ) {
-		die( __( 'Invalid article IDs specified in the request.', 'eight-day-week' ) );
+		die( __( 'Invalid article IDs specified in the request.', 'eight-day-week-print-workflow' ) );
 	}
 
 	$article_ids = explode( ',', $article_ids );
@@ -105,7 +105,7 @@ function export_articles() {
  * @return array Modified columns
  */
 function article_export_status_column( $columns ) {
-	$columns['export_status'] = __( 'Export Status', 'eight-day-week' );
+	$columns['export_status'] = __( 'Export Status', 'eight-day-week-print-workflow' );
 	return $columns;
 }
 
@@ -148,14 +148,14 @@ function article_status_response() {
 function article_status_handler() {
 
 	if ( ! isset( $_POST['article_ids'] ) ) {
-		throw new \Exception( __( 'No article IDs sent', 'eight-day-week' ) );
+		throw new \Exception( __( 'No article IDs sent', 'eight-day-week-print-workflow' ) );
 	}
 
 	$article_ids = $_POST['article_ids'];
 
 	//sanitize - only allow comma delimited integers
 	if ( ! ctype_digit( str_replace( ',', '', $article_ids ) ) ) {
-		throw new \Exception( __( 'Invalid article IDs specified in the request.', 'eight-day-week' ) );
+		throw new \Exception( __( 'Invalid article IDs specified in the request.', 'eight-day-week-print-workflow' ) );
 	}
 
 	$article_ids = explode( ',', $article_ids );
@@ -219,9 +219,9 @@ function get_export_status( $article_id ) {
 	$not_today = $export_datetime->diff( $now )->format( "%R%a" );
 
 	if( ! $not_today ) {
-		$export_status = sprintf( __( 'Exported on %1$s by %2$s', 'eight-day-week' ), $export_datetime->format( get_option( 'date_format' ) ), $user->display_name );
+		$export_status = sprintf( __( 'Exported on %1$s by %2$s', 'eight-day-week-print-workflow' ), $export_datetime->format( get_option( 'date_format' ) ), $user->display_name );
 	} else {
-		$export_status = sprintf( __( 'Exported at %1$s by %2$s', 'eight-day-week' ), $export_datetime->format( _x( 'g:ia', 'Format for article export timestamp', 'eight-day-week' ) ), $user->display_name );
+		$export_status = sprintf( __( 'Exported at %1$s by %2$s', 'eight-day-week-print-workflow' ), $export_datetime->format( _x( 'g:ia', 'Format for article export timestamp', 'eight-day-week-print-workflow' ) ), $user->display_name );
 	}
 
 	return $export_status;
@@ -267,7 +267,7 @@ class Article_Zip_Factory {
 
 		$article_ids = array_filter( $ids, 'is_numeric' );
 		if ( count( $ids ) !== count( $article_ids ) ) {
-			throw new \Exception( __( 'Invalid article IDs specified in the request.', 'eight-day-week' ) );
+			throw new \Exception( __( 'Invalid article IDs specified in the request.', 'eight-day-week-print-workflow' ) );
 		}
 
 		$this->ids = $ids;

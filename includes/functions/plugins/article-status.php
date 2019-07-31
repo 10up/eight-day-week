@@ -34,16 +34,16 @@ function setup (){
  */
 function register_taxonomy() {
 	$labels   = [
-		'name'          => __( 'Article Status', 'eight-day-week' ),
-		'singular_name' => __( 'Article Statuses', 'eight-day-week' ),
-		'all_items'     => __( 'Article Statuses', 'eight-day-week' ),
-		'edit_item'     => __( 'Edit Article Status', 'eight-day-week' ),
-		'view_item'     => __( 'View Article Status', 'eight-day-week' ),
-		'update_item'   => __( 'Update Article Status', 'eight-day-week' ),
-		'add_new_item'  => __( 'Add New Article Status', 'eight-day-week' ),
-		'new_item_name' => __( 'New Article Status', 'eight-day-week' ),
-		'search_items'  => __( 'Search Article Status', 'eight-day-week' ),
-		'not_found'     => __( 'No Article Statuses found', 'eight-day-week' ),
+		'name'          => __( 'Article Status', 'eight-day-week-print-workflow' ),
+		'singular_name' => __( 'Article Statuses', 'eight-day-week-print-workflow' ),
+		'all_items'     => __( 'Article Statuses', 'eight-day-week-print-workflow' ),
+		'edit_item'     => __( 'Edit Article Status', 'eight-day-week-print-workflow' ),
+		'view_item'     => __( 'View Article Status', 'eight-day-week-print-workflow' ),
+		'update_item'   => __( 'Update Article Status', 'eight-day-week-print-workflow' ),
+		'add_new_item'  => __( 'Add New Article Status', 'eight-day-week-print-workflow' ),
+		'new_item_name' => __( 'New Article Status', 'eight-day-week-print-workflow' ),
+		'search_items'  => __( 'Search Article Status', 'eight-day-week-print-workflow' ),
+		'not_found'     => __( 'No Article Statuses found', 'eight-day-week-print-workflow' ),
 	];
 
 	$args = [
@@ -84,8 +84,8 @@ function admin_menu() {
 	//to determine whether or not the active submenu gets a "current" CSS class.
 	add_submenu_page(
 		EDW_ADMIN_MENU_SLUG,
-		__( 'Article Statuses', 'eight-day-week' ),
-		__( 'Article Statuses', 'eight-day-week' ),
+		__( 'Article Statuses', 'eight-day-week-print-workflow' ),
+		__( 'Article Statuses', 'eight-day-week-print-workflow' ),
 		'manage_' . EDW_PRINT_ISSUE_CPT,
 		'edit-tags.php?taxonomy=' . EDW_ARTICLE_STATUS_TAX . '&amp;post_type=print-issue'
 	);
@@ -99,7 +99,7 @@ function admin_menu() {
  * @return array Modified columns
  */
 function filter_article_columns_article_status( $columns ) {
-	$columns['article_status'] = __( 'Article Status', 'eight-day-week' );
+	$columns['article_status'] = __( 'Article Status', 'eight-day-week-print-workflow' );
 	return $columns;
 }
 
@@ -181,7 +181,7 @@ function bulk_edit_article_statuses_ajax() {
 
 	//sanitize - only allow comma delimited integers
 	if ( ! ctype_digit( str_replace( ',', '', $article_ids ) ) ) {
-		\Eight_Day_Week\Core\send_json_error( [ 'message' => __( 'Invalid article IDs specified in the request.', 'eight-day-week' ) ] );
+		\Eight_Day_Week\Core\send_json_error( [ 'message' => __( 'Invalid article IDs specified in the request.', 'eight-day-week-print-workflow' ) ] );
 	}
 
 	$article_ids = explode( ',', $article_ids );

@@ -37,7 +37,7 @@ function setup (){
  * @return array modified columns
  */
 function print_issue_cpt_columns( $custom ) {
-	$custom['num_articles'] = __( '# of Articles', 'eight-day-week' );
+	$custom['num_articles'] = __( '# of Articles', 'eight-day-week-print-workflow' );
 
 	return $custom;
 }

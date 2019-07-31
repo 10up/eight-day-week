@@ -75,19 +75,19 @@ function post_type_updated_labels( $messages ) {
 	$permalink        = get_permalink( $post_id );
 	$page_preview_url = apply_filters( 'preview_post_link', add_query_arg( 'preview', 'true', $permalink ), $post );
 
-	$singular                          = __( 'Print Issue', 'eight-day-week' );
+	$singular                          = __( 'Print Issue', 'eight-day-week-print-workflow' );
 	$messages[ EDW_PRINT_ISSUE_CPT ] = [
 		0  => '', // Unused. Messages start at index 1.
-		1  => __( 'Print Issue updated.', 'eight-day-week' ),
+		1  => __( 'Print Issue updated.', 'eight-day-week-print-workflow' ),
 		2  => __( 'Custom field updated.' ),
 		3  => __( 'Custom field deleted.' ),
-		4  => __( 'Print Issue updated.', 'eight-day-week' ),
-		5  => isset( $_GET['revision'] ) ? sprintf( __( 'Print Issue restored to revision from %s', 'eight-day-week' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-		6  => __( 'Print Issue published.', 'eight-day-week' ),
-		7  => __( 'Print Issue saved.', 'eight-day-week' ),
-		8  => __( 'Print Issue submitted.', 'eight-day-week' ),
-		9  => __( 'Print Issue scheduled', 'eight-day-week' ),
-		10 => __( 'Print Issue draft updated', 'eight-day-week' ),
+		4  => __( 'Print Issue updated.', 'eight-day-week-print-workflow' ),
+		5  => isset( $_GET['revision'] ) ? sprintf( __( 'Print Issue restored to revision from %s', 'eight-day-week-print-workflow' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+		6  => __( 'Print Issue published.', 'eight-day-week-print-workflow' ),
+		7  => __( 'Print Issue saved.', 'eight-day-week-print-workflow' ),
+		8  => __( 'Print Issue submitted.', 'eight-day-week-print-workflow' ),
+		9  => __( 'Print Issue scheduled', 'eight-day-week-print-workflow' ),
+		10 => __( 'Print Issue draft updated', 'eight-day-week-print-workflow' ),
 	];
 
 	return $messages;
@@ -98,15 +98,15 @@ function post_type_updated_labels( $messages ) {
  */
 function register_post_type() {
 	$labels = [
-		'name' => __( 'Print Issues', 'eight-day-week' ),
-		'singular_name' => __( 'Print Issue', 'eight-day-week' ),
-		'add_new_item' => __( 'Add New Print Issue', 'eight-day-week' ),
-		'edit_item' => __( 'Edit Print Issue', 'eight-day-week' ),
-		'new_item' => __( 'New Print Issue', 'eight-day-week' ),
-		'view_item' => __( 'View Print Issue', 'eight-day-week' ),
-		'search_items' => __( 'Search Print Issues', 'eight-day-week' ),
-		'not_found' => __( 'No Print Issues found', 'eight-day-week' ),
-		'not_found_in_trash' => __( 'No Print Issues found in Trash', 'eight-day-week' ),
+		'name' => __( 'Print Issues', 'eight-day-week-print-workflow' ),
+		'singular_name' => __( 'Print Issue', 'eight-day-week-print-workflow' ),
+		'add_new_item' => __( 'Add New Print Issue', 'eight-day-week-print-workflow' ),
+		'edit_item' => __( 'Edit Print Issue', 'eight-day-week-print-workflow' ),
+		'new_item' => __( 'New Print Issue', 'eight-day-week-print-workflow' ),
+		'view_item' => __( 'View Print Issue', 'eight-day-week-print-workflow' ),
+		'search_items' => __( 'Search Print Issues', 'eight-day-week-print-workflow' ),
+		'not_found' => __( 'No Print Issues found', 'eight-day-week-print-workflow' ),
+		'not_found_in_trash' => __( 'No Print Issues found in Trash', 'eight-day-week-print-workflow' ),
 	];
 
 	//post type args
@@ -559,7 +559,7 @@ function filter_metadata_no_post_locks_on_rov( $orig, $object_id, $meta_key ){
 function filter_admin_title_for_rov( $title ) {
 	if( EDW_PRINT_ISSUE_CPT === get_post_type() ) {
 		if( is_read_only_view() || ! User\current_user_can_edit_print_issue() ) {
-			$title = esc_html__( 'Print Issue (Read Only)', 'eight-day-week' );
+			$title = esc_html__( 'Print Issue (Read Only)', 'eight-day-week-print-workflow' );
 		}
 	}
 
