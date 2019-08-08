@@ -117,7 +117,7 @@ function admin_menu() {
 function filter_pi_columns_issue_status( $columns ) {
 
 	$status = [
-		'taxonomy-print_issue_status' => __( 'Status', 'eight-day-week' ),
+		'taxonomy-print_issue_status' => __( 'Status', 'eight-day-week-print-workflow' ),
 	];
 
 	//put status after date

@@ -52,14 +52,14 @@ function articles_metabox_output( $section_id ) {
 	} ?>
 
 	<button
-		class="button button-secondary pi-article-add"><?php esc_html_e( 'Add Article', 'eight-day-week' ); ?>
+		class="button button-secondary pi-article-add"><?php esc_html_e( 'Add Article', 'eight-day-week-print-workflow' ); ?>
 	</button>
 	<div class="pi-article-add-info">
 		<input
 			type="text"
 			name="pi-article-title"
 			class="pi-article-title"
-			placeholder="<?php esc_html_e( 'Search for articles by title', 'eight-day-week' ); ?>"
+			placeholder="<?php esc_html_e( 'Search for articles by title', 'eight-day-week-print-workflow' ); ?>"
 			/>
 		<p class="pi-error-msg" id="pi-article-add-error"></p>
 	</div>

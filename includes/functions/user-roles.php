@@ -167,7 +167,7 @@ function output_print_role_on_user_list_table() {
 	$role_names = get_role_names();
 
 	echo '<select name="pp-print-role">';
-	echo '<option value="-1">' . esc_html( 'Change print role to...', 'eight-day-week' ) . '</option>';
+	echo '<option value="-1">' . esc_html( 'Change print role to...', 'eight-day-week-print-workflow' ) . '</option>';
 	echo '<option value="remove">' . esc_html_x( 'None (remove)', 'Select option text for removing print production role.', 'eight-day-week-print-workflow' ) . '</option>';
 	foreach( (array) $edw_roles as $role ) {
 		$wp_role = get_role( $role );

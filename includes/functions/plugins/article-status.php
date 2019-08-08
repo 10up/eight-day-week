@@ -154,7 +154,7 @@ function output_bulk_article_status_editor() {
 	$statuses = get_indexed_article_statuses();
 	?>
 	<div class="alignleft actions bulkactions">
-		<h3><label for="bulk-action-selector-top"><?php esc_html_e( 'Article Status', 'eight-day-week' ); ?></label></h3>
+		<h3><label for="bulk-action-selector-top"><?php esc_html_e( 'Article Status', 'eight-day-week-print-workflow' ); ?></label></h3>
 		<select id="bulk-action-selector-top">
 			<?php if ( $statuses ) : ?>
 				<?php foreach ( $statuses as $id => $status ) : ?>
@@ -162,8 +162,8 @@ function output_bulk_article_status_editor() {
 				<?php endforeach; ?>
 			<?php endif; ?>
 		</select>
-		<button id="bulk-edit-article-status-submit" class="button button-secondary"><?php esc_html_e( 'Apply to checked', 'eight-day-week' ); ?></button>
-		<button id="bulk-edit-article-status-apply-all" class="button button-secondary"><?php esc_html_e( 'Apply to all', 'eight-day-week' ); ?></button>
+		<button id="bulk-edit-article-status-submit" class="button button-secondary"><?php esc_html_e( 'Apply to checked', 'eight-day-week-print-workflow' ); ?></button>
+		<button id="bulk-edit-article-status-apply-all" class="button button-secondary"><?php esc_html_e( 'Apply to all', 'eight-day-week-print-workflow' ); ?></button>
 	</div>
 	<?php
 }

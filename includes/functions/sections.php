@@ -74,7 +74,7 @@ function edit_form_after_title( $post ) {
 	if( EDW_PRINT_ISSUE_CPT !== $post->post_type ) {
 		return;
 	}
-	echo '<h2>' . esc_html( 'Sections', 'eight-day-week' ) . '</h2>';
+	echo '<h2>' . esc_html( 'Sections', 'eight-day-week-print-workflow' ) . '</h2>';
 	echo '<p id="pi-section-error" class="pi-error-msg"></p>';
 	do_action( 'edw_sections_top' );
 }
@@ -145,7 +145,7 @@ function sections_meta_box( $post, $args ) {
 	if( User\current_user_can_edit_print_issue() ) : ?>
 	<input type="hidden" class="section_id" name="section_id" value="<?php echo absint( $section_id ); ?>"/>
 	<p class="pi-section-delete">
-		<a href="#"><?php esc_html_e( 'Delete section', 'eight-day-week' ); ?></a>
+		<a href="#"><?php esc_html_e( 'Delete section', 'eight-day-week-print-workflow' ); ?></a>
 	</p>
 	<?php endif; ?>
 
@@ -191,17 +191,17 @@ function add_section_output( $post ) {
 	?>
 	<button
 		class="button button-secondary"
-		id="pi-section-add"><?php esc_html_e( 'Add Section', 'eight-day-week' ); ?>
+		id="pi-section-add"><?php esc_html_e( 'Add Section', 'eight-day-week-print-workflow' ); ?>
 	</button>
 	<div id="pi-section-add-info">
 		<input
 			type="text"
 			name="pi-section-name"
 			id="pi-section-name"
-			placeholder="<?php esc_html_e( 'Enter a name for the new section.', 'eight-day-week' ); ?>"
+			placeholder="<?php esc_html_e( 'Enter a name for the new section.', 'eight-day-week-print-workflow' ); ?>"
 			/>
 		<button
-			title="<?php esc_html_e( 'Click to confirm', 'eight-day-week' ); ?>"
+			title="<?php esc_html_e( 'Click to confirm', 'eight-day-week-print-workflow' ); ?>"
 			id="pi-section-add-confirm"
 			class="button button-secondary dashicons dashicons-yes"></button>
 	</div>
@@ -574,5 +574,5 @@ function section_save_button(){
 	if ( Print_Issue\is_read_only_view() || ! User\current_user_can_edit_print_issue() ) {
 		return;
 	}
-	echo '<button class="button button-primary">' . esc_html( 'Save', 'eight-day-week' ) . '</button>';
+	echo '<button class="button button-primary">' . esc_html( 'Save', 'eight-day-week-print-workflow' ) . '</button>';
 }

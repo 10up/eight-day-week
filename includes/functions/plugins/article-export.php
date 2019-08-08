@@ -48,9 +48,9 @@ function setup() {
 function output_article_export_buttons() {
 	?>
 	<div class="alignleft actions bulkactions article-export-buttons">
-		<h3><?php esc_html_e( 'Export for InDesign', 'eight-day-week' ); ?></h3>
-		<button id="article-export-checked" class="button button-secondary"><?php esc_html_e( 'Export checked', 'eight-day-week' ); ?></button>
-		<button id="article-export-all" class="button button-secondary"><?php esc_html_e( 'Export all', 'eight-day-week' ); ?></button>
+		<h3><?php esc_html_e( 'Export for InDesign', 'eight-day-week-print-workflow' ); ?></h3>
+		<button id="article-export-checked" class="button button-secondary"><?php esc_html_e( 'Export checked', 'eight-day-week-print-workflow' ); ?></button>
+		<button id="article-export-all" class="button button-secondary"><?php esc_html_e( 'Export all', 'eight-day-week-print-workflow' ); ?></button>
 	</div>
 <?php
 }
