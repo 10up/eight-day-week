@@ -46,7 +46,7 @@ Two custom roles are added by this plugin to best model a real-world print team.
 
 ## Installation
 
-Print Production has no settings or configurations to set up. It just works!
+Eight Day Week has no settings or configurations to set up. It just works!
 
 ## Filters & Hooks
 Eight Day Week provides a number of filters and hooks for customizing and extending the plugin.
