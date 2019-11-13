@@ -3,428 +3,429 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Eight Day Week 1.0.0\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/eight-day-week\n"
-"POT-Creation-Date: 2015-11-05 20:49:02+00:00\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/eight-day-week-print-workflow\n"
+"POT-Creation-Date: 2016-06-09 17:16+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2016-06-09 17:35+0200\n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.4\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: de_DE\n"
 
 #: includes/functions/admin-menu-page.php:42
 msgctxt "Top level menu label"
 msgid "Print"
-msgstr ""
+msgstr "Druck"
 
 #: includes/functions/admin-menu-page.php:43
 msgctxt "Submenu label for the Print Issue CPT"
 msgid "Print Issues"
-msgstr ""
+msgstr "Druckausgaben"
 
 #: includes/functions/articles.php:55
 msgid "Add Article"
-msgstr ""
+msgstr "Artikel hinzufügen"
 
 #: includes/functions/articles.php:62
 msgid "Search for articles by title"
-msgstr ""
+msgstr "Suche nach Titel"
 
 #: includes/functions/articles.php:158
 msgctxt "eight-day-week"
 msgid "Article"
-msgstr ""
+msgstr "Artikel"
 
 #: includes/functions/articles.php:283
 msgid "View"
-msgstr ""
+msgstr "Anzeigen"
 
 #: includes/functions/articles.php:426
 msgid "Please enter a valid/non-empty title."
-msgstr ""
+msgstr "Bitte geben Sie einen gültigen/nicht-leeren Titel."
 
 #: includes/functions/articles.php:445
 msgid "No matching articles found."
-msgstr ""
+msgstr "Keine passenden Artikel gefunden."
 
 #: includes/functions/articles.php:540
 msgid "Publish Date"
-msgstr ""
+msgstr "Veröffentlichungsdatum"
 
 #: includes/functions/plugins/article-byline.php:50
 msgctxt "Label for multiple, comma separated authors"
 msgid "Byline"
-msgstr ""
+msgstr "Zusatzzeile"
 
 #: includes/functions/plugins/article-count.php:40
 msgid "# of Articles"
-msgstr ""
+msgstr "# an Artikeln"
 
 #: includes/functions/plugins/article-export.php:51
 msgid "Export for InDesign"
-msgstr ""
+msgstr "Export für InDesign"
 
 #: includes/functions/plugins/article-export.php:52
 msgid "Export checked"
-msgstr ""
+msgstr "Ausgewählte exportieren"
 
 #: includes/functions/plugins/article-export.php:53
 msgid "Export all"
-msgstr ""
+msgstr "Alle exportieren"
 
 #: includes/functions/plugins/article-export.php:66
 #: includes/functions/plugins/article-export.php:151
 msgid "No article IDs sent"
-msgstr ""
+msgstr "Keine Artikel in gesendeten IDs"
 
 #: includes/functions/plugins/article-export.php:76
 #: includes/functions/plugins/article-export.php:158
 #: includes/functions/plugins/article-export.php:270
 #: includes/functions/plugins/article-status.php:184
 msgid "Invalid article IDs specified in the request."
-msgstr ""
+msgstr "Ungültige Artikel-IDs in Anfrage angegeben."
 
 #: includes/functions/plugins/article-export.php:108
 msgid "Export Status"
-msgstr ""
+msgstr "Export-Status"
 
 #: includes/functions/plugins/article-export.php:222
 msgid "Exported on %1$s by %2$s"
-msgstr ""
+msgstr "Exportiert am %1$s von %2$s"
 
 #: includes/functions/plugins/article-export.php:224
 msgid "Exported at %1$s by %2$s"
-msgstr ""
+msgstr "Exportiert um %1$s von %2$s"
 
 #: includes/functions/plugins/article-export.php:224
 msgctxt "Format for article export timestamp"
 msgid "g:ia"
-msgstr ""
+msgstr "H:i Uhr"
 
 #: includes/functions/plugins/article-export.php:734
 msgid "Issue %1$s exported on %2$s at %3$s"
-msgstr ""
+msgstr "Ausgabe %1$s exportiert am %2$s um %3$s"
 
 #: includes/functions/plugins/article-status.php:37
 #: includes/functions/plugins/article-status.php:102
 #: includes/functions/plugins/article-status.php:157
 msgid "Article Status"
-msgstr ""
+msgstr "Artikel-Status"
 
 #: includes/functions/plugins/article-status.php:38
 #: includes/functions/plugins/article-status.php:39
 #: includes/functions/plugins/article-status.php:87
 #: includes/functions/plugins/article-status.php:88
 msgid "Article Statuses"
-msgstr ""
+msgstr "Artikel-Status"
 
 #: includes/functions/plugins/article-status.php:40
 msgid "Edit Article Status"
-msgstr ""
+msgstr "Artikel-Status bearbeiten"
 
 #: includes/functions/plugins/article-status.php:41
 msgid "View Article Status"
-msgstr ""
+msgstr "Artikel-Status ansehen"
 
 #: includes/functions/plugins/article-status.php:42
 msgid "Update Article Status"
-msgstr ""
+msgstr "Artikel-Status aktualisieren"
 
 #: includes/functions/plugins/article-status.php:43
 msgid "Add New Article Status"
-msgstr ""
+msgstr "Neuen Artikel-Status hinzufügen"
 
 #: includes/functions/plugins/article-status.php:44
 msgid "New Article Status"
-msgstr ""
+msgstr "Neuer Artikel-Status"
 
 #: includes/functions/plugins/article-status.php:45
 msgid "Search Article Status"
-msgstr ""
+msgstr "Artikel-Status suchen"
 
 #: includes/functions/plugins/article-status.php:46
 msgid "No Article Statuses found"
-msgstr ""
+msgstr "Keine Artikel-Status gefunden"
 
 #: includes/functions/plugins/article-status.php:165
 msgid "Apply to checked"
-msgstr ""
+msgstr "Für ausgewählte anwenden"
 
 #: includes/functions/plugins/article-status.php:166
 msgid "Apply to all"
-msgstr ""
+msgstr "Für alle anwenden"
 
 #: includes/functions/plugins/issue-publication.php:42
 msgid "Publications"
-msgstr ""
+msgstr "Veröffentlichungen"
 
 #: includes/functions/plugins/issue-publication.php:43
 #: includes/functions/plugins/issue-publication.php:50
 msgid "Publication"
-msgstr ""
+msgstr "Veröffentlichung"
 
 #: includes/functions/plugins/issue-publication.php:44
 msgid "Search Publications"
-msgstr ""
+msgstr "Veröffentlichungen durchsuchen"
 
 #: includes/functions/plugins/issue-publication.php:45
 msgid "All Publications"
-msgstr ""
+msgstr "Alle Veröffentlichungen"
 
 #: includes/functions/plugins/issue-publication.php:46
 msgid "Edit Publication"
-msgstr ""
+msgstr "Veröffentlichung bearbeiten"
 
 #: includes/functions/plugins/issue-publication.php:47
 msgid "Update Publication"
-msgstr ""
+msgstr "Veröffentlichung aktualisieren"
 
 #: includes/functions/plugins/issue-publication.php:48
 msgid "Add New Publication"
-msgstr ""
+msgstr "Neue Veröffentlichung hinzufügen"
 
 #: includes/functions/plugins/issue-publication.php:49
 msgid "New Publication Name"
-msgstr ""
+msgstr "Name der neuen Veröffentlichung"
 
 #: includes/functions/plugins/issue-publication.php:52
 msgid "Choose a Publication"
-msgstr ""
+msgstr "Wählen Sie eine Veröffentlichung"
 
 #: includes/functions/plugins/issue-publication.php:53
 msgid "No Publications found."
-msgstr ""
+msgstr "Keine Veröffentlichungen gefunden"
 
 #: includes/functions/plugins/issue-status.php:47
 #: includes/functions/plugins/issue-status.php:107
 msgid "Issue Statuses"
-msgstr ""
+msgstr "Ausgabe-Status"
 
 #: includes/functions/plugins/issue-status.php:48
 #: includes/functions/plugins/issue-status.php:55
 msgid "Issue Status"
-msgstr ""
+msgstr "Ausgabe-Status"
 
 #: includes/functions/plugins/issue-status.php:49
 msgid "Search Issue Statuses"
-msgstr ""
+msgstr "Ausgabe-Status durchsuchen"
 
 #: includes/functions/plugins/issue-status.php:50
 msgid "All Issue Statuses"
-msgstr ""
+msgstr "Alle Ausgabe-Status"
 
 #: includes/functions/plugins/issue-status.php:51
 msgid "Edit Issue Status"
-msgstr ""
+msgstr "Ausgabe-Status bearbeiten"
 
 #: includes/functions/plugins/issue-status.php:52
 msgid "Update Issue Status"
-msgstr ""
+msgstr "Ausgabe-Status aktualisieren"
 
 #: includes/functions/plugins/issue-status.php:53
 msgid "Add New Issue Status"
-msgstr ""
+msgstr "Neuen Ausgabe-Status hinzufügen"
 
 #: includes/functions/plugins/issue-status.php:54
 msgid "New Issue Status Name"
-msgstr ""
+msgstr "Name des neuen Ausgabe-Status"
 
 #: includes/functions/plugins/issue-status.php:57
 msgid "Choose from an existing Issue Status"
-msgstr ""
+msgstr "Wählen Sie einen bestehenden Ausgabe-Status"
 
 #: includes/functions/plugins/issue-status.php:58
 msgid "No Issue Statuses found."
-msgstr ""
+msgstr "Keine Ausgabe-Status gefunden"
 
 #: includes/functions/plugins/issue-status.php:95
 msgctxt "Select option for filtering all issue statuses"
 msgid "Show All %s"
-msgstr ""
+msgstr "Alle %s anzeigen"
 
 #: includes/functions/plugins/issue-status.php:120
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: includes/functions/print-issue-columns.php:35
 msgid "Issue Date"
-msgstr ""
+msgstr "Ausgabedatum"
 
 #: includes/functions/print-issue-columns.php:36
 msgid "Last Modified"
-msgstr ""
+msgstr "Zuletzt geändert"
 
-#: includes/functions/print-issue.php:78
-#: includes/functions/print-issue.php:102
+#: includes/functions/print-issue.php:78 includes/functions/print-issue.php:102
 msgid "Print Issue"
-msgstr ""
+msgstr "Druckausgabe"
 
 #: includes/functions/print-issue.php:81 includes/functions/print-issue.php:84
 msgid "Print Issue updated."
-msgstr ""
+msgstr "Druckausgabe aktualisiert."
 
 #: includes/functions/print-issue.php:82
 msgid "Custom field updated."
-msgstr ""
+msgstr "Benutzerdefiniertes Feld aktualisiert."
 
 #: includes/functions/print-issue.php:83
 msgid "Custom field deleted."
-msgstr ""
+msgstr "Benutzerdefiniertes Feld gelöscht."
 
 #: includes/functions/print-issue.php:85
 msgid "Print Issue restored to revision from %s"
-msgstr ""
+msgstr "Druckausgabe wiederhergestellt zu Revision aus %s"
 
 #: includes/functions/print-issue.php:86
 msgid "Print Issue published."
-msgstr ""
+msgstr "Druckausgabe veröffentlicht."
 
 #: includes/functions/print-issue.php:87
 msgid "Print Issue saved."
-msgstr ""
+msgstr "Druckausgabe gespeichert."
 
 #: includes/functions/print-issue.php:88
 msgid "Print Issue submitted."
-msgstr ""
+msgstr "Druckausgabe abgegeben."
 
 #: includes/functions/print-issue.php:89
 msgid "Print Issue scheduled"
-msgstr ""
+msgstr "Druckausgabe geplant."
 
 #: includes/functions/print-issue.php:90
 msgid "Print Issue draft updated"
-msgstr ""
+msgstr "Druckausgabe-Entwurf aktualisiert"
 
 #: includes/functions/print-issue.php:101
 msgid "Print Issues"
-msgstr ""
+msgstr "Druckausgaben"
 
 #: includes/functions/print-issue.php:103
 msgid "Add New Print Issue"
-msgstr ""
+msgstr "Neue Druckausgabe hinzufügen"
 
 #: includes/functions/print-issue.php:104
 msgid "Edit Print Issue"
-msgstr ""
+msgstr "Druckausgabe bearbeiten"
 
 #: includes/functions/print-issue.php:105
 msgid "New Print Issue"
-msgstr ""
+msgstr "Neue Druckausgabe"
 
 #: includes/functions/print-issue.php:106
 msgid "View Print Issue"
-msgstr ""
+msgstr "Druckausgabe ansehen"
 
 #: includes/functions/print-issue.php:107
 msgid "Search Print Issues"
-msgstr ""
+msgstr "Druckausgaben durchsuchen"
 
 #: includes/functions/print-issue.php:108
 msgid "No Print Issues found"
-msgstr ""
+msgstr "Keine Druckausgabe gefunden"
 
 #: includes/functions/print-issue.php:109
 msgid "No Print Issues found in Trash"
-msgstr ""
+msgstr "Keine Druckausgaben im Papierkorb gefunden"
 
 #: includes/functions/print-issue.php:483
 msgctxt "Link text to view a print issue"
 msgid "View"
-msgstr ""
+msgstr "Ansehen"
 
 #: includes/functions/print-issue.php:562
 msgid "Print Issue (Read Only)"
-msgstr ""
+msgstr "Druckausgabe (schreibgeschützt)"
 
 #: includes/functions/sections.php:147
 msgid "Delete section"
-msgstr ""
+msgstr "Abschnitt löschen"
 
 #: includes/functions/sections.php:193
 msgid "Add Section"
-msgstr ""
+msgstr "Abschnitt hinzufügen"
 
 #: includes/functions/sections.php:200
 msgid "Enter a name for the new section."
-msgstr ""
+msgstr "Geben Sie einen Namen für den Abschnitt ein."
 
 #: includes/functions/sections.php:203
 msgid "Click to confirm"
-msgstr ""
+msgstr "Klicken um zu bestätigen"
 
 #: includes/functions/sections.php:295 includes/functions/sections.php:323
 msgid "Please enter a section name."
-msgstr ""
+msgstr "Bitte geben Sie einen Namen für den Abschnitt."
 
 #: includes/functions/sections.php:309
 msgid "Whoops! Something went awry."
-msgstr ""
+msgstr "Upps! Da ist etwas schiefgegangen."
 
 #: includes/functions/sections.php:328
 msgid "Whoops! This section appears to be invalid."
-msgstr ""
+msgstr "Upps! Dieser Abschnitt scheint ungültig zu sein."
 
 #: includes/functions/sections.php:393
 msgid "Invalid post ID supplied"
-msgstr ""
+msgstr "Ungütlige Artikel-ID übergeben"
 
 #: includes/functions/sections.php:439
 msgid "Failed to update section %d"
-msgstr ""
+msgstr "Abschnitt %d konnte nicht aktualisiert werden"
 
 #: includes/functions/sections.php:451
 msgid "Please supply a valid, non-empty title"
-msgstr ""
+msgstr "Bitte geben Sie einen gültigen/nicht-leeren Titel."
 
 #: includes/functions/taxonomies.php:58
 msgctxt "When no terms are present, i.e. \"No publications created.\""
 msgid "No %s created."
-msgstr ""
+msgstr "Keine %s angelegt."
 
 #: includes/functions/taxonomies.php:77
 msgctxt "Provides a select option for choosing \"no\" term."
 msgid "No %s"
-msgstr ""
+msgstr "Keine"
 
 #: includes/functions/user-roles.php:67
 msgid "Print Editor"
-msgstr ""
+msgstr "Druck-Editor"
 
-#. #-#-#-#-#  eight-day-week.pot (Eight Day Week 1.0.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: includes/functions/user-roles.php:110
 msgid "Eight Day Week"
-msgstr ""
+msgstr "Acht-Tage-Woche"
 
 #: includes/functions/user-roles.php:171
 msgctxt "Select option text for removing print production role."
 msgid "None (remove)"
-msgstr ""
+msgstr "Keine (entfernen)"
 
 #: includes/functions/user-roles.php:247 includes/functions/user-roles.php:266
 msgid "You can&#8217;t edit that user."
-msgstr ""
+msgstr "Sie können diesen Benutzer nicht bearbeiten."
 
 #: includes/functions/user-roles.php:256
 msgid "You can&#8217;t give users that print role."
-msgstr ""
+msgstr "Sie können diesen Benutzern diese Druck-Workflow-Rolle nicht vergeben."
 
 #: includes/functions/user-roles.php:271
 msgid "Cheatin&#8217; uh?"
-msgstr ""
+msgstr "Schummeln, hm?"
 
 #: includes/functions/user-roles.php:351
 msgid "Print Role"
-msgstr ""
+msgstr "Druck-Workflow-Rolle"
 
 #. Description of the plugin/theme
 msgid "Tools that help improve digital & print workflows."
-msgstr ""
+msgstr "Werkzeuge, die den Digital- und Druck-Workflow verbessern."
 
 #. Author of the plugin/theme
 msgid "10up - Josh Levinson, Brent Schultz"
-msgstr ""
+msgstr "10up - Josh Levinson, Brent Schultz"
 
 #. Author URI of the plugin/theme
 msgid "http://10up.com"
-msgstr ""
+msgstr "http://10up.com"

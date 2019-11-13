@@ -44,9 +44,9 @@ function init() {
 }
 
 function i18n() {
-	$locale = apply_filters( 'plugin_locale', get_locale(), 'eight-day-week' );
-	load_textdomain( 'eight-day-week', WP_LANG_DIR . '/print-production/print-production-' . $locale . '.mo' );
-	load_plugin_textdomain( 'eight-day-week', false, plugin_basename( EDW_PATH ) . '/languages/' );
+	$locale = apply_filters( 'plugin_locale', get_locale(), 'eight-day-week-print-workflow' );
+	load_textdomain( 'eight-day-week-print-workflow', WP_LANG_DIR . '/eight-day-week-print-workflow/eight-day-week-print-workflow-' . $locale . '.mo' );
+	load_plugin_textdomain( 'eight-day-week-print-workflow', false, plugin_basename( EDW_PATH ) . '/languages/' );
 }
 
 /**

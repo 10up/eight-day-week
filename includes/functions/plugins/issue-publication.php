@@ -39,18 +39,18 @@ function admin_menu() {
  */
 function register_taxonomy() {
 	$labels   = [
-		'name'                       => __( 'Publications', 'eight-day-week' ),
-		'singular_name'              => __( 'Publication', 'eight-day-week' ),
-		'search_items'               => __( 'Search Publications', 'eight-day-week' ),
-		'all_items'                  => __( 'All Publications', 'eight-day-week' ),
-		'edit_item'                  => __( 'Edit Publication', 'eight-day-week' ),
-		'update_item'                => __( 'Update Publication', 'eight-day-week' ),
-		'add_new_item'               => __( 'Add New Publication', 'eight-day-week' ),
-		'new_item_name'              => __( 'New Publication Name', 'eight-day-week' ),
-		'menu_name'                  => __( 'Publication', 'eight-day-week' ),
+		'name'                       => __( 'Publications', 'eight-day-week-print-workflow' ),
+		'singular_name'              => __( 'Publication', 'eight-day-week-print-workflow' ),
+		'search_items'               => __( 'Search Publications', 'eight-day-week-print-workflow' ),
+		'all_items'                  => __( 'All Publications', 'eight-day-week-print-workflow' ),
+		'edit_item'                  => __( 'Edit Publication', 'eight-day-week-print-workflow' ),
+		'update_item'                => __( 'Update Publication', 'eight-day-week-print-workflow' ),
+		'add_new_item'               => __( 'Add New Publication', 'eight-day-week-print-workflow' ),
+		'new_item_name'              => __( 'New Publication Name', 'eight-day-week-print-workflow' ),
+		'menu_name'                  => __( 'Publication', 'eight-day-week-print-workflow' ),
 		'separate_items_with_commas' => '',
-		'choose_from_most_used'      => __( 'Choose a Publication', 'eight-day-week' ),
-		'not_found'                  => __( 'No Publications found.', 'eight-day-week' )
+		'choose_from_most_used'      => __( 'Choose a Publication', 'eight-day-week-print-workflow' ),
+		'not_found'                  => __( 'No Publications found.', 'eight-day-week-print-workflow' )
 	];
 
 	$args = [

@@ -6,7 +6,7 @@
  * Author:      10up
  * Author URI:  http://10up.com
  * License:     GPLv2+
- * Text Domain: eight-day-week
+ * Text Domain: eight-day-week-print-workflow
  * Domain Path: /languages
  */
 

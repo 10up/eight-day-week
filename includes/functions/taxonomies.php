@@ -55,7 +55,7 @@ function create_taxonomy_dropdown_metabox( $post, $metabox ) {
 	$terms = (array) get_terms( $taxonomy->name, 'hide_empty=0' );
 
 	if( ! $terms ) {
-		echo '<p>' . sprintf( esc_html_x( 'No %s created.', 'When no terms are present, i.e. "No publications created."', 'eight-day-week' ), esc_html( $taxonomy->labels->name ) ) . '</p>';
+		echo '<p>' . sprintf( esc_html_x( 'No %s created.', 'When no terms are present, i.e. "No publications created."', 'eight-day-week-print-workflow' ), esc_html( $taxonomy->labels->name ) ) . '</p>';
 		return;
 	}
 
@@ -74,7 +74,7 @@ function create_taxonomy_dropdown_metabox( $post, $metabox ) {
 	// input name
 	$name = $h ? 'tax_input['. $taxonomy->name .'][]' : 'tax_input['. $taxonomy->name .']';
 
-	$default_text = sprintf( _x( 'No %s', 'Provides a select option for choosing "no" term.', 'eight-day-week' ), esc_html( $taxonomy->labels->singular_name ) );
+	$default_text = sprintf( _x( 'No %s', 'Provides a select option for choosing "no" term.', 'eight-day-week-print-workflow' ), esc_html( $taxonomy->labels->singular_name ) );
 
 	$select = '';
 	$selected_term = false;
