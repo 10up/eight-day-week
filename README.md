@@ -42,7 +42,7 @@ Two custom roles are added by this plugin to best model a real-world print team.
 ## Requirements
 
 * PHP 5.6+
-* [WordPress](http://wordpress.org) 4.3+
+* [WordPress](http://wordpress.org) 4.6+
 
 ## Installation
 
