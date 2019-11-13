@@ -2,7 +2,7 @@
 Contributors: 10up, observerteam, joshlevinson, BrentSchultz
 Tags: print, workflow, editorial
 Requires at least: 4.6
-Tested up to: 5.2
+Tested up to: 5.3
 Stable tag: 1.1.0
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -40,7 +40,7 @@ Two custom roles are added by this plugin to best model a real-world print team.
 
 == Installation ==
 
-Print Production has no settings or configurations to set up. It just works!
+Eight Day Week has no settings or configurations to set up. It just works!
 
 == Filters & Hooks ==
 Eight Day Week provides a number of filters and hooks for customizing and extending the plugin.

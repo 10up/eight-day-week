@@ -1,5 +1,5 @@
 /**
- * Print Production
+ * Eight Day Week
  * http://10up.com
  *
  * Copyright (c) 2015 10up, Josh Levinson, Brent Schultz
