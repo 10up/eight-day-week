@@ -102,7 +102,7 @@ A complete listing of all notable changes to Eight Day Week are documented in [C
 
 ## Contributing
 
-Please read [CODE_OF_CONDUCT.md](https://github.com/10up/eight-day-week/blob/develop/CODE_OF_CONDUCT.md) for details on our code of conduct, [CONTRIBUTING.md](https://github.com/10up/eight-day-week/blob/develop/CONTRIBUTING.md) for details on the process for submitting pull requests to us, and [CONTRIBUTORS.md](https://github.com/10up/eight-day-week/blob/develop/CONTRIBUTORS.md) for a listing of contributors to Eight Day Week.
+Please read [CODE_OF_CONDUCT.md](https://github.com/10up/eight-day-week/blob/develop/CODE_OF_CONDUCT.md) for details on our code of conduct, [CONTRIBUTING.md](https://github.com/10up/eight-day-week/blob/develop/CONTRIBUTING.md) for details on the process for submitting pull requests to us, and [CREDITS.md](https://github.com/10up/eight-day-week/blob/develop/CREDITS.md) for a listing of contributors to Eight Day Week.
 
 ## Like what you see?
 
