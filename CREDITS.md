@@ -4,7 +4,7 @@ The following acknowledges the Maintainers for this repository, those who have C
 
 The following individuals are responsible for curating the list of issues, responding to pull requests, and ensuring regular releases happen.
 
-[Adam Silverstein](https://github.com/adamsilverstein) and [Jeffrey Paul](https://github.com/jeffpaul).
+[Ryan Welcher](https://github.com/ryanwelcher), [Adam Silverstein](https://github.com/adamsilverstein), [Jeffrey Paul](https://github.com/jeffpaul).
 
 ## Contributors
 
