@@ -31,10 +31,12 @@ The `develop` branch is the development branch which means it contains the next 
 1. Branch: Starting from `develop`, cut a release branch named `release/X.Y.Z` for your changes.
 2. Version bump: Bump the version number in `eight-day-week.php` and `readme.txt` if it does not already reflect the version being released.
 3. Changelog: Add/update the changelog in both `readme.txt` and `CHANGELOG.md`
-4. Readme updates: Make any other readme changes as necessary. `CHANGELOG.md` and `README.md` are geared toward GitHub and `readme.txt` contains WordPress.org-specific content. The two are slightly different.
-5. New files: Check to be sure any new files/paths that are unnecessary in the production version are included in `.gitattributes`.
-6. Merge: Make a non-fast-forward merge from your release branch to `develop`, then do the same for `develop` into `master`. `master` contains the stable development version.
+4. New files: Check to be sure any new files/paths that are unnecessary in the production version are included in `.gitattributes`.
+5. Readme updates: Make any other readme changes as necessary. `CHANGELOG.md` and `README.md` are geared toward GitHub and `readme.txt` contains WordPress.org-specific content. The two are slightly different.
+6. Merge: Make a non-fast-forward merge from your release branch to `develop`, then do the same for `develop` into `master` (`git checkout master && git merge --no-ff develop`). `master` contains the stable development version.
 7. Test: While still on the `master` branch, test for functionality locally. If all is well, push to GitHub.
-8. Release: Create a [new release](https://github.com/10up/eight-day-week/releases/new), naming the tag and the release with the new version number. Paste the changelog from `CHANGELOG.md` into the body of the release and include a link to the closed issues on the milestone (e.g. `https://github.com/10up/eight-day-week/milestone/2?closed=1`). Close the milestone. If any open PRs which were milestoned for the new release do not make it into the release, update their milestone.
+8. Release: Create a [new release](https://github.com/10up/eight-day-week/releases/new), naming the tag and the release with the new version number, and targeting the `master` branch. Paste the changelog from `CHANGELOG.md` into the body of the release and include a link to the closed issues on the `X.Y.Z` milestone (e.g. `https://github.com/10up/eight-day-week/milestone/2?closed=1`).
 9. SVN: Wait for the [GitHub Action](https://github.com/10up/eight-day-week/actions) to finish deploying to the WordPress.org repository. If all goes well, users with SVN commit access for that plugin will receive an emailed diff of changes.
 10. Check WordPress.org: Ensure that the changes are live on https://wordpress.org/plugins/eight-day-week-print-workflow/. This may take a few minutes.
+11. Close milestone: Edit the [X.Y.Z milestone](https://github.com/10up/eight-day-week/milestone/#) with release date (in the `Due date (optional)` field) and link to GitHub release (in the `Description` field), then close `X.Y.Z` milestone.
+12. Punt incomplete items: If any open issues or PRs which were milestoned for `X.Y.Z` do not make it into the release, update their milestone to `X.Y.Z+1`, `X.Y+1.0`, `X+1.0.0` or `Future Release`.
