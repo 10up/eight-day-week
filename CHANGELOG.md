@@ -6,7 +6,8 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [1.1.1] - 2019-11-22
 ### Changed
-- Documentation, dependency, and deploy automation updates (props [@jeffpaul](https://github.com/jeffpaul), [@adamsilverstein](https://github.com/adamsilverstein) via [#38](https://github.com/10up/eight-day-week/pull/38), [#39](https://github.com/10up/eight-day-week/pull/39), [#42](https://github.com/10up/eight-day-week/pull/42), [#45](https://github.com/10up/eight-day-week/pull/45), [#46](https://github.com/10up/eight-day-week/pull/46), [#48](https://github.com/10up/eight-day-week/pull/48), [#49](https://github.com/10up/eight-day-week/pull/49), [#50](https://github.com/10up/eight-day-week/pull/50))
+- Bump WordPress version "tested up to" 5.3 (props [@adamsilverstein](https://github.com/adamsilverstein) via [#45](https://github.com/10up/eight-day-week/pull/45))
+- Documentation and deploy automation updates (props [@jeffpaul](https://github.com/jeffpaul) via [#38](https://github.com/10up/eight-day-week/pull/38), [#39](https://github.com/10up/eight-day-week/pull/39), [#42](https://github.com/10up/eight-day-week/pull/42), [#46](https://github.com/10up/eight-day-week/pull/46), [#48](https://github.com/10up/eight-day-week/pull/48), [#49](https://github.com/10up/eight-day-week/pull/49), [#50](https://github.com/10up/eight-day-week/pull/50))
 
 ### Fixed
 - WordPress.org translation readiness (props [@jeffpaul](https://github.com/jeffpaul), [@adamsilverstein](https://github.com/adamsilverstein), [@helen](https://github.com/helen) via [#41](https://github.com/10up/eight-day-week/pull/41))
