@@ -29,7 +29,7 @@ The `develop` branch is the development branch which means it contains the next 
 ## Release instructions
 
 1. Branch: Starting from `develop`, cut a release branch named `release/X.Y.Z` for your changes.
-2. Version bump: Bump the version number in `eight-day-week.php` and `readme.txt` if it does not already reflect the version being released.
+2. Version bump: Bump the version number in `eight-day-week.php`, `readme.txt`, `composer.json`, and `package.json` if it does not already reflect the version being released.
 3. Changelog: Add/update the changelog in both `readme.txt` and `CHANGELOG.md`
 4. New files: Check to be sure any new files/paths that are unnecessary in the production version are included in `.gitattributes`.
 5. Readme updates: Make any other readme changes as necessary. `CHANGELOG.md` and `README.md` are geared toward GitHub and `readme.txt` contains WordPress.org-specific content. The two are slightly different.
