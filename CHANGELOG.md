@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+## [1.1.1] - 2019-11-22
+### Changed
+- Documentation, dependency, and deploy automation updates (props [@jeffpaul](https://github.com/jeffpaul), [@adamsilverstein](https://github.com/adamsilverstein) via [#38](https://github.com/10up/eight-day-week/pull/38), [#39](https://github.com/10up/eight-day-week/pull/39), [#42](https://github.com/10up/eight-day-week/pull/42), [#45](https://github.com/10up/eight-day-week/pull/45), [#46](https://github.com/10up/eight-day-week/pull/46), [#48](https://github.com/10up/eight-day-week/pull/48), [#49](https://github.com/10up/eight-day-week/pull/49), [#50](https://github.com/10up/eight-day-week/pull/50))
+
+### Fixed
+- WordPress.org translation readiness (props [@jeffpaul](https://github.com/jeffpaul), [@adamsilverstein](https://github.com/adamsilverstein), [@helen](https://github.com/helen) via [#41](https://github.com/10up/eight-day-week/pull/41))
+
 ## [1.1.0] - 2019-07-26
 ### Added
 - German translation files (props @adamsilverstein, @maryisdead via #31)
@@ -20,5 +27,6 @@ All notable changes to this project will be documented in this file, per [the Ke
 - Initial Release
 
 [Unreleased]: https://github.com/10up/eight-day-week/compare/master...develop
+[1.1.1]: https://github.com/10up/eight-day-week/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/10up/eight-day-week/compare/9057a7f...1.1.0
 [1.0.0]: https://github.com/10up/eight-day-week/commit/9057a7f310068676ef8a15e0ba0a395273f1cb98
