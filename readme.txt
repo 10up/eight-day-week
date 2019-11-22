@@ -3,7 +3,7 @@ Contributors: 10up, observerteam, joshlevinson, BrentSchultz
 Tags: print, workflow, editorial
 Requires at least: 4.6
 Tested up to: 5.3
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -85,6 +85,11 @@ The information displayed in the list of Print Issues is filterable. Custom colu
 
 The export of posts in a Print Issue is highly customizeable, from the file name of the zip, to the file name of the individual files, to the contents of the files themselves.  The best reference would be to read through `includes/functions/plugins/article-export.php`.  [Here's](https://gist.github.com/joshlevinson/4a2c3ed78b21b3c54eba) a few examples used on the *Observer*.
 
+== Known Caveats/Issues ==
+
+**Gutenberg exports**
+Gutenberg-based exports include some additional metadata/details that a Classic Editor-based export does not.  [Gutenberg stores block data in HTML comments](https://developer.wordpress.org/block-editor/key-concepts/#delimiters-and-parsing-expression-grammar), so you'll notice those comments (in the form of `<!-- "Gutenberg block data" -->`) appearing in the Eight Day Week XML export.  Note that the XML is still valid--you can test and confirm that yourself using an [XML validator](https://www.xmlvalidation.com/)--though depending on your version of InDesign you may get different results upon importing a Gutenberg export compared to a Classic Editor export.  Our testing showed that those HTML comments in a Gutenberg export did not affect the import into InDesign however.  You can test how this works in your version of InDesign with these sample XML files: [Gutenberg XML](https://gist.githubusercontent.com/adamsilverstein/3a9af64f4827b0ffcba963fd4b6a380a/raw/0513c4dd7cbd45b54c644a6aa9cbaaf269659b8d/classic.xml), [Classic Editor XML](https://gist.githubusercontent.com/adamsilverstein/fafae070f20232d1061c5517369a8f06/raw/b74310e18125a045cea213513fba435eee1545ff/classic2.xml).
+
 == Screenshots ==
 
 1. The Print Issue list table
@@ -94,17 +99,25 @@ The export of posts in a Print Issue is highly customizeable, from the file name
 
 == Changelog ==
 
+= 1.1.1 =
+Changed
+- Bump WordPress version "tested up to" 5.3 (props @adamsilverstein)
+- Documentation and deploy automation updates (props @jeffpaul)
+
+Fixed
+- WordPress.org translation readiness (props @jeffpaul, @adamsilverstein, @helen)
+
 = 1.1.0 =
-### Added
-- German translation files
-- Plugin banner and icon images
+Added
+- German translation files (props @adamsilverstein, Matthias Wehrlein)
+- Plugin banner and icon images (props @chriswallace)
 
-### Updated
-- Update dependencies in `package.json` and `composer.json` to current versions
+Updated
+- Update dependencies in `package.json` and `composer.json` to current versions (props @adamsilverstein)
 
-### Fixed
-- DateTimeZone setup: fall back to `gmt_offset`
-- PHP notices w/PHP 5.6 and fatals with PHP 7.2/3
+Fixed
+- DateTimeZone setup: fall back to `gmt_offset` (props @adamsilverstein, Jared Williams)
+- PHP notices w/PHP 5.6 and fatals with PHP 7.2/3 (props @adamsilverstein)
 
 = 1.0.0 =
 - Initial Release
