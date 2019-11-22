@@ -2,14 +2,15 @@
 
 > Optimize publication workflows by using WordPress as your print CMS.  Eight Day Week provides a set of tools to manage your print workflow directly in your WordPress dashboard–right where your posts are!  Primarily, it offers an interface to group, label, and manage the workflow status of posts in a printed "Issue".
 
-[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/releases/latest) ![WordPress tested up to version](https://img.shields.io/badge/WordPress-v4.4%20tested-success.svg) [![GPLv2 License](https://img.shields.io/github/license/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/blob/develop/LICENSE.md)
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/releases/latest) ![WordPress tested up to version](https://img.shields.io/badge/WordPress-v5.3%20tested-success.svg) [![GPLv2 License](https://img.shields.io/github/license/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/blob/develop/LICENSE.md)
 
-## Table of Contents  
+## Table of Contents
 * [Features](#features)
 * [Requirements](#requirements)
 * [Installation](#installation)
 * [Filters & Hooks](#filters--hooks)
 * [Screenshots](#screenshots)
+* [Known Caveats/Issues](#known-caveatsissues)
 * [Changelog](#changelog)
 * [Contributing](#contributing)
 
@@ -42,11 +43,11 @@ Two custom roles are added by this plugin to best model a real-world print team.
 ## Requirements
 
 * PHP 5.6+
-* [WordPress](http://wordpress.org) 4.3+
+* [WordPress](http://wordpress.org) 4.6+
 
 ## Installation
 
-Print Production has no settings or configurations to set up. It just works!
+Eight Day Week has no settings or configurations to set up. It just works!
 
 ## Filters & Hooks
 Eight Day Week provides a number of filters and hooks for customizing and extending the plugin.
@@ -92,6 +93,12 @@ The information displayed in the list of Print Issues is filterable. Custom colu
 
 The export of posts in a Print Issue is highly customizeable, from the file name of the zip, to the file name of the individual files, to the contents of the files themselves.  The best reference would be to read through `includes/functions/plugins/article-export.php`.  [Here's](https://gist.github.com/joshlevinson/4a2c3ed78b21b3c54eba) a few examples used on the *Observer*.
 
+## Known Caveats/Issues
+
+### Gutenberg exports
+
+Gutenberg-based exports include some additional metadata/details that a Classic Editor-based export does not.  [Gutenberg stores block data in HTML comments](https://developer.wordpress.org/block-editor/key-concepts/#delimiters-and-parsing-expression-grammar), so you'll notice those comments (in the form of `<!-- "Gutenberg block data" -->`) appearing in the Eight Day Week XML export.  Note that the XML is still valid--you can test and confirm that yourself using an [XML validator](https://www.xmlvalidation.com/)--though depending on your version of InDesign you may get different results upon importing a Gutenberg export compared to a Classic Editor export.  Our testing showed that those HTML comments in a Gutenberg export did not affect the import into InDesign however.  You can test how this works in your version of InDesign with these sample XML files: [Gutenberg XML](https://gist.githubusercontent.com/adamsilverstein/3a9af64f4827b0ffcba963fd4b6a380a/raw/0513c4dd7cbd45b54c644a6aa9cbaaf269659b8d/classic.xml), [Classic Editor XML](https://gist.githubusercontent.com/adamsilverstein/fafae070f20232d1061c5517369a8f06/raw/b74310e18125a045cea213513fba435eee1545ff/classic2.xml).
+
 ## Support Level
 
 **Active:** 10up is actively working on this, and we expect to continue work for the foreseeable future including keeping tested up to the most recent version of WordPress.  Bug reports, feature requests, questions, and pull requests are welcome.
@@ -102,7 +109,7 @@ A complete listing of all notable changes to Eight Day Week are documented in [C
 
 ## Contributing
 
-Please read [CODE_OF_CONDUCT.md](https://github.com/10up/eight-day-week/blob/develop/CODE_OF_CONDUCT.md) for details on our code of conduct, [CONTRIBUTING.md](https://github.com/10up/eight-day-week/blob/develop/CONTRIBUTING.md) for details on the process for submitting pull requests to us, and [CONTRIBUTORS.md](https://github.com/10up/eight-day-week/blob/develop/CONTRIBUTORS.md) for a listing of contributors to Eight Day Week.
+Please read [CODE_OF_CONDUCT.md](https://github.com/10up/eight-day-week/blob/develop/CODE_OF_CONDUCT.md) for details on our code of conduct, [CONTRIBUTING.md](https://github.com/10up/eight-day-week/blob/develop/CONTRIBUTING.md) for details on the process for submitting pull requests to us, and [CREDITS.md](https://github.com/10up/eight-day-week/blob/develop/CREDITS.md) for a listing of contributors to Eight Day Week.
 
 ## Like what you see?
 

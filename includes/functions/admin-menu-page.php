@@ -39,8 +39,8 @@ function setup() {
  */
 function admin_menu() {
 
-	$top_level = _x( 'Print', 'Top level menu label', 'eight-day-week' );
-	$pi_submenu = _x( 'Print Issues', 'Submenu label for the Print Issue CPT', 'eight-day-week' );
+	$top_level = _x( 'Print', 'Top level menu label', 'eight-day-week-print-workflow' );
+	$pi_submenu = _x( 'Print Issues', 'Submenu label for the Print Issue CPT', 'eight-day-week-print-workflow' );
 
 	// Top level "container", but still link to Print Issue CPT list table
 	add_menu_page( $top_level, $top_level, 'read_' . EDW_PRINT_ISSUE_CPT, EDW_ADMIN_MENU_SLUG, '', 'dashicons-media-document', 15 );

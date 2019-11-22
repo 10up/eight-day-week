@@ -74,7 +74,7 @@ function edit_form_after_title( $post ) {
 	if( EDW_PRINT_ISSUE_CPT !== $post->post_type ) {
 		return;
 	}
-	echo '<h2>' . esc_html( 'Sections', 'eight-day-week' ) . '</h2>';
+	echo '<h2>' . esc_html( 'Sections', 'eight-day-week-print-workflow' ) . '</h2>';
 	echo '<p id="pi-section-error" class="pi-error-msg"></p>';
 	do_action( 'edw_sections_top' );
 }
@@ -145,7 +145,7 @@ function sections_meta_box( $post, $args ) {
 	if( User\current_user_can_edit_print_issue() ) : ?>
 	<input type="hidden" class="section_id" name="section_id" value="<?php echo absint( $section_id ); ?>"/>
 	<p class="pi-section-delete">
-		<a href="#"><?php esc_html_e( 'Delete section', 'eight-day-week' ); ?></a>
+		<a href="#"><?php esc_html_e( 'Delete section', 'eight-day-week-print-workflow' ); ?></a>
 	</p>
 	<?php endif; ?>
 
@@ -191,17 +191,17 @@ function add_section_output( $post ) {
 	?>
 	<button
 		class="button button-secondary"
-		id="pi-section-add"><?php esc_html_e( 'Add Section', 'eight-day-week' ); ?>
+		id="pi-section-add"><?php esc_html_e( 'Add Section', 'eight-day-week-print-workflow' ); ?>
 	</button>
 	<div id="pi-section-add-info">
 		<input
 			type="text"
 			name="pi-section-name"
 			id="pi-section-name"
-			placeholder="<?php esc_html_e( 'Enter a name for the new section.', 'eight-day-week' ); ?>"
+			placeholder="<?php esc_html_e( 'Enter a name for the new section.', 'eight-day-week-print-workflow' ); ?>"
 			/>
 		<button
-			title="<?php esc_html_e( 'Click to confirm', 'eight-day-week' ); ?>"
+			title="<?php esc_html_e( 'Click to confirm', 'eight-day-week-print-workflow' ); ?>"
 			id="pi-section-add-confirm"
 			class="button button-secondary dashicons dashicons-yes"></button>
 	</div>
@@ -314,7 +314,7 @@ class Section_Factory {
 
 		$name = isset( $_POST['name'] ) ? sanitize_text_field( $_POST['name'] ) : false;
 		if ( ! $name ) {
-			Core\send_json_error( [ 'message' => __( 'Please enter a section name.', 'eight-day-week' ) ] );
+			Core\send_json_error( [ 'message' => __( 'Please enter a section name.', 'eight-day-week-print-workflow' ) ] );
 		}
 
 		$print_issue_id = absint( $_POST['print_issue_id'] );
@@ -336,7 +336,7 @@ class Section_Factory {
 			Core\send_json_success( [ 'section_id' => $section->ID ] );
 		}
 
-		Core\send_json_error( [ 'message' => __( 'Whoops! Something went awry.', 'eight-day-week' ) ] );
+		Core\send_json_error( [ 'message' => __( 'Whoops! Something went awry.', 'eight-day-week-print-workflow' ) ] );
 	}
 
 	/**
@@ -350,12 +350,12 @@ class Section_Factory {
 
 		$title = isset( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : false;
 		if ( ! $title ) {
-			Core\send_json_error( [ 'message' => __( 'Please enter a section name.', 'eight-day-week' ) ] );
+			Core\send_json_error( [ 'message' => __( 'Please enter a section name.', 'eight-day-week-print-workflow' ) ] );
 		}
 
 		$post_id = isset( $_POST['post_id'] ) ? sanitize_text_field( $_POST['post_id'] ) : false;
 		if ( ! $post_id ) {
-			Core\send_json_error( [ 'message' => __( 'Whoops! This section appears to be invalid.', 'eight-day-week' ) ] );
+			Core\send_json_error( [ 'message' => __( 'Whoops! This section appears to be invalid.', 'eight-day-week-print-workflow' ) ] );
 		}
 		try {
 			self::update_title( $title, $post_id );
@@ -420,7 +420,7 @@ class Section {
 	private function import_post() {
 		$post = get_post( $this->ID );
 		if ( ! $post instanceof \WP_Post ) {
-			throw new \Exception( __( 'Invalid post ID supplied', 'eight-day-week' ) );
+			throw new \Exception( __( 'Invalid post ID supplied', 'eight-day-week-print-workflow' ) );
 		}
 		$this->_post = $post;
 	}
@@ -466,7 +466,7 @@ class Section {
 		if ( $result ) {
 			return $result;
 		}
-		throw new \Exception( sprintf( __( 'Failed to update section %d', 'eight-day-week' ), $this->ID ) );
+		throw new \Exception( sprintf( __( 'Failed to update section %d', 'eight-day-week-print-workflow' ), $this->ID ) );
 	}
 
 	/**
@@ -478,7 +478,7 @@ class Section {
 	 */
 	function update_title( $title ) {
 		if ( ! $title ) {
-			throw new \Exception( __( 'Please supply a valid, non-empty title', 'eight-day-week' ) );
+			throw new \Exception( __( 'Please supply a valid, non-empty title', 'eight-day-week-print-workflow' ) );
 		}
 		$title  = sanitize_text_field( $title );
 		$args   = [
@@ -574,5 +574,5 @@ function section_save_button(){
 	if ( Print_Issue\is_read_only_view() || ! User\current_user_can_edit_print_issue() ) {
 		return;
 	}
-	echo '<button class="button button-primary">' . esc_html( 'Save', 'eight-day-week' ) . '</button>';
+	echo '<button class="button button-primary">' . esc_html( 'Save', 'eight-day-week-print-workflow' ) . '</button>';
 }
