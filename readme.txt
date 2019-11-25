@@ -101,23 +101,23 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 
 = 1.1.1 =
 Changed
-- Bump WordPress version "tested up to" 5.3 (props @adamsilverstein)
-- Documentation and deploy automation updates (props @jeffpaul)
+- Bump WordPress version "tested up to" 5.3 (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein))
+- Documentation and deploy automation updates (props [@jeffpaul](https://profiles.wordpress.org/jeffpaul))
 
 Fixed
-- WordPress.org translation readiness (props @jeffpaul, @adamsilverstein, @helen)
+- WordPress.org translation readiness (props [@jeffpaul](https://profiles.wordpress.org/jeffpaul), [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein), [@helen](https://profiles.wordpress.org/helen))
 
 = 1.1.0 =
 Added
-- German translation files (props @adamsilverstein, Matthias Wehrlein)
-- Plugin banner and icon images (props @chriswallace)
+- German translation files (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein), Matthias Wehrlein)
+- Plugin banner and icon images (props [@chriswallace](https://profiles.wordpress.org/chriswallace))
 
 Updated
-- Update dependencies in `package.json` and `composer.json` to current versions (props @adamsilverstein)
+- Update dependencies in `package.json` and `composer.json` to current versions (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein))
 
 Fixed
-- DateTimeZone setup: fall back to `gmt_offset` (props @adamsilverstein, Jared Williams)
-- PHP notices w/PHP 5.6 and fatals with PHP 7.2/3 (props @adamsilverstein)
+- DateTimeZone setup: fall back to `gmt_offset` (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein), Jared Williams)
+- PHP notices w/PHP 5.6 and fatals with PHP 7.2/3 (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein))
 
 = 1.0.0 =
 - Initial Release
