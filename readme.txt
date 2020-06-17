@@ -92,7 +92,7 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 
 == Screenshots ==
 
-1. The Print Issue list table
+1. The Print Issue list table.
 2. The Print Issue editor showing the sections and contained articles, buttons to add sections & articles, and options for the Publication, Issue Status, and Issue Date. Each section has a Save button for convenience; all Save buttons simply save the entire Print Issue.
 3. A Print Issue in "read only view". This view allows anyone with access to view a Print Issue without inducing a post lock, or being locked out by another editor. Note that the Export tools are still available in read only view.
 4. The Issue Statuses category page.
