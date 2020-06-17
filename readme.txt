@@ -55,7 +55,7 @@ Article Export
 Article Status
 Issue Publication
 Issue Status
-Any of these can be disabled by returning a falsey value from the following filter format:
+Any of these can be disabled by returning a false value from the following filter format:
 `
 add_filter( 'Eight_Day_Week\Plugins\load_$plugin', '__return_false' );
 `
@@ -83,7 +83,7 @@ The information displayed in the list of Print Issues is filterable. Custom colu
 
 **Article Export**
 
-The export of posts in a Print Issue is highly customizeable, from the file name of the zip, to the file name of the individual files, to the contents of the files themselves.  The best reference would be to read through `includes/functions/plugins/article-export.php`.  [Here's](https://gist.github.com/joshlevinson/4a2c3ed78b21b3c54eba) a few examples used on the *Observer*.
+The export of posts in a Print Issue is highly customizable, from the file name of the zip, to the file name of the individual files, to the contents of the files themselves.  The best reference would be to read through `includes/functions/plugins/article-export.php`.  [Here's](https://gist.github.com/joshlevinson/4a2c3ed78b21b3c54eba) a few examples used on the *Observer*.
 
 == Known Caveats/Issues ==
 
@@ -93,9 +93,12 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 == Screenshots ==
 
 1. The Print Issue list table
-2. The Print Issue editor, showing the sections and contained articles, as well as several modules at play.
-3. Further down the page of the Print Issue Editor, showing buttons to add sections & articles. Each section has a Save button for convenience; all Save buttons simply save the entire Issue.
-4. A Print Issue in "read only view". This view allows anyone with access to view a Print Issue without inducing a post lock, or being locked out by another editor. Note that the Export tools are still available in read only view.
+2. The Print Issue editor showing the sections and contained articles, buttons to add sections & articles, and options for the Publication, Issue Status, and Issue Date. Each section has a Save button for convenience; all Save buttons simply save the entire Print Issue.
+3. A Print Issue in "read only view". This view allows anyone with access to view a Print Issue without inducing a post lock, or being locked out by another editor. Note that the Export tools are still available in read only view.
+4. The Issue Statuses category page.
+5. The Publications category page.
+6. The Article Status category page.
+7. A sample article XML export for InDesign.
 
 == Changelog ==
 
