@@ -1,10 +1,11 @@
 # ![Eight Day Week Print Workflow](https://github.com/10up/eight-day-week/blob/develop/.wordpress-org/banner-1544x500.png "Eight Day Week Print Workflow")
 
-> Optimize publication workflows by using WordPress as your print CMS.  Eight Day Week provides a set of tools to manage your print workflow directly in your WordPress dashboard–right where your posts are!  Primarily, it offers an interface to group, label, and manage the workflow status of posts in a printed "Issue".
+> Optimize publication workflows by using WordPress as your print CMS.
 
 [![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/releases/latest) ![WordPress tested up to version](https://img.shields.io/badge/WordPress-v5.3%20tested-success.svg) [![GPLv2 License](https://img.shields.io/github/license/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/blob/develop/LICENSE.md)
 
 ## Table of Contents
+* [Overview](#overview)
 * [Features](#features)
 * [Requirements](#requirements)
 * [Installation](#installation)
@@ -14,6 +15,12 @@
 * [Changelog](#changelog)
 * [Contributing](#contributing)
 
+## Overview
+
+Eight Day Week provides a set of tools to manage your print workflow directly in your WordPress dashboard–right where your posts are!  Primarily, it offers an interface to group, label, and manage the workflow status of posts in a printed "Issue".
+
+![The Print Issue list table.](/.wordpress-org/screenshot-1.png)
+
 ## Features
 
 ### Create "Print Issues"
@@ -21,7 +28,7 @@
 - Add and order sections, and articles within sections
 - Assign article statuses specific to your print workflow
 
-![The Print Issue editor, showing the sections and contained articles, as well as several modules at play.](http://ps.w.org/eight-day-week-print-workflow/assets/screenshot-2.png)
+![The Print Issue editor, showing the sections and contained articles, as well as several modules at play.](/.wordpress-org/screenshot-2.png)
 
 ### Limit access to Print Roles
 
@@ -34,11 +41,18 @@ Two custom roles are added by this plugin to best model a real-world print team.
 
 - Circumvents the post locking feature by offering a read-only view of a print issue
 
-![A Print Issue in "read only view". This view allows anyone with access to view a Print Issue without inducing a post lock, or being locked out by another editor. Note that the Export tools are still available in read only view.](http://ps.w.org/eight-day-week-print-workflow/assets/screenshot-4.png)
+![A Print Issue in "read only view". This view allows anyone with access to view a Print Issue without inducing a post lock, or being locked out by another editor. Note that the Export tools are still available in read only view.](/.wordpress-org/screenshot-3.png)
 
 ### XML Export to InDesign
 
 - Export XML files specifically formatted for import into InDesign
+
+![Sample article XML export.](/.wordpress-org/screenshot-7.png)
+
+Issue Statuses | Publications | Article Statuses
+------------- | ----------------- | ------------
+[![Editing of Issue Statuses](.wordpress-org/screenshot-4.png)](.wordpress-org/screenshot-4.png) | [![Editing of Publications](.wordpress-org/screenshot-5.png)](.wordpress-org/screenshot-5.png) | [![Editing of Article Statuses](.wordpress-org/screenshot-6.png)](.wordpress-org/screenshot-6.png)
+
 
 ## Requirements
 
@@ -80,14 +94,10 @@ Sample usage:
 	    return implode( ', ', wp_list_pluck( my_get_post_authors_function( $post ), 'display_name' ) );
 	}
 
-![Further down the page of the Print Issue Editor, showing buttons to add sections & articles. Each section has a Save button for convenience; all Save buttons simply save the entire Issue.](http://ps.w.org/eight-day-week-print-workflow/assets/screenshot-3.png)
-
 ### Print Issue Table
 
 The information displayed in the list of Print Issues is filterable. Custom columns can be added via the following filter:
 `Eight_Day_Week\Print_Issue_Columns\pi_columns`.  Note that this is a convenience filter, the base filter is `manage_edit-print-issue_columns`.  See `includes/functions/print-issue-columns.php` for sample usage.
-
-![The Print Issue list table](http://ps.w.org/eight-day-week-print-workflow/assets/screenshot-1.png)
 
 ### Article Export
 
