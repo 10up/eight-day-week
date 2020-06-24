@@ -159,14 +159,16 @@ function editable_roles( $roles ) {
 /**
  * Outputs the Print Role select on the user editor screen
  *
- * @param \WP_User $user The current user
+ * @param string $which The location of the extra table nav markup: 'top' or 'bottom'.
  */
-function output_print_role_on_user_list_table() {
+function output_print_role_on_user_list_table( $which ) {
 	global $edw_roles;
 
 	$role_names = get_role_names();
 
-	echo '<select name="pp-print-role">';
+	$select_id = 'top' === $which ? 'pp-print-role' : 'pp-print-role2';
+
+	echo '<select id="' . $select_id .'" name="' . $select_id . '">';
 	echo '<option value="-1">' . esc_html( 'Change print role to...', 'eight-day-week-print-workflow' ) . '</option>';
 	echo '<option value="remove">' . esc_html_x( 'None (remove)', 'Select option text for removing print production role.', 'eight-day-week-print-workflow' ) . '</option>';
 	foreach( (array) $edw_roles as $role ) {
@@ -230,12 +232,12 @@ function update_users_print_role() {
 
 	global $edw_roles;
 
-	if ( ! isset( $_GET['pp-print-role'] ) ) {
+	if ( ! isset( $_GET['pp-print-role'] ) || ! isset( $_GET['pp-print-role2'] ) ) {
 		return;
 	}
 
 	//don't proccess the default option
-	if( -1 == $_GET['pp-print-role'] ) {
+	if ( -1 == $_GET['pp-print-role'] && -1 == $_GET['pp-print-role2'] ) {
 		return;
 	}
 
@@ -249,7 +251,7 @@ function update_users_print_role() {
 
 	check_admin_referer( 'bulk-users' );
 
-	$new_role = $_GET['pp-print-role'];
+	$new_role = -1 != $_GET['pp-print-role'] ? $_GET['pp-print-role'] : $_GET['pp-print-role2'];
 
 	//validate requested print role
 	if ( 'remove' !== $new_role && ! in_array( $new_role, $edw_roles ) ) {
