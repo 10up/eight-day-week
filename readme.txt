@@ -98,7 +98,8 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 4. The Issue Statuses category page.
 5. The Publications category page.
 6. The Article Status category page.
-7. A sample article XML export for InDesign.
+7. The Users list table, showing the "Change print role to..." dropdown and "Print Role" column.
+8. A sample article XML export for InDesign.
 
 == Changelog ==
 

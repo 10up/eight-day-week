@@ -37,6 +37,8 @@ Two custom roles are added by this plugin to best model a real-world print team.
 - The Print Editor role offers full access to the creation interfaces, such as Print Issue, Article Status, Print Publication, etc.
 - The Print Production role offers read-only access to a Print Issues. The XML export tool is also available to Production users.
 
+![The Users list table, showing the "Change print role to..." dropdown and "Print Role" column.](/.wordpress-org/screenshot-7.png)
+
 ### View a Print Issue in "Read Only" mode
 
 - Circumvents the post locking feature by offering a read-only view of a print issue
@@ -47,7 +49,7 @@ Two custom roles are added by this plugin to best model a real-world print team.
 
 - Export XML files specifically formatted for import into InDesign
 
-![Sample article XML export.](/.wordpress-org/screenshot-7.png)
+![Sample article XML export.](/.wordpress-org/screenshot-8.png)
 
 Issue Statuses | Publications | Article Statuses
 ------------- | ----------------- | ------------
