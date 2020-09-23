@@ -270,7 +270,7 @@ function update_users_print_role() {
 
 		// If the user doesn't already belong to the blog, bail.
 		if ( is_multisite() && ! is_user_member_of_blog( $id ) ) {
-			wp_die( __( 'Cheatin&#8217; uh?' ), 403 );
+			wp_die( __( 'Something went wrong.' ), 403 );
 		}
 
 		$user = get_userdata( $id );
