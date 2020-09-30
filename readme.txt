@@ -103,25 +103,25 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 
 == Changelog ==
 
-= 1.1.1 =
-Changed
-- Bump WordPress version "tested up to" 5.3 (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein))
-- Documentation and deploy automation updates (props [@jeffpaul](https://profiles.wordpress.org/jeffpaul))
+= 1.1.2 =
+* **Changed:** Plugin documentation and screenshots (props [@jeffpaul](https://profiles.wordpress.org/jeffpaul)).
+* **Removed:** Translation files as this is now handled on [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/eight-day-week-print-workflow/) (props [@jeffpaul](https://profiles.wordpress.org/jeffpaul), [@helen](https://profiles.wordpress.org/helen)).
+* **Fixed:** Unable to change role using upper Print Role dropdown (props [@dinhtungdu](https://profiles.wordpress.org/dinhtungdu)).
+* **Fixed:** Display correct title when creating a new Section in Print Issues (props [@dinhtungdu](https://profiles.wordpress.org/dinhtungdu)).
+* **Security:** Bump `websocket-extensions` from 0.1.3 to 0.1.4 (props [@dependabot](https://github.com/apps/dependabot)).
+* **Security:** Bump `lodash` from 4.17.15 to 4.17.19 (props [@dependabot](https://github.com/apps/dependabot)).
 
-Fixed
-- WordPress.org translation readiness (props [@jeffpaul](https://profiles.wordpress.org/jeffpaul), [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein), [@helen](https://profiles.wordpress.org/helen))
+= 1.1.1 =
+* **Changed:** Bump WordPress version "tested up to" 5.3 (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein)).
+* **Changed:** Documentation and deploy automation updates (props [@jeffpaul](https://profiles.wordpress.org/jeffpaul)).
+* **Fixed:** WordPress.org translation readiness (props [@jeffpaul](https://profiles.wordpress.org/jeffpaul), [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein), [@helen](https://profiles.wordpress.org/helen)).
 
 = 1.1.0 =
-Added
-- German translation files (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein), Matthias Wehrlein)
-- Plugin banner and icon images (props [@chriswallace](https://profiles.wordpress.org/chriswallace))
-
-Updated
-- Update dependencies in `package.json` and `composer.json` to current versions (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein))
-
-Fixed
-- DateTimeZone setup: fall back to `gmt_offset` (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein), Jared Williams)
-- PHP notices w/PHP 5.6 and fatals with PHP 7.2/3 (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein))
+* **Added:** German translation files (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein), Matthias Wehrlein).
+* **Added:** Plugin banner and icon images (props [@chriswallace](https://profiles.wordpress.org/chriswallace)).
+* **Updated:** Update dependencies in `package.json` and `composer.json` to current versions (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein)).
+* **Fixed:** DateTimeZone setup: fall back to `gmt_offset` (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein), Jared Williams).
+* **Fixed:** PHP notices w/PHP 5.6 and fatals with PHP 7.2/3 (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein)).
 
 = 1.0.0 =
-- Initial Release
+* Initial Release.
