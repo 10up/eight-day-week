@@ -412,7 +412,11 @@
 		$insert_section: function (name, id) {
 			var new_section = $('[id^="pi-sections-template"].postbox').first().clone();
 			new_section.attr('id', 'pi-sections-box-' + id);
-			new_section.find('.hndle > span').text(name).attr('contenteditable', 'true');
+			if (new_section.find('.hndle > span').length > 0) {
+				new_section.find('.hndle > span').text(name).attr('contenteditable', 'true');
+			} else {
+				new_section.find('.hndle').text(name);
+			}
 			new_section.addClass('js');
 			new_section.removeClass('hide-if-js');
 			new_section.find('.section_id').val(id);

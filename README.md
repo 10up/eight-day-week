@@ -1,10 +1,11 @@
 # ![Eight Day Week Print Workflow](https://github.com/10up/eight-day-week/blob/develop/.wordpress-org/banner-1544x500.png "Eight Day Week Print Workflow")
 
-> Optimize publication workflows by using WordPress as your print CMS.  Eight Day Week provides a set of tools to manage your print workflow directly in your WordPress dashboard–right where your posts are!  Primarily, it offers an interface to group, label, and manage the workflow status of posts in a printed "Issue".
+> Optimize publication workflows by using WordPress as your print CMS.
 
-[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/releases/latest) ![WordPress tested up to version](https://img.shields.io/badge/WordPress-v5.3%20tested-success.svg) [![GPLv2 License](https://img.shields.io/github/license/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/blob/develop/LICENSE.md)
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/releases/latest) ![WordPress tested up to version](https://img.shields.io/badge/WordPress-v5.5%20tested-success.svg) [![GPLv2 License](https://img.shields.io/github/license/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/blob/develop/LICENSE.md)
 
 ## Table of Contents
+* [Overview](#overview)
 * [Features](#features)
 * [Requirements](#requirements)
 * [Installation](#installation)
@@ -14,6 +15,12 @@
 * [Changelog](#changelog)
 * [Contributing](#contributing)
 
+## Overview
+
+Eight Day Week provides a set of tools to manage your print workflow directly in your WordPress dashboard–right where your posts are!  Primarily, it offers an interface to group, label, and manage the workflow status of posts in a printed "Issue".
+
+![The Print Issue list table.](/.wordpress-org/screenshot-1.png)
+
 ## Features
 
 ### Create "Print Issues"
@@ -21,7 +28,7 @@
 - Add and order sections, and articles within sections
 - Assign article statuses specific to your print workflow
 
-![The Print Issue editor, showing the sections and contained articles, as well as several modules at play.](http://ps.w.org/eight-day-week-print-workflow/assets/screenshot-2.png)
+![The Print Issue editor, showing the sections and contained articles, as well as several modules at play.](/.wordpress-org/screenshot-2.png)
 
 ### Limit access to Print Roles
 
@@ -30,15 +37,24 @@ Two custom roles are added by this plugin to best model a real-world print team.
 - The Print Editor role offers full access to the creation interfaces, such as Print Issue, Article Status, Print Publication, etc.
 - The Print Production role offers read-only access to a Print Issues. The XML export tool is also available to Production users.
 
+![The Users list table, showing the "Change print role to..." dropdown and "Print Role" column.](/.wordpress-org/screenshot-7.png)
+
 ### View a Print Issue in "Read Only" mode
 
 - Circumvents the post locking feature by offering a read-only view of a print issue
 
-![A Print Issue in "read only view". This view allows anyone with access to view a Print Issue without inducing a post lock, or being locked out by another editor. Note that the Export tools are still available in read only view.](http://ps.w.org/eight-day-week-print-workflow/assets/screenshot-4.png)
+![A Print Issue in "read only view". This view allows anyone with access to view a Print Issue without inducing a post lock, or being locked out by another editor. Note that the Export tools are still available in read only view.](/.wordpress-org/screenshot-3.png)
 
 ### XML Export to InDesign
 
 - Export XML files specifically formatted for import into InDesign
+
+![Sample article XML export.](/.wordpress-org/screenshot-8.png)
+
+Issue Statuses | Publications | Article Statuses
+------------- | ----------------- | ------------
+[![Editing of Issue Statuses](.wordpress-org/screenshot-4.png)](.wordpress-org/screenshot-4.png) | [![Editing of Publications](.wordpress-org/screenshot-5.png)](.wordpress-org/screenshot-5.png) | [![Editing of Article Statuses](.wordpress-org/screenshot-6.png)](.wordpress-org/screenshot-6.png)
+
 
 ## Requirements
 
@@ -80,24 +96,20 @@ Sample usage:
 	    return implode( ', ', wp_list_pluck( my_get_post_authors_function( $post ), 'display_name' ) );
 	}
 
-![Further down the page of the Print Issue Editor, showing buttons to add sections & articles. Each section has a Save button for convenience; all Save buttons simply save the entire Issue.](http://ps.w.org/eight-day-week-print-workflow/assets/screenshot-3.png)
-
 ### Print Issue Table
 
 The information displayed in the list of Print Issues is filterable. Custom columns can be added via the following filter:
 `Eight_Day_Week\Print_Issue_Columns\pi_columns`.  Note that this is a convenience filter, the base filter is `manage_edit-print-issue_columns`.  See `includes/functions/print-issue-columns.php` for sample usage.
 
-![The Print Issue list table](http://ps.w.org/eight-day-week-print-workflow/assets/screenshot-1.png)
-
 ### Article Export
 
-The export of posts in a Print Issue is highly customizeable, from the file name of the zip, to the file name of the individual files, to the contents of the files themselves.  The best reference would be to read through `includes/functions/plugins/article-export.php`.  [Here's](https://gist.github.com/joshlevinson/4a2c3ed78b21b3c54eba) a few examples used on the *Observer*.
+The export of posts in a Print Issue is highly customizeable, from the file name of the zip, to the file name of the individual files, to the contents of the files themselves.  The best reference would be to read through `includes/functions/plugins/article-export.php`.  [Here's](https://github.com/10up/eight-day-week/wiki/Sample-Eight-Day-Week-filters-for-the-Observer) a few examples used on the *Observer*.
 
 ## Known Caveats/Issues
 
 ### Gutenberg exports
 
-Gutenberg-based exports include some additional metadata/details that a Classic Editor-based export does not.  [Gutenberg stores block data in HTML comments](https://developer.wordpress.org/block-editor/key-concepts/#delimiters-and-parsing-expression-grammar), so you'll notice those comments (in the form of `<!-- "Gutenberg block data" -->`) appearing in the Eight Day Week XML export.  Note that the XML is still valid--you can test and confirm that yourself using an [XML validator](https://www.xmlvalidation.com/)--though depending on your version of InDesign you may get different results upon importing a Gutenberg export compared to a Classic Editor export.  Our testing showed that those HTML comments in a Gutenberg export did not affect the import into InDesign however.  You can test how this works in your version of InDesign with these sample XML files: [Gutenberg XML](https://gist.githubusercontent.com/adamsilverstein/3a9af64f4827b0ffcba963fd4b6a380a/raw/0513c4dd7cbd45b54c644a6aa9cbaaf269659b8d/classic.xml), [Classic Editor XML](https://gist.githubusercontent.com/adamsilverstein/fafae070f20232d1061c5517369a8f06/raw/b74310e18125a045cea213513fba435eee1545ff/classic2.xml).
+Gutenberg-based exports include some additional metadata/details that a Classic Editor-based export does not.  [Gutenberg stores block data in HTML comments](https://developer.wordpress.org/block-editor/key-concepts/#delimiters-and-parsing-expression-grammar), so you'll notice those comments (in the form of `<!-- "Gutenberg block data" -->`) appearing in the Eight Day Week XML export.  Note that the XML is still valid--you can test and confirm that yourself using an [XML validator](https://www.xmlvalidation.com/)--though depending on your version of InDesign you may get different results upon importing a Gutenberg export compared to a Classic Editor export.  Our testing showed that those HTML comments in a Gutenberg export did not affect the import into InDesign however.  You can test how this works in your version of InDesign with these sample XML files: [Gutenberg XML](https://raw.githubusercontent.com/wiki/10up/eight-day-week/BlockEditor-sample.xml), [Classic Editor XML](https://raw.githubusercontent.com/wiki/10up/eight-day-week/ClassicEditor-sample.xml).  You can also test how this works with full ZIP exports of Print Issues containing a [Block Editor sample](https://raw.githubusercontent.com/wiki/10up/eight-day-week/BlockEditor-SampleExport.zip) or a [Classic Editor sample](https://raw.githubusercontent.com/wiki/10up/eight-day-week/ClassicEditor-SampleExport.zip).
 
 ## Support Level
 
