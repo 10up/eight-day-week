@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
-## [1.1.2] - TBD
+## [1.1.2] - 2020-10-08
 ### Changed
 - Plugin documentation and screenshots (props [@jeffpaul](https://github.com/jeffpaul) via [#56](https://github.com/10up/eight-day-week/pull/56), [#61](https://github.com/10up/eight-day-week/pull/61)).
 
