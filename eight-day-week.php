@@ -151,7 +151,8 @@ function edw_build_namespace_map() {
 		$namespace = '\Eight_Day_Week\\' . $tip_of_the_iceberg;
 
 		//add it all the map
-		$map[ $file->getPathname() ] = $namespace;
+		$file_key = str_replace( "\\", "/", $file->getPathname() );
+		$map[ $file_key ] = $namespace;
 	}
 
 	return apply_filters( 'edw_files_to_load', $map );

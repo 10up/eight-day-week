@@ -1,5 +1,5 @@
 {
-	"name": "eight-day-week",
+	"name": "10up/eight-day-week",
 	"description": "Tools that help improve the digital/print production workflows.",
 	"type": "wordpress-plugin",
 	"keywords": [],
@@ -13,14 +13,14 @@
 			"role": "Developer"
 		}
 	],
-    	"minimum-stability": "dev",
+	"minimum-stability": "dev",
 	"require": {
 		"php": ">=5.4"
 	},
     	"require-dev": {
 		"antecedent/patchwork": "2.1.*",
 		"phpunit/phpunit": "*@stable",
-	    	"brianium/paratest": "dev-master",
-        	"10up/wp_mock": "dev-master"
+		"brianium/paratest": "dev-master",
+		"10up/wp_mock": "dev-master"
     }
 }
