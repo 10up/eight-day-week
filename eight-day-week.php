@@ -70,7 +70,7 @@ function edw_bootstrap() {
 		return;
 	}
 
-	$core_file = EDW_INC . 'functions/core.php';
+	$core_file = EDW_INC . 'functions' . DIRECTORY_SEPARATOR . 'core.php';
 
 	if( ! isset( $map[ $core_file ] ) ) {
 		return;
@@ -139,10 +139,10 @@ function edw_build_namespace_map() {
 
 		$path = $file->getPathInfo()->getPathname();
 		if( $dir !== $path ) {
-			$sub_directory = str_replace( $dir . '/', '', $path );
+			$sub_directory = str_replace( $dir . DIRECTORY_SEPARATOR, '', $path );
 
 			//convert slashes to spaces
-			$capitalized = ucwords( str_replace( '/', ' ', $sub_directory ) );
+			$capitalized = ucwords( str_replace( DIRECTORY_SEPARATOR, ' ', $sub_directory ) );
 
 			$tip_of_the_iceberg = str_replace( ' ', '\\', $capitalized ) . '\\' . $tip_of_the_iceberg;
 		}
