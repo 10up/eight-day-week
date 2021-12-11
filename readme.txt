@@ -103,6 +103,16 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 
 == Changelog ==
 
+= 1.1.3 =
+* **Changed:** Bump WordPress version "tested up to" 5.8 (props [@barneyjeffries](https://github.com/barneyjeffries), [@jeffpaul](https://github.com/jeffpaul)).
+* **Fixed:** Windows compatibility: Use `DIRECTORY_SEPARATOR` instead of slash in filepaths (props [@mnelson4](https://github.com/mnelson4), [@dinhtungdu](https://github.com/dinhtungdu), [@Intelligent2013](https://github.com/Intelligent2013), [@samthinkbox](https://github.com/samthinkbox)).
+* **Security:** Bump `bl` from 1.2.2 to 1.2.3 (props [@dependabot](https://github.com/apps/dependabot)).
+* **Security:** Bump `ini` from 1.3.5 to 1.3.7 (props [@dependabot](https://github.com/apps/dependabot)).
+* **Security:** Bump `grunt` from 1.0.4 to 1.3.0 (props [@dependabot](https://github.com/apps/dependabot)).
+* **Security:** Bump `lodash` from 4.17.19 to 4.17.21 (props [@dependabot](https://github.com/apps/dependabot)).
+* **Security:** Bump `ws` from 6.2.1 to 6.2.2 (props [@dependabot](https://github.com/apps/dependabot)).
+* **Security:** Bump `path-parse` from 1.0.6 to 1.0.7 (props [@dependabot](https://github.com/apps/dependabot)).
+
 = 1.1.2 =
 * **Changed:** Plugin documentation and screenshots (props [@jeffpaul](https://profiles.wordpress.org/jeffpaul)).
 * **Removed:** Translation files as this is now handled on [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/eight-day-week-print-workflow/) (props [@jeffpaul](https://profiles.wordpress.org/jeffpaul), [@helen](https://profiles.wordpress.org/helen)).
