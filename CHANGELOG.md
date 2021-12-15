@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+## [1.1.3] - 2021-12-13
+### Changed
+- Bump WordPress version "tested up to" 5.8 (props [@barneyjeffries](https://github.com/barneyjeffries), [@jeffpaul](https://github.com/jeffpaul) via [#74](https://github.com/10up/eight-day-week/pull/74)).
+
+### Fixed
+- Windows compatibility: Use `DIRECTORY_SEPARATOR` instead of slash in filepaths (props [@mnelson4](https://github.com/mnelson4), [@dinhtungdu](https://github.com/dinhtungdu), [@Intelligent2013](https://github.com/Intelligent2013), [@samthinkbox](https://github.com/samthinkbox) via [#73](https://github.com/10up/eight-day-week/pull/73)).
+
+### Security
+- Bump `bl` from 1.2.2 to 1.2.3 (props [@dependabot](https://github.com/apps/dependabot) via [#66](https://github.com/10up/eight-day-week/pull/66)).
+- Bump `ini` from 1.3.5 to 1.3.7 (props [@dependabot](https://github.com/apps/dependabot) via [#67](https://github.com/10up/eight-day-week/pull/67)).
+- Bump `grunt` from 1.0.4 to 1.3.0 (props [@dependabot](https://github.com/apps/dependabot) via [#69](https://github.com/10up/eight-day-week/pull/69)).
+- Bump `lodash` from 4.17.19 to 4.17.21 (props [@dependabot](https://github.com/apps/dependabot) via [#70](https://github.com/10up/eight-day-week/pull/70)).
+- Bump `ws` from 6.2.1 to 6.2.2 (props [@dependabot](https://github.com/apps/dependabot) via [#71](https://github.com/10up/eight-day-week/pull/71)).
+- Bump `path-parse` from 1.0.6 to 1.0.7 (props [@dependabot](https://github.com/apps/dependabot) via [#72](https://github.com/10up/eight-day-week/pull/72)).
+
 ## [1.1.2] - 2020-10-08
 ### Changed
 - Plugin documentation and screenshots (props [@jeffpaul](https://github.com/jeffpaul) via [#56](https://github.com/10up/eight-day-week/pull/56), [#61](https://github.com/10up/eight-day-week/pull/61)).
@@ -43,6 +58,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 - Initial Release
 
 [Unreleased]: https://github.com/10up/eight-day-week/compare/trunk...develop
+[1.1.3]: https://github.com/10up/eight-day-week/compare/1.1.2...1.1.3
 [1.1.2]: https://github.com/10up/eight-day-week/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/10up/eight-day-week/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/10up/eight-day-week/compare/9057a7f...1.1.0

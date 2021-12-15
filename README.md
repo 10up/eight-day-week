@@ -55,7 +55,6 @@ Issue Statuses | Publications | Article Statuses
 ------------- | ----------------- | ------------
 [![Editing of Issue Statuses](.wordpress-org/screenshot-4.png)](.wordpress-org/screenshot-4.png) | [![Editing of Publications](.wordpress-org/screenshot-5.png)](.wordpress-org/screenshot-5.png) | [![Editing of Article Statuses](.wordpress-org/screenshot-6.png)](.wordpress-org/screenshot-6.png)
 
-
 ## Requirements
 
 * PHP 5.6+
