@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Eight Day Week
  * Description: Tools that help improve digital & print workflows.
- * Version:     1.1.2
+ * Version:     1.1.3
  * Author:      10up
  * Author URI:  http://10up.com
  * License:     GPLv2+
@@ -34,7 +34,7 @@ require_once __DIR__ . '/vip-compat.php';
 require_once __DIR__ . '/plugins.php';
 
 // Useful global constants
-define( 'EDW_VERSION', '1.1.2' );
+define( 'EDW_VERSION', '1.1.3' );
 define( 'EDW_URL',     Eight_Day_Week\plugins_url(  __FILE__ ) );
 define( 'EDW_PATH',    dirname( __FILE__ ) . '/' );
 define( 'EDW_INC',     EDW_PATH . 'includes/' );
@@ -70,7 +70,7 @@ function edw_bootstrap() {
 		return;
 	}
 
-	$core_file = EDW_INC . 'functions/core.php';
+	$core_file = EDW_INC . 'functions' . DIRECTORY_SEPARATOR . 'core.php';
 
 	if( ! isset( $map[ $core_file ] ) ) {
 		return;
@@ -139,10 +139,10 @@ function edw_build_namespace_map() {
 
 		$path = $file->getPathInfo()->getPathname();
 		if( $dir !== $path ) {
-			$sub_directory = str_replace( $dir . '/', '', $path );
+			$sub_directory = str_replace( $dir . DIRECTORY_SEPARATOR, '', $path );
 
 			//convert slashes to spaces
-			$capitalized = ucwords( str_replace( '/', ' ', $sub_directory ) );
+			$capitalized = ucwords( str_replace( DIRECTORY_SEPARATOR, ' ', $sub_directory ) );
 
 			$tip_of_the_iceberg = str_replace( ' ', '\\', $capitalized ) . '\\' . $tip_of_the_iceberg;
 		}

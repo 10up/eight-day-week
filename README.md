@@ -2,7 +2,7 @@
 
 > Optimize publication workflows by using WordPress as your print CMS.
 
-[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/releases/latest) ![WordPress tested up to version](https://img.shields.io/badge/WordPress-v5.5%20tested-success.svg) [![GPLv2 License](https://img.shields.io/github/license/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/blob/develop/LICENSE.md)
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/releases/latest) ![WordPress tested up to version](https://img.shields.io/badge/WordPress-v5.8%20tested-success.svg) [![GPLv2 License](https://img.shields.io/github/license/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/blob/develop/LICENSE.md)
 
 ## Table of Contents
 * [Overview](#overview)
@@ -54,7 +54,6 @@ Two custom roles are added by this plugin to best model a real-world print team.
 Issue Statuses | Publications | Article Statuses
 ------------- | ----------------- | ------------
 [![Editing of Issue Statuses](.wordpress-org/screenshot-4.png)](.wordpress-org/screenshot-4.png) | [![Editing of Publications](.wordpress-org/screenshot-5.png)](.wordpress-org/screenshot-5.png) | [![Editing of Article Statuses](.wordpress-org/screenshot-6.png)](.wordpress-org/screenshot-6.png)
-
 
 ## Requirements
 
@@ -125,4 +124,4 @@ Please read [CODE_OF_CONDUCT.md](https://github.com/10up/eight-day-week/blob/dev
 
 ## Like what you see?
 
-<a href="http://10up.com/contact/"><img src="https://10updotcom-wpengine.s3.amazonaws.com/uploads/2016/10/10up-Github-Banner.png" width="850" alt="Work with us at 10up"></a>
+<a href="http://10up.com/contact/"><img src="https://10up.com/uploads/2016/10/10up-Github-Banner.png" width="850" alt="Work with us at 10up"></a>
