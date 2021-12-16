@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
-## [1.1.3] - 2021-12-13
+## [1.1.3] - 2021-12-15
 ### Changed
 - Bump WordPress version "tested up to" 5.8 (props [@barneyjeffries](https://github.com/barneyjeffries), [@jeffpaul](https://github.com/jeffpaul) via [#74](https://github.com/10up/eight-day-week/pull/74)).
 
