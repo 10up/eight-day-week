@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 - Dependency security scanning (props [@jeffpaul](https://github.com/jeffpaul), [@peterwilsoncc](https://github.com/peterwilsoncc)) via [#81](https://github.com/10up/eight-day-week/pull/81))
 
 ### Changed
-- Indicate support of WP 6.0. (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul)), [@mohitwp](https://github.com/mohitwp) via [#86](https://github.com/10up/eight-day-week/pull/86), [#78](https://github.com/10up/eight-day-week/pull/78))
+- Indicate support of WP 6.0. (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul), [@mohitwp](https://github.com/mohitwp), [@cadic](https://github.com/cadic), [@dinhtungdu](https://github.com/dinhtungdu)) via [#87](https://github.com/10up/eight-day-week/pull/87), [#86](https://github.com/10up/eight-day-week/pull/86), [#78](https://github.com/10up/eight-day-week/pull/78))
 
 ### Security
 - Bump grunt from 1.3.0 to 1.5.2 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@jeffpaul](https://github.com/jeffpaul)) via [#84](https://github.com/10up/eight-day-week/pull/84))
