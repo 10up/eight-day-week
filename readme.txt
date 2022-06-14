@@ -1,12 +1,12 @@
 === Eight Day Week Print Workflow ===
-Contributors: 10up, observerteam, joshlevinson, BrentSchultz
-Tags: print, workflow, editorial
+Contributors:      10up, observerteam, joshlevinson, BrentSchultz
+Tags:              print, workflow, editorial
 Requires at least: 4.6
-Tested up to: 6.0
-Stable tag: 1.2.0
-Requires PHP: 5.6
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tested up to:      6.0
+Stable tag:        1.2.0
+Requires PHP:      5.6
+License:           GPLv2 or later
+License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
 Optimize publication workflows by using WordPress as your print CMS
 
@@ -103,14 +103,13 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 
 == Changelog ==
 
-= 1.2.0 =
-* **Added:** Dependency security scanning (props [@jeffpaul](https://github.com/jeffpaul), [@peterwilsoncc](https://github.com/peterwilsoncc)) via [#81](https://github.com/10up/eight-day-week/pull/81))
-* **Changed:** Indicate support of WP 6.0. (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul), [@mohitwp](https://github.com/mohitwp), [@cadic](https://github.com/cadic), [@dinhtungdu](https://github.com/dinhtungdu)) via [#87](https://github.com/10up/eight-day-week/pull/87), [#86](https://github.com/10up/eight-day-week/pull/86), [#78](https://github.com/10up/eight-day-week/pull/78))
-* **Security:** Bump grunt from 1.3.0 to 1.5.2 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@jeffpaul](https://github.com/jeffpaul)) via [#84](https://github.com/10up/eight-day-week/pull/84))
-* **Security:** Bump grunt from 1.5.2 to 1.5.3 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@jeffpaul](https://github.com/jeffpaul)) via [#88](https://github.com/10up/eight-day-week/pull/88))
-* **Security:** Bump simple-get from 3.1.0 to 3.1.1 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@jeffpaul](https://github.com/jeffpaul)) via [#82](https://github.com/10up/eight-day-week/pull/82))
+= 1.2.0 - TBD =
+* **Added:** Dependency security scanning (props [@jeffpaul](https://github.com/jeffpaul), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#81](https://github.com/10up/eight-day-week/pull/81)).
+* **Changed:** Bump WordPress version "tested up to" 6.0 (props [@jeffpaul](https://github.com/jeffpaul), [@mohitwp](https://github.com/mohitwp), [@peterwilsoncc](https://github.com/peterwilsoncc), [@cadic](https://github.com/cadic), [@dinhtungdu](https://github.com/dinhtungdu), [@vikrampm1](https://github.com/vikrampm1) via [#78](https://github.com/10up/eight-day-week/pull/78), [#86](https://github.com/10up/eight-day-week/pull/86), [#87](https://github.com/10up/eight-day-week/pull/87)).
+* **Security:** Bump `simple-get` from 3.1.0 to 3.1.1 (props [@dependabot](https://github.com/apps/dependabot) via [#82](https://github.com/10up/eight-day-week/pull/82)).
+* **Security:** Bump `grunt` from 1.3.0 to 1.5.3 (props [@dependabot](https://github.com/apps/dependabot) via [#84](https://github.com/10up/eight-day-week/pull/84), [#88](https://github.com/10up/eight-day-week/pull/88)).
 
-= 1.1.3 =
+= 1.1.3 - 2021-12-15 =
 * **Changed:** Bump WordPress version "tested up to" 5.8 (props [@barneyjeffries](https://github.com/barneyjeffries), [@jeffpaul](https://github.com/jeffpaul)).
 * **Fixed:** Windows compatibility: Use `DIRECTORY_SEPARATOR` instead of slash in filepaths (props [@mnelson4](https://github.com/mnelson4), [@dinhtungdu](https://github.com/dinhtungdu), [@Intelligent2013](https://github.com/Intelligent2013), [@samthinkbox](https://github.com/samthinkbox)).
 * **Security:** Bump `bl` from 1.2.2 to 1.2.3 (props [@dependabot](https://github.com/apps/dependabot)).
@@ -120,7 +119,7 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 * **Security:** Bump `ws` from 6.2.1 to 6.2.2 (props [@dependabot](https://github.com/apps/dependabot)).
 * **Security:** Bump `path-parse` from 1.0.6 to 1.0.7 (props [@dependabot](https://github.com/apps/dependabot)).
 
-= 1.1.2 =
+= 1.1.2 - 2020-10-08 =
 * **Changed:** Plugin documentation and screenshots (props [@jeffpaul](https://profiles.wordpress.org/jeffpaul)).
 * **Removed:** Translation files as this is now handled on [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/eight-day-week-print-workflow/) (props [@jeffpaul](https://profiles.wordpress.org/jeffpaul), [@helen](https://profiles.wordpress.org/helen)).
 * **Fixed:** Unable to change role using upper Print Role dropdown (props [@dinhtungdu](https://profiles.wordpress.org/dinhtungdu)).
@@ -128,17 +127,17 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 * **Security:** Bump `websocket-extensions` from 0.1.3 to 0.1.4 (props [@dependabot](https://github.com/apps/dependabot)).
 * **Security:** Bump `lodash` from 4.17.15 to 4.17.19 (props [@dependabot](https://github.com/apps/dependabot)).
 
-= 1.1.1 =
+= 1.1.1 - 2019-11-22 =
 * **Changed:** Bump WordPress version "tested up to" 5.3 (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein)).
 * **Changed:** Documentation and deploy automation updates (props [@jeffpaul](https://profiles.wordpress.org/jeffpaul)).
 * **Fixed:** WordPress.org translation readiness (props [@jeffpaul](https://profiles.wordpress.org/jeffpaul), [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein), [@helen](https://profiles.wordpress.org/helen)).
 
-= 1.1.0 =
+= 1.1.0 - 2019-07-26 =
 * **Added:** German translation files (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein), Matthias Wehrlein).
 * **Added:** Plugin banner and icon images (props [@chriswallace](https://profiles.wordpress.org/chriswallace)).
 * **Updated:** Update dependencies in `package.json` and `composer.json` to current versions (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein)).
 * **Fixed:** DateTimeZone setup: fall back to `gmt_offset` (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein), Jared Williams).
 * **Fixed:** PHP notices w/PHP 5.6 and fatals with PHP 7.2/3 (props [@adamsilverstein](https://profiles.wordpress.org/adamsilverstein)).
 
-= 1.0.0 =
+= 1.0.0 - 2015-11-16 =
 * Initial Release.
