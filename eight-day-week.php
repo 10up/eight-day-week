@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Eight Day Week
  * Description: Tools that help improve digital & print workflows.
- * Version:     1.1.3
+ * Version:     1.2.0
  * Author:      10up
  * Author URI:  http://10up.com
  * License:     GPLv2+
