@@ -103,6 +103,13 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 
 == Changelog ==
 
+= 1.2.0 =
+* **Added:** Dependency security scanning (props [@jeffpaul](https://github.com/jeffpaul), [@peterwilsoncc](https://github.com/peterwilsoncc)) via [#81](https://github.com/10up/eight-day-week/pull/81))
+* **Changed:** Indicate support of WP 6.0. (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul)), [@mohitwp](https://github.com/mohitwp) via [#87](https://github.com/10up/eight-day-week/pull/87), [#86](https://github.com/10up/eight-day-week/pull/86), [#78](https://github.com/10up/eight-day-week/pull/78))
+* **Security:** Bump grunt from 1.3.0 to 1.5.2 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@jeffpaul](https://github.com/jeffpaul)) via [#84](https://github.com/10up/eight-day-week/pull/84))
+* **Security:** Bump grunt from 1.5.2 to 1.5.3 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@jeffpaul](https://github.com/jeffpaul)) via [#88](https://github.com/10up/eight-day-week/pull/88))
+* **Security:** Bump simple-get from 3.1.0 to 3.1.1 (props [@dependabot[bot]](https://github.com/apps/dependabot), [@jeffpaul](https://github.com/jeffpaul)) via [#82](https://github.com/10up/eight-day-week/pull/82))
+
 = 1.1.3 =
 * **Changed:** Bump WordPress version "tested up to" 5.8 (props [@barneyjeffries](https://github.com/barneyjeffries), [@jeffpaul](https://github.com/jeffpaul)).
 * **Fixed:** Windows compatibility: Use `DIRECTORY_SEPARATOR` instead of slash in filepaths (props [@mnelson4](https://github.com/mnelson4), [@dinhtungdu](https://github.com/dinhtungdu), [@Intelligent2013](https://github.com/Intelligent2013), [@samthinkbox](https://github.com/samthinkbox)).
