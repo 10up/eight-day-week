@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
-## [1.2.0] - TBD
+## [1.2.0] - 2021-06-21
 ### Added
 - Dependency security scanning (props [@jeffpaul](https://github.com/jeffpaul), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#81](https://github.com/10up/eight-day-week/pull/81)).
 

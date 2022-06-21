@@ -103,7 +103,7 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 
 == Changelog ==
 
-= 1.2.0 - TBD =
+= 1.2.0 - 2021-06-21 =
 * **Added:** Dependency security scanning (props [@jeffpaul](https://github.com/jeffpaul), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#81](https://github.com/10up/eight-day-week/pull/81)).
 * **Changed:** Bump WordPress version "tested up to" 6.0 (props [@jeffpaul](https://github.com/jeffpaul), [@mohitwp](https://github.com/mohitwp), [@peterwilsoncc](https://github.com/peterwilsoncc), [@cadic](https://github.com/cadic), [@dinhtungdu](https://github.com/dinhtungdu), [@vikrampm1](https://github.com/vikrampm1) via [#78](https://github.com/10up/eight-day-week/pull/78), [#86](https://github.com/10up/eight-day-week/pull/86), [#87](https://github.com/10up/eight-day-week/pull/87)).
 * **Security:** Bump `simple-get` from 3.1.0 to 3.1.1 (props [@dependabot](https://github.com/apps/dependabot) via [#82](https://github.com/10up/eight-day-week/pull/82)).
