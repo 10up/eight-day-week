@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+## [1.2.0] - 2021-06-21
+### Added
+- Dependency security scanning (props [@jeffpaul](https://github.com/jeffpaul), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#81](https://github.com/10up/eight-day-week/pull/81)).
+
+### Changed
+- Bump WordPress version "tested up to" 6.0 (props [@jeffpaul](https://github.com/jeffpaul), [@mohitwp](https://github.com/mohitwp), [@peterwilsoncc](https://github.com/peterwilsoncc), [@cadic](https://github.com/cadic), [@dinhtungdu](https://github.com/dinhtungdu), [@vikrampm1](https://github.com/vikrampm1) via [#78](https://github.com/10up/eight-day-week/pull/78), [#86](https://github.com/10up/eight-day-week/pull/86), [#87](https://github.com/10up/eight-day-week/pull/87)).
+
+### Security
+- Bump `simple-get` from 3.1.0 to 3.1.1 (props [@dependabot](https://github.com/apps/dependabot) via [#82](https://github.com/10up/eight-day-week/pull/82)).
+- Bump `grunt` from 1.3.0 to 1.5.3 (props [@dependabot](https://github.com/apps/dependabot) via [#84](https://github.com/10up/eight-day-week/pull/84), [#88](https://github.com/10up/eight-day-week/pull/88)).
+
 ## [1.1.3] - 2021-12-15
 ### Changed
 - Bump WordPress version "tested up to" 5.8 (props [@barneyjeffries](https://github.com/barneyjeffries), [@jeffpaul](https://github.com/jeffpaul) via [#74](https://github.com/10up/eight-day-week/pull/74)).
@@ -58,6 +69,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 - Initial Release
 
 [Unreleased]: https://github.com/10up/eight-day-week/compare/trunk...develop
+[1.2.0]: https://github.com/10up/eight-day-week/compare/1.1.3...1.2.0
 [1.1.3]: https://github.com/10up/eight-day-week/compare/1.1.2...1.1.3
 [1.1.2]: https://github.com/10up/eight-day-week/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/10up/eight-day-week/compare/1.1.0...1.1.1
