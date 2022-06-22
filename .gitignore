@@ -1,5 +1,4 @@
 node_modules
-composer.lock
 phpunit.xml
 .idea
 .sass-cache
