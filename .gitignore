@@ -6,3 +6,8 @@ phpunit.xml
 release
 vendor
 .DS_Store
+
+# E2E testing
+tests/cypress/downloads
+tests/cypress/screenshots
+tests/cypress/videos
