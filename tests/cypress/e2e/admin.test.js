@@ -15,6 +15,10 @@ describe("Admin can login and open dashboard", () => {
 });
 
 describe('Admin can login and make sure plugin is activated', () => {
+	before(() => {
+		cy.login();
+	});
+
 	it('Can activate plugin if it is deactivated', () => {
 		cy.visitAdminPage('/plugins.php');
 		cy.get('body').then(($body) => {
