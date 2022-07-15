@@ -20,12 +20,6 @@ describe('Admin can login and make sure plugin is activated', () => {
 	});
 
 	it('Can activate plugin if it is deactivated', () => {
-		cy.visitAdminPage('/plugins.php');
-		cy.get('body').then(($body) => {
-			if ($body.find('#activate-eight-day-week-print-workflow').length) {
-				cy.get('#activate-eight-day-week-print-workflow').click();
-			}
-		});
-		cy.get('#deactivate-eight-day-week-print-workflow').should('be.visible');
+		cy.activatePlugin('eight-day-week-print-workflow');
 	});
 });
