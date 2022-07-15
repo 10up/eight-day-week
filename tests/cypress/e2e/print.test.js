@@ -13,11 +13,13 @@ describe('Publish a new print issue', () => {
 		cy.get(".pi-article-add:visible").click();
 		cy.get(".pi-article-title:visible").type("Hello");
 		cy.wait(1000);
-		if ( cy.get(".ui-menu-item").length ) {
-			cy.get(".ui-menu-item").click();
-		} else {
-			cy.get(".ui-menu-item-wrapper").click();
-		}
+		cy.get("body").then($body => {
+			if ($body.find(".ui-menu-item").length > 0) {
+				cy.get(".ui-menu-item").click();
+			} else {
+				cy.get(".ui-menu-item-wrapper").click();
+			}
+		});
 		cy.get("#normal-sortables .button-primary:visible").click();
 	});
 });
