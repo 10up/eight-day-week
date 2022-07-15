@@ -13,7 +13,7 @@ describe('Publish a new print issue', () => {
 		cy.get(".pi-article-add:visible").click();
 		cy.get(".pi-article-title:visible").type("Hello");
 		cy.wait(1000);
-		cy.get(".ui-menu-item-wrapper").click();
+		cy.get(".ui-menu-item-wrapper, .ui-menu-item").click();
 		cy.get("#normal-sortables .button-primary:visible").click();
 	});
 });
