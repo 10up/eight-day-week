@@ -12,8 +12,8 @@ describe('Publish a new print issue', () => {
 		cy.wait(1000)
 		cy.get(".pi-article-add:visible").click();
 		cy.get(".pi-article-title:visible").type("Hello");
-		cy.wait(500);
-		cy.get(".ui-menu-item-wrapper:visible").click();
+		cy.wait(1000);
+		cy.get(".ui-menu-item-wrapper").click();
 		cy.get("#normal-sortables .button-primary:visible").click();
 	});
 });
