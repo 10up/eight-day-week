@@ -9,15 +9,13 @@ describe('Publish a new print issue', () => {
 		cy.get("#pi-section-add").click();
 		cy.get("#pi-section-name").type("Section title 1");
 		cy.get("#pi-section-add-confirm").click();
-		cy.wait(1000)
-		cy.get(".pi-article-add:visible").click();
+		cy.get(".pi-article-add:visible").contains('Add Article').should('exist').click();
 		cy.get(".pi-article-title:visible").type("Hello");
-		cy.wait(1000);
 		cy.get("body").then($body => {
 			if ($body.find(".ui-menu-item").length > 0) {
-				cy.get(".ui-menu-item").click();
+				cy.get(".ui-menu-item").should('exist').click();
 			} else {
-				cy.get(".ui-menu-item-wrapper").click();
+				cy.get(".ui-menu-item-wrapper").should('exist').click();
 			}
 		});
 		cy.get("#normal-sortables .button-primary:visible").click();
