@@ -2,7 +2,7 @@
 
 > Optimize publication workflows by using WordPress as your print CMS.
 
-[![Support Level](https://img.shields.io/badge/support-stable-blue.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/releases/latest) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/eight-day-week-print-workflow?label=WordPress) [![GPLv2 License](https://img.shields.io/github/license/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/blob/develop/LICENSE.md)
+[![Support Level](https://img.shields.io/badge/support-stable-blue.svg)](#support-level) [![E2E tests](https://github.com/10up/eight-day-week/actions/workflows/cypress.yml/badge.svg)](https://github.com/10up/eight-day-week/actions/workflows/cypress.yml) [![Release Version](https://img.shields.io/github/release/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/releases/latest) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/eight-day-week-print-workflow?label=WordPress) [![GPLv2 License](https://img.shields.io/github/license/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/blob/develop/LICENSE.md)
 
 ## Table of Contents
 * [Overview](#overview)
