@@ -104,6 +104,83 @@ The information displayed in the list of Print Issues is filterable. Custom colu
 
 The export of posts in a Print Issue is highly customizeable, from the file name of the zip, to the file name of the individual files, to the contents of the files themselves.  The best reference would be to read through `includes/functions/plugins/article-export.php`.  [Here's](https://github.com/10up/eight-day-week/wiki/Sample-Eight-Day-Week-filters-for-the-Observer) a few examples used on the *Observer*.
 
+### Sample Eight Day Week filters for the Observer
+
+Examples from Observer's eight-day-week-filters.php:
+
+```php
+<?php
+
+add_filter( 'Eight_Day_Week\Plugins\Article_Export\xml_outer_elements', function( $elements, $article ) {
+	$elements['subHeadline'] = get_post_meta( $article->ID, 'nyo_dek', true );
+	return $elements;
+}, 10, 2 );
+
+add_filter( 'Eight_Day_Week\Plugins\Article_Export\xml_outer_elements', function( $elements, $article ) {
+	if( function_exists( '\Eight_Day_Week\Plugins\Article_Byline\get_article_byline' ) ) {
+		$elements['byline']      = \Eight_Day_Week\Plugins\Article_Byline\get_article_byline( $article );
+	}
+	return $elements;
+}, 10, 2 );
+
+add_filter( 'Eight_Day_Week\Plugins\Article_Export\xpath_extract', function( $extract ) {
+	$extract[] = [
+		'tag_name'  => 'pullQuote',
+		'container' => 'pullQuotes',
+		'query'     => '//p[contains(@class, "pullquote")]'
+	];
+	return $extract;
+} );
+
+add_filter( 'Eight_Day_Week\Plugins\Article_Export\dom', function ( $dom ) {
+	$swap_tag_name = 'emphasized';
+
+	$extract_map = [
+		'strong' => [
+			'solo'  => 'bold',
+			'inner' => 'em'
+		],
+		'em'     => [
+			'solo'  => 'italics',
+			'inner' => 'strong'
+		],
+	];
+
+	foreach ( $extract_map as $tag_name => $map ) {
+		$nodes  = $dom->getElementsByTagName( $tag_name );
+		$length = $nodes->length;
+
+		for ( $i = $length; -- $i >= 0; ) {
+			$el         = $nodes->item( $i );
+			$emphasized = $el->getElementsByTagName( $map['inner'] );
+			if ( $emphasized->length ) {
+				$em            = $dom->createElement( $swap_tag_name );
+				$em->nodeValue = $el->nodeValue;
+				try {
+					$el->parentNode->replaceChild( $em, $el );
+				} catch ( \Exception $e ) {
+
+				}
+				continue;
+			}
+
+			$new            = $dom->createElement( $map['solo'] );
+			$new->nodeValue = $el->nodeValue;
+			try {
+				$el->parentNode->replaceChild( $new, $el );
+			} catch ( \Exception $e ) {
+
+			}
+
+		}
+
+	}
+
+	return $dom;
+
+} );
+```
+
 ## Known Caveats/Issues
 
 ### Gutenberg exports
