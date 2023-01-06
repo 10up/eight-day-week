@@ -181,10 +181,12 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 == Changelog ==
 
 = 1.2.1 - 2023-01-09 =
+* **Note that this release bumps the WordPress minimum version from 4.6 to 5.7 and the PHP minimum version from 5.6 to 7.4.**
+
 * **Added:** Setup E2E tests using Cypress (props [@dhanendran](https://github.com/dhanendran), [@iamdharmesh](https://github.com/iamdharmesh) via [#92](https://github.com/10up/eight-day-week/pull/92)).
 * **Added:** Filter example usages from the Observer (props [@jeffpaul](https://github.com/jeffpaul), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#97](https://github.com/10up/eight-day-week/pull/97)).
 * **Changed:** Bump WordPress minimum version from 4.6 to 5.7 and PHP minimum version from 5.6 to 7.4 (props [@zamanq](https://github.com/zamanq), [@cadic](https://github.com/cadic), [@jeffpaul](https://github.com/jeffpaul) via [#96](https://github.com/10up/eight-day-week/pull/96)).
-* **Changed:** Update support level from Active to Stable (props [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#94](https://github.com/10up/eight-day-week/pull/94)).
+* **Changed:** Update Support Level from `Active` to `Stable` (props [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#94](https://github.com/10up/eight-day-week/pull/94)).
 * **Changed:** Bump WordPress "tested up to" version to 6.1 props [@jayedul](https://github.com/jayedul), [@dkotter](https://github.com/dkotter) via [#102](https://github.com/10up/eight-day-week/pull/102)).
 * **Security:** Remove `shelljs` and bump `grunt-contrib-jshint` from 2.1.0 to 3.2.0 (props [@dependabot](https://github.com/apps/dependabot) via [#99](https://github.com/10up/eight-day-week/pull/99)).
 * **Security:** Bump `got` from 10.7.0 to 11.8.5 and `@wordpress/env` from 4.9.0 to 5.7.0 (props [@dependabot](https://github.com/apps/dependabot) via [#100](https://github.com/10up/eight-day-week/pull/100)).
