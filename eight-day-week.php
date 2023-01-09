@@ -4,7 +4,7 @@
  * Description: Tools that help improve digital & print workflows.
  * Version:     1.2.1
  * Author:      10up
- * Author URI:  http://10up.com
+ * Author URI:  https://10up.com
  * License:     GPLv2+
  * Text Domain: eight-day-week-print-workflow
  */
