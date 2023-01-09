@@ -1,0 +1,39 @@
+name: E2E test
+
+on:
+  push:
+    branches:
+      - develop
+      - trunk
+  pull_request:
+    branches:
+      - develop
+jobs:
+  cypress:
+    name: ${{ matrix.core.name }} / ${{ matrix.php.name }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php:
+          - {name: 'PHP 7.4', version: '7.4'}
+        core:
+          - {name: 'WP stable', version: 'latest'}
+          - {name: 'WP 5.7', version: 'WordPress/WordPress#5.7'}
+          - {name: 'WP trunk', version: 'WordPress/WordPress#master'}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Install dependencies
+      run: npm install
+    - name: Composer (optional)
+      run: composer install
+      continue-on-error: true
+    - name: Build (optional)
+      run: npm run build
+      continue-on-error: true
+    - name: Set the core version
+      run: ./tests/bin/set-core-version.js ${{ matrix.core.version }} ${{ matrix.php.version }}
+    - name: Set up WP environment
+      run: npm run env:start
+    - name: Test
+      run: npm run cypress:run

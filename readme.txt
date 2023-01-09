@@ -1,10 +1,10 @@
 === Eight Day Week Print Workflow ===
-Contributors:      10up, observerteam, joshlevinson, BrentSchultz, jeffpaul
+Contributors:      10up, observerteam, joshlevinson, brs14ku, jeffpaul
 Tags:              print, workflow, editorial
-Requires at least: 4.6
-Tested up to:      6.0
-Stable tag:        1.2.0
-Requires PHP:      5.6
+Requires at least: 5.7
+Tested up to:      6.1
+Stable tag:        1.2.1
+Requires PHP:      7.4
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -85,6 +85,83 @@ The information displayed in the list of Print Issues is filterable. Custom colu
 
 The export of posts in a Print Issue is highly customizable, from the file name of the zip, to the file name of the individual files, to the contents of the files themselves.  The best reference would be to read through `includes/functions/plugins/article-export.php`.  [Here's](https://github.com/10up/eight-day-week/wiki/Sample-Eight-Day-Week-filters-for-the-Observer) a few examples used on the *Observer*.
 
+**Sample Eight Day Week filters for the Observer**
+
+Examples from Observer's eight-day-week-filters.php:
+
+`
+<?php
+
+add_filter( 'Eight_Day_Week\Plugins\Article_Export\xml_outer_elements', function( $elements, $article ) {
+	$elements['subHeadline'] = get_post_meta( $article->ID, 'nyo_dek', true );
+	return $elements;
+}, 10, 2 );
+
+add_filter( 'Eight_Day_Week\Plugins\Article_Export\xml_outer_elements', function( $elements, $article ) {
+	if( function_exists( '\Eight_Day_Week\Plugins\Article_Byline\get_article_byline' ) ) {
+		$elements['byline']      = \Eight_Day_Week\Plugins\Article_Byline\get_article_byline( $article );
+	}
+	return $elements;
+}, 10, 2 );
+
+add_filter( 'Eight_Day_Week\Plugins\Article_Export\xpath_extract', function( $extract ) {
+	$extract[] = [
+		'tag_name'  => 'pullQuote',
+		'container' => 'pullQuotes',
+		'query'     => '//p[contains(@class, "pullquote")]'
+	];
+	return $extract;
+} );
+
+add_filter( 'Eight_Day_Week\Plugins\Article_Export\dom', function ( $dom ) {
+	$swap_tag_name = 'emphasized';
+
+	$extract_map = [
+		'strong' => [
+			'solo'  => 'bold',
+			'inner' => 'em'
+		],
+		'em'     => [
+			'solo'  => 'italics',
+			'inner' => 'strong'
+		],
+	];
+
+	foreach ( $extract_map as $tag_name => $map ) {
+		$nodes  = $dom->getElementsByTagName( $tag_name );
+		$length = $nodes->length;
+
+		for ( $i = $length; -- $i >= 0; ) {
+			$el         = $nodes->item( $i );
+			$emphasized = $el->getElementsByTagName( $map['inner'] );
+			if ( $emphasized->length ) {
+				$em            = $dom->createElement( $swap_tag_name );
+				$em->nodeValue = $el->nodeValue;
+				try {
+					$el->parentNode->replaceChild( $em, $el );
+				} catch ( \Exception $e ) {
+
+				}
+				continue;
+			}
+
+			$new            = $dom->createElement( $map['solo'] );
+			$new->nodeValue = $el->nodeValue;
+			try {
+				$el->parentNode->replaceChild( $new, $el );
+			} catch ( \Exception $e ) {
+
+			}
+
+		}
+
+	}
+
+	return $dom;
+
+} );
+`
+
 == Known Caveats/Issues ==
 
 **Gutenberg exports**
@@ -102,6 +179,18 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 8. A sample article XML export for InDesign.
 
 == Changelog ==
+
+= 1.2.1 - 2023-01-09 =
+* **Note that this release bumps the WordPress minimum version from 4.6 to 5.7 and the PHP minimum version from 5.6 to 7.4.**
+
+* **Added:** Setup E2E tests using Cypress (props [@dhanendran](https://github.com/dhanendran), [@iamdharmesh](https://github.com/iamdharmesh) via [#92](https://github.com/10up/eight-day-week/pull/92)).
+* **Added:** Filter example usages from the Observer (props [@jeffpaul](https://github.com/jeffpaul), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#97](https://github.com/10up/eight-day-week/pull/97)).
+* **Changed:** Bump WordPress minimum version from 4.6 to 5.7 and PHP minimum version from 5.6 to 7.4 (props [@zamanq](https://github.com/zamanq), [@cadic](https://github.com/cadic), [@jeffpaul](https://github.com/jeffpaul) via [#96](https://github.com/10up/eight-day-week/pull/96)).
+* **Changed:** Update Support Level from `Active` to `Stable` (props [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#94](https://github.com/10up/eight-day-week/pull/94)).
+* **Changed:** Bump WordPress "tested up to" version to 6.1 props [@jayedul](https://github.com/jayedul), [@dkotter](https://github.com/dkotter) via [#102](https://github.com/10up/eight-day-week/pull/102)).
+* **Security:** Remove `shelljs` and bump `grunt-contrib-jshint` from 2.1.0 to 3.2.0 (props [@dependabot](https://github.com/apps/dependabot) via [#99](https://github.com/10up/eight-day-week/pull/99)).
+* **Security:** Bump `got` from 10.7.0 to 11.8.5 and `@wordpress/env` from 4.9.0 to 5.7.0 (props [@dependabot](https://github.com/apps/dependabot) via [#100](https://github.com/10up/eight-day-week/pull/100)).
+* **Security:** Bump `simple-git` from 3.10.0 to 3.15.1 (props [@dependabot](https://github.com/apps/dependabot) via [#103](https://github.com/10up/eight-day-week/pull/103)).
 
 = 1.2.0 - 2022-06-23 =
 * **Added:** Dependency security scanning (props [@jeffpaul](https://github.com/jeffpaul), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#81](https://github.com/10up/eight-day-week/pull/81)).
@@ -141,3 +230,9 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 
 = 1.0.0 - 2015-11-16 =
 * Initial Release.
+
+== Upgrade Notice ==
+
+= 1.2.1 =
+
+* Note that this version bumps the minimum PHP version from 5.6 to 7.4 and the minimum WordPress version from 4.6 to 5.7.
