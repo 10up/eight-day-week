@@ -34,7 +34,7 @@ The `develop` branch is the development branch which means it contains the next 
 1. Props: update CREDITS.md file with any new contributors, confirm maintainers are accurate.
 1. New files: Check to be sure any new files/paths that are unnecessary in the production version are included in `.gitattributes`.
 1. Readme updates: Make any other readme changes as necessary. `README.md` is geared toward GitHub and `readme.txt` contains WordPress.org-specific content.  The two are slightly different.
-1. Merge: Make a non-fast-forward merge from your release branch to `develop`, then do the same for `develop` into `trunk`, ensuring you pull the most recent changes into `develop` first (`git checkout develop && git pull origin develop && git checkout trunk && git merge --no-ff develop`).  `trunk` contains the stable development version.
+1. Merge: Make a non-fast-forward merge from your release branch to `develop` (or merge the pull request), then do the same for `develop` into `trunk`, ensuring you pull the most recent changes into `develop` first (`git checkout develop && git pull origin develop && git checkout trunk && git merge --no-ff develop`).  `trunk` contains the stable development version.
 1. Push: Push your `trunk` branch to GitHub (e.g. `git push origin trunk`).
 1. [Compare](https://github.com/10up/eight-day-week/compare/trunk...develop) trunk to develop to ensure no additional changes were missed.
 1. Test the pre-release ZIP locally by [downloading](https://github.com/10up/eight-day-week/actions/workflows/build-release-zip.yml) it from the Build release zip action artifact and installing it locally. Ensure this zip has all the files we expect, that it installs and activates correctly and that all basic functionality is working
