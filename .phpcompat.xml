@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ruleset name="Custom Standard">
+	<arg name="extensions" value="php" />
+	<config name="testVersion" value="7.4-"/>
+	<exclude-pattern>release/</exclude-pattern>
+	<exclude-pattern>vendor/</exclude-pattern>
+	<exclude-pattern>tests/</exclude-pattern>
+	<file>.</file>
+	<rule ref="10up-Default"/>
+</ruleset>
