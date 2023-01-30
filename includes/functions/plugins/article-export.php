@@ -329,6 +329,9 @@ class Article_Zip_Factory {
 			//but fall back to XML
 			if ( ! $files ) {
 				$files = $this->get_xml_file( $article );
+                /*$dir = new Folder( $files->filename );
+                $dir->add_file( $files );
+                $files = $dir;*/
 			}
 
 			$file_sets[ $article->ID ] = $files;
@@ -444,8 +447,8 @@ class Article_XML {
 		], $this->article );
 
 		$dom = new \DOMDocument;
-
-		$content = strip_shortcodes( $this->article->post_content );
+		$content = $this->replace_shortcode_with_output( $this->article->post_content );
+		$content = strip_shortcodes( $content );
 
 		if ( ! $content ) {
 			throw new \Exception( 'Post ' . $this->id . ' was empty.' );
@@ -496,6 +499,35 @@ class Article_XML {
 			$xml_elements->root_element->appendChild( $element );
 		}
 
+	}
+
+	/**
+	 * Replace caption shortcode with its output.
+	 *
+	 * @param string $content post content.
+	 *
+	 * @return string
+	 */
+	function replace_shortcode_with_output( $content ) {
+		$matches = [];
+
+		preg_match_all(
+			'/' . get_shortcode_regex( [ 'caption' ] ) . '/',
+			$content,
+			$matches,
+			PREG_SET_ORDER
+		);
+
+		$matches = array_map( function( $match ) {
+			return $match[0];
+		}, $matches);
+
+		$shortcode_outputs = [];
+		foreach ( $matches as $match ) {
+			$shortcode_outputs[] = do_shortcode( $match );
+		}
+
+		return str_replace($matches, $shortcode_outputs, $content);
 	}
 
 	/**
@@ -677,7 +709,7 @@ class Article_XML {
 
 		foreach ( $content->childNodes as $el ) {
 			$content_element->appendChild( $xml_document->importNode( $el, true ) );
-		}
+        }
 
 		$article_xml = new \stdClass;
 		$article_xml->xml_document = $xml_document;
@@ -813,13 +845,89 @@ class Articles_Zip {
 }
 
 /**
- * Class File
+ * Class Folder
  * @package Eight_Day_Week\Plugins\Article_Export
  *
  * Builds a "File" based on either a string or a readable, actual file
  *
  */
-class File {
+abstract class Resource_Type {
+
+    /**
+     * @var string Resourse type. dir or file
+     */
+    var $type;
+
+    /**
+     * @return boolean
+     */
+    public function is_dir() {
+        return 'dir' === $this->type;
+    }
+}
+
+/**
+ * Class Folder
+ * @package Eight_Day_Week\Plugins\Article_Export
+ *
+ * Builds a "Folder" based on list of File objects
+ *
+ * @uses Resource_Type
+ *
+ */
+class Folder extends Resource_Type {
+
+    /**
+     * @var string The File's name
+     */
+    var $folder_name;
+
+    /**
+     * @var File[] The list of files.
+     */
+    var $files;
+
+    /**
+     * Sets object properties
+     *
+     * @param string $folder_name
+     */
+    function __construct( $folder_name ) {
+        $this->type = 'dir';
+        $this->folder_name = $folder_name;
+    }
+
+    /**
+     * Adds a File to the folder, for later addition to the zip
+     *
+     * @param $file File The file to add.
+     *
+     * @return void
+     */
+    public function add_file( $file ) {
+        $this->files[] = $file;
+    }
+
+    /**
+     * return all the files in the folder
+     *
+     * @return File[]
+     */
+    public function get_files() {
+        return $this->files;
+    }
+}
+
+/**
+ * Class File
+ * @package Eight_Day_Week\Plugins\Article_Export
+ *
+ * Builds a "File" based on either a string or a readable, actual file
+ *
+ * @uses Resource_Type
+ *
+ */
+class File extends Resource_Type {
 
 	/**
 	 * @var string The File's name
@@ -841,6 +949,7 @@ class File {
 	 * @param string $filename
 	 */
 	function __construct( $contents_or_file_path, $filename = '' ) {
+        $this->type = 'file';
 		if( is_readable( $contents_or_file_path ) ) {
 			$this->contents = file_get_contents( $contents_or_file_path );
 			$this->filename = basename( $contents_or_file_path );
