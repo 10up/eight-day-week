@@ -49,6 +49,8 @@ function register_taxonomy() {
 		'search_items'               => __( 'Search Issue Statuses', 'eight-day-week-print-workflow' ),
 		'all_items'                  => __( 'All Issue Statuses', 'eight-day-week-print-workflow' ),
 		'edit_item'                  => __( 'Edit Issue Status', 'eight-day-week-print-workflow' ),
+		'view_item'                  => __( 'View Issue Status', 'eight-day-week-print-workflow' ),
+		'add_or_remove_items'        => __( 'Add or Remove Issue Status', 'eight-day-week-print-workflow' ),
 		'update_item'                => __( 'Update Issue Status', 'eight-day-week-print-workflow' ),
 		'add_new_item'               => __( 'Add New Issue Status', 'eight-day-week-print-workflow' ),
 		'new_item_name'              => __( 'New Issue Status Name', 'eight-day-week-print-workflow' ),
@@ -56,6 +58,14 @@ function register_taxonomy() {
 		'separate_items_with_commas' => '',
 		'choose_from_most_used'      => __( 'Choose from an existing Issue Status', 'eight-day-week-print-workflow' ),
 		'not_found'                  => __( 'No Issue Statuses found.', 'eight-day-week-print-workflow' ),
+		'name_field_description'	 => __( 'The name is how it appears on your site.', 'eight-day-week-print-workflow' ),
+		'slug_field_description'     => __( 'The "slug" is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'eight-day-week-print-workflow' ),
+		'parent_field_description'   => __( 'Assign a parent issue status to create a hierarchy.', 'eight-day-week-print-workflow' ),
+		'popular_items'              => __( 'Popular Parent Issue Statuses', 'eight-day-week-print-workflow' ),
+		'parent_item'                => __( 'Parent Issue Status', 'eight-day-week-print-workflow' ),
+		'parent_item_colon'          => __( 'Parent Issue Status Colon', 'eight-day-week-print-workflow' ),
+		'no_terms'                   => __( 'No Issue Status', 'eight-day-week-print-workflow' ),
+		'back_to_items'              => __( 'Back to Issue Statuses', 'eight-day-week-print-workflow' ),
 	];
 
 	$args = [
