@@ -10,7 +10,7 @@ on:
       - develop
 jobs:
   build: 
-      uses: 10up/eight-day-week/.github/workflows/build-release-zip.yml@update/105 # TODO: Update this to develop branch.
+      uses: 10up/eight-day-week/.github/workflows/build-release-zip.yml@develop
   cypress:
     needs: build
     name: ${{ matrix.core.name }} / ${{ matrix.php.name }}
