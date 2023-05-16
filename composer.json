@@ -21,6 +21,12 @@
 		"antecedent/patchwork": "2.1.*",
 		"phpunit/phpunit": "*@stable",
 		"brianium/paratest": "6.x-dev",
-		"10up/wp_mock": "dev-master"
+		"10up/wp_mock": "dev-trunk",
+		"10up/phpcs-composer": "dev-master"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
 	}
 }
