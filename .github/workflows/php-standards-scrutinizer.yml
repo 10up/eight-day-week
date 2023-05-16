@@ -44,7 +44,7 @@ jobs:
       run: composer install
 
     - name: Check WordPress Coding Standards
-      run: ./vendor/bin/phpcs --standard=.wpcs.xml
+      run: ./vendor/bin/phpcs --standard=.phpcs.xml
 
     - name: Check PHP Compatibility
       run: ./vendor/bin/phpcs --standard=.phpcompat.xml
