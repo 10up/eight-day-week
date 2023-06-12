@@ -1,4 +1,10 @@
 <?php
+/**
+ * Core functionality
+ *
+ * @package eight-day-week
+ */
+
 namespace Eight_Day_Week\Core;
 
 /**
@@ -17,12 +23,12 @@ function setup() {
 	add_action( 'init', ns( 'init' ) );
 	add_action( __NAMESPACE__ . '\init', ns( 'i18n' ) );
 
-	//activate current version of this plugin
+	// activate current version of this plugin
 	add_action( 'admin_init', ns( 'activate' ) );
 
 	do_action( __NAMESPACE__ . '\loaded' );
 
-	//add data to wp_send_json_*
+	// add data to wp_send_json_*
 	add_filter( 'pp-ajax-data', ns( 'tack_on_ajax_response' ) );
 }
 
@@ -36,10 +42,10 @@ function setup() {
 function init() {
 	do_action( __NAMESPACE__ . '\init' );
 	if ( is_admin() ) {
-		do_action ( __NAMESPACE__ . '\admin_init' );
+		do_action( __NAMESPACE__ . '\admin_init' );
 	}
 
-	//this should be used by plugins, so that they're guaranteed that all core functionality has been loaded
+	// this should be used by plugins, so that they're guaranteed that all core functionality has been loaded
 	do_action( __NAMESPACE__ . '\plugin_init' );
 }
 
@@ -62,9 +68,9 @@ function i18n() {
  */
 function activate() {
 
-	$stored_version = get_option( 'edw_activated');
+	$stored_version = get_option( 'edw_activated' );
 
-	if( EDW_VERSION === $stored_version ) {
+	if ( EDW_VERSION === $stored_version ) {
 		return;
 	}
 
@@ -93,15 +99,16 @@ function create_nonce() {
  *
  * @param array $data Data to send in the response
  */
-function send_json_success( $data = [] ) {
+function send_json_success( $data = array() ) {
 	wp_send_json_success( apply_filters( 'pp-ajax-data', $data ) );
 }
 
 /**
  * Send a json error response + tacked on data
+ *
  * @param array $data Data to send in the response
  */
-function send_json_error( $data = [] ) {
+function send_json_error( $data = array() ) {
 	wp_send_json_error( apply_filters( 'pp-ajax-data', $data ) );
 }
 
@@ -113,13 +120,13 @@ function send_json_error( $data = [] ) {
  *
  * @return array Data + nonce
  */
-function tack_on_ajax_response( $data = [] ) {
-	$data = ( is_array( $data ) || is_object( $data ) ? $data : [ 'message' => $data ] );
+function tack_on_ajax_response( $data = array() ) {
+	$data = ( is_array( $data ) || is_object( $data ) ? $data : array( 'message' => $data ) );
 
 	$nonce = create_nonce();
-	if( is_array( $data ) ) {
+	if ( is_array( $data ) ) {
 		$data['_ajax_nonce'] = $nonce;
-		if( isset( $data['message'] ) ) {
+		if ( isset( $data['message'] ) ) {
 			$data['message'] = esc_html( $data['message'] );
 		}
 	} else {
@@ -146,7 +153,7 @@ function check_ajax_referer( $query_arg = false, $die = false ) {
 function check_elevated_ajax_referer( $action = false, $query_arg = false, $die = false ) {
 	check_ajax_referer( $query_arg, $die );
 
-	//if the user didn't pass in an $action, check $_POST. One can pass an empty string to use no cap/action
+	// if the user didn't pass in an $action, check $_POST. One can pass an empty string to use no cap/action
 	$action = false === $action ? $_POST['action'] : sanitize_text_field( $action );
 
 	$elevated = \Eight_Day_Week\User_Roles\current_user_can_edit_print_issue( $action );
@@ -164,16 +171,16 @@ function check_elevated_ajax_referer( $action = false, $query_arg = false, $die 
  *
  * @return string The final URL
  */
-function get_asset_url ( $file_name, $js_or_css ) {
+function get_asset_url( $file_name, $js_or_css ) {
 	$url = EDW_URL . 'assets/';
 
 	if ( $js_or_css === 'js' ) {
 		$url .= 'js/';
 		$url .= EDW_PRODUCTION ? '' : 'src/';
-		$ext = '.js';
+		$ext  = '.js';
 	} else {
 		$url .= 'css/';
-		$ext = '.css';
+		$ext  = '.css';
 	}
 
 	$url .= $file_name;
@@ -194,7 +201,7 @@ function get_asset_url ( $file_name, $js_or_css ) {
  */
 function get_timezone() {
 	$timezone = get_option( 'timezone_string' );
-	if( ! $timezone ) {
+	if ( ! $timezone ) {
 		$timezone = new Helper_DateTimeZone( Helper_DateTimeZone::tzOffsetToName( get_offset() ) );
 		$timezone = $timezone->getName();
 	}
@@ -212,21 +219,22 @@ function get_offset() {
 
 /**
  * Class Helper_DateTimeZone
+ *
  * @package Eight_Day_Week\Core
  *
  * http://php.net/manual/en/function.timezone-name-from-abbr.php#89155
- *
  */
 class Helper_DateTimeZone extends \DateTimeZone {
 	/**
 	 * Converts a timezone hourly offset to its timezone's name.
+	 *
 	 * @example $offset = -5, $isDst = 0 <=> return value = 'America/New_York'
 	 *
 	 * @param float $offset The timezone's offset in hours.
 	 *                      Lowest value: -12 (Pacific/Kwajalein)
 	 *                      Highest value: 14 (Pacific/Kiritimati)
-	 * @param bool $isDst Is the offset for the timezone when it's in daylight
-	 *                      savings time?
+	 * @param bool  $isDst Is the offset for the timezone when it's in daylight
+	 *                       savings time?
 	 *
 	 * @return string The name of the timezone: 'Asia/Tokyo', 'Europe/Paris', ...
 	 */
@@ -236,14 +244,14 @@ class Helper_DateTimeZone extends \DateTimeZone {
 		}
 
 		$offset *= 3600;
-		$zone = timezone_name_from_abbr( '', $offset, $isDst );
+		$zone    = timezone_name_from_abbr( '', $offset, $isDst );
 
 		if ( $zone === false ) {
 			foreach ( timezone_abbreviations_list() as $abbr ) {
 				foreach ( $abbr as $city ) {
 					if ( (bool) $city['dst'] === (bool) $isDst &&
-					     strlen( $city['timezone_id'] ) > 0 &&
-					     $city['offset'] == $offset
+						strlen( $city['timezone_id'] ) > 0 &&
+						$city['offset'] == $offset
 					) {
 						$zone = $city['timezone_id'];
 						break;

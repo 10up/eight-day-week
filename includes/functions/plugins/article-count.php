@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name: Eight Day Week Article Count
  * Description: Displays the number of articles in a print issue on the print issue rubric
@@ -7,26 +6,29 @@
  * Author:      10up - Josh Levinson
  * Author URI:  http://10up.com
  * License:     GPLv2+
+ *
+ * @package eight-day-week
  */
 
 namespace Eight_Day_Week\Plugins\Article_Count;
 
 use Eight_Day_Week\Core as Core;
 
-function setup (){
+function setup() {
 
-	add_action( 'Eight_Day_Week\Core\plugin_init', function () {
+	add_action(
+		'Eight_Day_Week\Core\plugin_init',
+		function () {
 
-		function ns( $function ) {
-			return __NAMESPACE__ . "\\$function";
+			function ns( $function ) {
+				return __NAMESPACE__ . "\\$function";
+			}
+
+			add_filter( 'manage_edit-' . EDW_PRINT_ISSUE_CPT . '_columns', ns( 'print_issue_cpt_columns' ) );
+			add_action( 'manage_' . EDW_PRINT_ISSUE_CPT . '_posts_custom_column', ns( 'populate_print_issue_cpt_columns' ), 10, 2 );
+			add_action( 'save_print_issue', ns( 'bust_num_articles_cache' ) );
 		}
-
-		add_filter( 'manage_edit-' . EDW_PRINT_ISSUE_CPT . '_columns', ns( 'print_issue_cpt_columns' ) );
-		add_action( 'manage_' . EDW_PRINT_ISSUE_CPT . '_posts_custom_column', ns( 'populate_print_issue_cpt_columns' ), 10, 2 );
-		add_action( 'save_print_issue', ns( 'bust_num_articles_cache' ) );
-
-	} );
-
+	);
 }
 
 /**
@@ -55,7 +57,7 @@ function print_issue_cpt_columns( $custom ) {
 function populate_print_issue_cpt_columns( $colname, $post_id ) {
 	if ( 'num_articles' === $colname ) {
 
-		$cache_key = get_num_articles_cache_key( $post_id );
+		$cache_key     = get_num_articles_cache_key( $post_id );
 		$article_count = wp_cache_get( $cache_key );
 
 		if ( false === $article_count ) {
@@ -80,14 +82,14 @@ function populate_print_issue_cpt_columns( $colname, $post_id ) {
 function get_num_articles( $post_id ) {
 	$sections = get_post_meta( $post_id, 'sections', true );
 
-	//sanitize - only allow comma delimited integers
+	// sanitize - only allow comma delimited integers
 	if ( ! ctype_digit( str_replace( ',', '', $sections ) ) ) {
 		return 0;
 	}
 
 	$sections = explode( ',', $sections );
 
-	$article_count = [ ];
+	$article_count = array();
 
 	if ( count( $sections ) > 0 ) {
 		foreach ( $sections as $section_id ) {

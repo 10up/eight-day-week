@@ -1,4 +1,9 @@
 <?php
+/**
+ * Handles the articles functionality
+ *
+ * @package eight-day-week
+ */
 
 namespace Eight_Day_Week\Articles;
 

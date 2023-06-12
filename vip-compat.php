@@ -1,4 +1,9 @@
 <?php
+/**
+ * Add VIP role
+ *
+ * @package eight-day-week
+ */
 
 namespace Eight_Day_Week;
 
@@ -48,7 +53,7 @@ function get_role_caps( $role ) {
  *
  * @param string $role Role name
  * @param string $name Display name for the role
- * @param array $capabilities Key/value array of capabilities for the role
+ * @param array  $capabilities Key/value array of capabilities for the role
  */
 function add_role( $role, $name, $capabilities ) {
 	if ( function_exists( 'wpcom_vip_add_role' ) ) {
@@ -79,7 +84,7 @@ function add_role( $role, $name, $capabilities ) {
  * Usage: add_role_caps( 'contributor', array( 'upload_files' ) );
  *
  * @param string $role Role name
- * @param array $caps Capabilities to add to the role
+ * @param array  $caps Capabilities to add to the role
  */
 function add_role_caps( $role, $caps ) {
 	if ( function_exists( 'wpcom_vip_add_role_caps' ) ) {
@@ -99,7 +104,7 @@ function add_role_caps( $role, $caps ) {
  * Usage: merge_role_caps( 'author', array( 'publish_posts' => false ) );
  *
  * @param string $role Role name
- * @param array $caps Key/value array of capabilities for this role
+ * @param array  $caps Key/value array of capabilities for this role
  */
 function merge_role_caps( $role, $caps ) {
 	if ( function_exists( 'wpcom_vip_merge_role_caps' ) ) {

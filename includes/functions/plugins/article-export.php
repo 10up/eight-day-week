@@ -1,4 +1,9 @@
 <?php
+/**
+ * Handles the article export functionality
+ *
+ * @package eight-day-week
+ */
 
 namespace Eight_Day_Week\Plugins\Article_Export;
 
