@@ -28,11 +28,9 @@ function setup() {
 	add_action( 'wp_ajax_pp-get-article-row', ns( 'get_article_row_ajax' ) );
 	add_action( 'save_print_issue', ns( 'save_section_articles' ), 10, 3 );
 
-	//load publish date
-	//use -1 priority to ensure its loaded before 3rd party plugins
+	// load publish date
+	// use -1 priority to ensure its loaded before 3rd party plugins
 	add_filter( __NAMESPACE__ . '\article_columns', ns( 'filter_article_columns_date' ), 1 );
-
-
 }
 
 /**
@@ -47,9 +45,11 @@ function articles_metabox_output( $section_id ) {
 		<?php existing_articles( $articles ); ?>
 	</div>
 
-	<?php if( ! User\current_user_can_edit_print_issue() ) {
+	<?php
+	if ( ! User\current_user_can_edit_print_issue() ) {
 		return;
-	} ?>
+	}
+	?>
 
 	<button
 		class="button button-secondary pi-article-add"><?php esc_html_e( 'Add Article', 'eight-day-week-print-workflow' ); ?>
@@ -69,20 +69,20 @@ function articles_metabox_output( $section_id ) {
 		class="pi-article-ids"
 		value="<?php echo esc_attr( implode( ',', $articles ) ); ?>"
 		/>
-<?php
+	<?php
 }
 
 if ( ! class_exists( '\WP_Posts_List_Table' ) ) {
-	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
-	require_once( ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php' );
+	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
+	require_once ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php';
 }
 
 /**
  * Class AL_Table
+ *
  * @package Eight_Day_Week\Articles
  *
  * Article List Table extending WP_Posts_List_Table to display a print issue's articles
- *
  */
 class AL_Table extends \WP_Posts_List_Table {
 
@@ -98,9 +98,11 @@ class AL_Table extends \WP_Posts_List_Table {
 	 */
 	function __construct( $article_ids ) {
 		$this->article_ids = $article_ids;
-		parent::__construct( [
-			'screen' => EDW_PRINT_ISSUE_CPT,
-		] );
+		parent::__construct(
+			array(
+				'screen' => EDW_PRINT_ISSUE_CPT,
+			)
+		);
 	}
 
 	/**
@@ -114,19 +116,18 @@ class AL_Table extends \WP_Posts_List_Table {
 	 * Provides a filter so 3rd parties can provide fallback meta for a column
 	 *
 	 * @param \WP_Post $item
-	 * @param string $column_name
+	 * @param string   $column_name
 	 *
 	 * @return mixed|string|void
 	 */
 	function column_default( $item, $column_name ) {
 		switch ( $column_name ) {
 			default:
-
-				if( ! is_object( $item ) ) {
+				if ( ! is_object( $item ) ) {
 					return '';
 				}
 
-				if( property_exists( $item, $column_name ) ){
+				if ( property_exists( $item, $column_name ) ) {
 					return $item->$column_name;
 				}
 
@@ -135,9 +136,9 @@ class AL_Table extends \WP_Posts_List_Table {
 					return $filtered;
 				}
 
-				//try post meta
+				// try post meta
 				$meta = get_post_meta( $item->ID, $column_name, true );
-				if( $meta ) {
+				if ( $meta ) {
 					return $meta;
 				}
 
@@ -152,11 +153,12 @@ class AL_Table extends \WP_Posts_List_Table {
 	 * @return array Columns
 	 */
 	function get_columns() {
-		return apply_filters( __NAMESPACE__ . '\article_columns',
-			[
-				'cb'             => '<input type="checkbox" />',
-				'title'          => _x( 'Article', 'eight-day-week-print-workflow' ),
-			]
+		return apply_filters(
+			__NAMESPACE__ . '\article_columns',
+			array(
+				'cb'    => '<input type="checkbox" />',
+				'title' => _x( 'Article', 'eight-day-week-print-workflow' ),
+			)
 		);
 	}
 
@@ -165,15 +167,28 @@ class AL_Table extends \WP_Posts_List_Table {
 	 *
 	 * Gets the columns (and sets the internal headers property)
 	 * Gets the \WP_Post for each article ID in the current object's set
-	 *
 	 */
 	function prepare_items() {
 		$columns               = $this->get_columns();
-		$hidden                = [];
-		$sortable              = [];
-		$this->_column_headers = [ $columns, $hidden, $sortable ];
+		$hidden                = array();
+		$sortable              = array();
+		$this->_column_headers = array( $columns, $hidden, $sortable );
 		foreach ( $this->article_ids as $id ) {
 			$post = get_post( $id );
+
+			$post_img_num   = 0;
+			$gallery_images = get_post_galleries( $post, true );
+			if ( ! empty( $gallery_images ) ) {
+				foreach ( $gallery_images as $single ) {
+					$post->post_content .= $single;
+				}
+			}
+			$post_img_num = (int) preg_match_all( '/<img[^>]*>/', $post->post_content, $array );
+			if ( has_post_thumbnail( $post->ID ) ) {
+				++$post_img_num;
+			}
+			$post->post_img_num = $post_img_num;
+
 			$this->items[] = $post;
 		}
 	}
@@ -181,7 +196,7 @@ class AL_Table extends \WP_Posts_List_Table {
 	/**
 	 * Generates content for a single row of the table
 	 *
-	 * @param object $item The current item
+	 * @param object                                                         $item The current item
 	 * @param $level int The current item's level (parent relationship level)
 	 */
 	public function single_row( $item, $level = 0 ) {
@@ -199,8 +214,8 @@ class AL_Table extends \WP_Posts_List_Table {
 	 *
 	 * @return array Empty array
 	 */
-	function get_bulk_actions(){
-		return [];
+	function get_bulk_actions() {
+		return array();
 	}
 
 	/**
@@ -217,9 +232,9 @@ class AL_Table extends \WP_Posts_List_Table {
 	 * Override parent method to be moar simpler
 	 *
 	 * @param array $posts
-	 * @param int $level
+	 * @param int   $level
 	 */
-	function display_rows( $posts = [], $level = 0 ) {
+	function display_rows( $posts = array(), $level = 0 ) {
 		foreach ( $this->items as $article ) {
 			$this->single_row( $article );
 		}
@@ -238,14 +253,14 @@ class AL_Table extends \WP_Posts_List_Table {
 	 * Override the parent method to be moar simpler
 	 *
 	 * @param \WP_Post $item The current post
-	 * @param string $classes The posts's css classes
-	 * @param string $data The posts's data-attributes
-	 * @param string $primary (shrug) Unused here, just keeping in line with parent class
+	 * @param string   $classes The posts's css classes
+	 * @param string   $data The posts's data-attributes
+	 * @param string   $primary (shrug) Unused here, just keeping in line with parent class
 	 *
 	 * @return string
 	 */
 	function _column_title( $item, $classes = '', $data = '', $primary = false ) {
-		$html = '<td class="' . esc_attr( $classes ) . ' page-title" '  . esc_attr( $data ) . '>';
+		$html  = '<td class="' . esc_attr( $classes ) . ' page-title" ' . esc_attr( $data ) . '>';
 		$html .= $this->column_title( $item );
 		$html .= '</td>';
 		return $html;
@@ -260,7 +275,7 @@ class AL_Table extends \WP_Posts_List_Table {
 	 */
 	function column_cb( $item ) {
 		return '<input type="checkbox" class="article-status" name="article-status[]" value="' .
-		       ( isset( $item->ID ) ? absint( $item->ID ) : '' ) . '" />';
+				( isset( $item->ID ) ? absint( $item->ID ) : '' ) . '" />';
 	}
 
 	/**
@@ -272,20 +287,20 @@ class AL_Table extends \WP_Posts_List_Table {
 	 */
 	function column_title( $item ) {
 
-		if( current_user_can( 'edit_post', $item->ID ) ) {
+		if ( current_user_can( 'edit_post', $item->ID ) ) {
 			$title = '<a class="pi-article-title" href="' . esc_url( get_edit_post_link( $item->ID ) ) .
-			         '">' . esc_html( get_the_title( $item->ID ) ) . '</a>';
+					'">' . esc_html( get_the_title( $item->ID ) ) . '</a>';
 		} else {
 			$title = esc_html( get_the_title( $item->ID ) );
 		}
 
 		$title .= '<a class="pi-article-view" target="_blank" href="' .
-		          esc_url( get_permalink( $item->ID ) ) . '">' . __( 'View', 'eight-day-week-print-workflow' ) . '</a>';
+					esc_url( get_permalink( $item->ID ) ) . '">' . __( 'View', 'eight-day-week-print-workflow' ) . '</a>';
 
-		//don't give remove link to print prod users
-		if( User\current_user_can_edit_print_issue() ) {
+		// don't give remove link to print prod users
+		if ( User\current_user_can_edit_print_issue() ) {
 			$title .= '<a class="pi-article-remove" href="javascript:;" data-article-id="' .
-			          absint( $item->ID ) . '">Remove</a>';
+						absint( $item->ID ) . '">Remove</a>';
 		}
 
 		return $title;
@@ -299,17 +314,17 @@ class AL_Table extends \WP_Posts_List_Table {
 	 * @return \stdClass Object representing the post's tabular data
 	 */
 	function get_data( $item ) {
-		$data = new \stdClass;
+		$data = new \stdClass();
 		foreach ( (array) $this->get_columns() as $key => $title ) {
-			//using object buffering because some WP_Posts_List_Table methods output instead of return
+			// using object buffering because some WP_Posts_List_Table methods output instead of return
 			ob_start();
 			if ( method_exists( $this, "_column_$key" ) ) {
 				$method = "_column_$key";
 				echo $this->$method( $item );
-			} else if ( ! property_exists( $this, $key ) && method_exists( $this, "column_$key" ) ) {
+			} elseif ( ! property_exists( $this, $key ) && method_exists( $this, "column_$key" ) ) {
 				$method = "column_$key";
 				echo $this->$method( $item );
-			} else if( $default = $this->column_default( $item, $key ) ) {
+			} elseif ( $default = $this->column_default( $item, $key ) ) {
 				echo $default;
 			}
 			$data->$key = ob_get_clean();
@@ -334,7 +349,7 @@ class AL_Table extends \WP_Posts_List_Table {
 	 *
 	 * @return string THe post's table row
 	 */
-	function get_single_row( $item ){
+	function get_single_row( $item ) {
 		ob_start();
 		$this->single_row( $item );
 		return ob_get_clean();
@@ -357,7 +372,6 @@ function existing_articles( $articles ) {
 		$table->prepare_items();
 		$table->display();
 	}
-
 }
 
 /**
@@ -370,7 +384,7 @@ function existing_articles( $articles ) {
 function get_existing_articles( $section_id ) {
 	$articles = get_post_meta( $section_id, 'articles', true );
 	if ( ! $articles ) {
-		return [ ];
+		return array();
 	}
 
 	return explode( ',', $articles );
@@ -386,11 +400,10 @@ function get_articles_ajax() {
 	try {
 		$articles = get_articles_autocomplete( $title );
 	} catch ( \Exception $e ) {
-		\Eight_Day_Week\Core\send_json_error( [ 'message' => $e->getMessage() ] );
+		\Eight_Day_Week\Core\send_json_error( array( 'message' => $e->getMessage() ) );
 	}
 
-	\Eight_Day_Week\Core\send_json_success( [ 'articles' => $articles ] );
-
+	\Eight_Day_Week\Core\send_json_success( array( 'articles' => $articles ) );
 }
 
 /**
@@ -402,13 +415,13 @@ function get_articles_ajax() {
  * @throws \Exception
  */
 function get_articles_autocomplete( $title ) {
-	$articles = get_articles( $title );
-	$autocomplete = [];
-	foreach( $articles as $article ) {
-		$autocomplete[] = [
+	$articles     = get_articles( $title );
+	$autocomplete = array();
+	foreach ( $articles as $article ) {
+		$autocomplete[] = array(
 			'label' => $article->post_title,
 			'value' => $article->ID,
-		];
+		);
 	}
 	return $autocomplete;
 }
@@ -426,9 +439,9 @@ function get_articles( $title ) {
 		throw new \Exception( __( 'Please enter a valid/non-empty title.', 'eight-day-week-print-workflow' ) );
 	}
 
-	$post_types = apply_filters( __NAMESPACE__ . '\\post_types', [ 'post' ] );
+	$post_types = apply_filters( __NAMESPACE__ . '\\post_types', array( 'post' ) );
 
-	$args = [
+	$args = array(
 		'search_by_title'        => sanitize_text_field( $title ),
 		'posts_per_page'         => 20,
 		'post_type'              => $post_types,
@@ -437,7 +450,7 @@ function get_articles( $title ) {
 		'orderby'                => 'post_date',
 		'update_post_meta_cache' => false,
 		'no_found_rows'          => true,
-	];
+	);
 
 	add_filter( 'posts_where', __NAMESPACE__ . '\\title_filter', 10, 2 );
 	$articles = new \WP_Query( $args );
@@ -462,8 +475,8 @@ function title_filter( $where, $wp_query ) {
 	global $wpdb;
 	if ( $title = $wp_query->get( 'search_by_title' ) ) {
 		/*using the esc_like() in here instead of other esc_sql()*/
-		$title = $wpdb->esc_like( $title );
-		$title = ' \'%' . $title . '%\'';
+		$title  = $wpdb->esc_like( $title );
+		$title  = ' \'%' . $title . '%\'';
 		$where .= ' AND ' . $wpdb->posts . '.post_title LIKE ' . $title;
 	}
 
@@ -477,11 +490,11 @@ function get_article_row_ajax() {
 
 	\Eight_Day_Week\Core\check_ajax_referer();
 
-	$article_id = absint( $_GET['article_id'] );
-	$article_table = new AL_Table( [ $article_id ] );
+	$article_id    = absint( $_GET['article_id'] );
+	$article_table = new AL_Table( array( $article_id ) );
 	$article_table->prepare_items();
 
-	$article_data = new \stdClass;
+	$article_data       = new \stdClass();
 	$article_data->data = $article_table->get_data( $article_table->items[0] );
 	$article_data->html = $article_table->get_single_row( $article_table->items[0] );
 
@@ -497,7 +510,7 @@ function get_article_row_ajax() {
  */
 function save_section_articles( $post_id, $post, $update ) {
 
-	if( ! isset( $_POST['pi-article-ids'] ) ) {
+	if ( ! isset( $_POST['pi-article-ids'] ) ) {
 		return;
 	}
 
@@ -506,29 +519,28 @@ function save_section_articles( $post_id, $post, $update ) {
 		return;
 	}
 
-	//remove print issue template
+	// remove print issue template
 	if ( isset( $article_ids_sets[ $post_id ] ) ) {
 		unset( $article_ids_sets[ $post_id ] );
 	}
 
 	foreach ( $article_ids_sets as $section_id => $article_ids ) {
-		//validate section
+		// validate section
 		if ( ! $section_id || ! $section = get_post( $section_id ) ) {
 			continue;
 		}
 
-		//sanitize - only allow comma delimited integers
+		// sanitize - only allow comma delimited integers
 		if ( ! empty( $article_ids ) && ! ctype_digit( str_replace( ',', '', $article_ids ) ) ) {
 			continue;
 		}
 
-		//remove dup IDs
+		// remove dup IDs
 		$article_ids = explode( ',', $article_ids );
 		$article_ids = array_unique( $article_ids );
 
 		update_post_meta( absint( $section_id ), 'articles', implode( ',', $article_ids ) );
 	}
-
 }
 
 /**

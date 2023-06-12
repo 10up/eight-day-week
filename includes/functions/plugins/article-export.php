@@ -14,32 +14,33 @@ use Eight_Day_Week\Core as Core;
  */
 function setup() {
 
-	add_action( 'Eight_Day_Week\Core\plugin_init', function () {
+	add_action(
+		'Eight_Day_Week\Core\plugin_init',
+		function () {
 
-		function ns( $function ) {
-			return __NAMESPACE__ . "\\$function";
+			function ns( $function ) {
+				return __NAMESPACE__ . "\\$function";
+			}
+
+			function a( $function ) {
+				add_action( $function, ns( $function ) );
+			}
+			add_action( 'edw_sections_top', ns( 'output_article_export_buttons' ), 11 );
+			add_action( 'wp_ajax_pp-article-export', ns( 'export_articles' ) );
+
+			add_action( 'wp_ajax_pp-article-export-update', ns( 'article_status_response' ) );
+
+			// add export status column
+			add_filter( 'Eight_Day_Week\Articles\article_columns', ns( 'article_export_status_column' ), 10 );
+
+			// retrieve export status + build string for output
+			add_filter( 'Eight_Day_Week\Articles\article_meta_export_status', ns( 'filter_export_status' ), 10, 2 );
+
+			add_filter( __NAMESPACE__ . '\short_circuit_article_export_files', ns( 'maybe_export_article_attachments' ), 10, 4 );
+
+			add_filter( __NAMESPACE__ . '\xml_filename', ns( 'filter_xml_filename_author' ), 10, 3 );
 		}
-
-		function a( $function ) {
-			add_action( $function, ns( $function ) );
-		}
-
-		add_action( 'edw_sections_top', ns( 'output_article_export_buttons' ), 11 );
-		add_action( 'wp_ajax_pp-article-export', ns( 'export_articles' ) );
-
-		add_action( 'wp_ajax_pp-article-export-update', ns( 'article_status_response' ) );
-
-		//add export status column
-		add_filter( 'Eight_Day_Week\Articles\article_columns', ns( 'article_export_status_column' ), 10 );
-
-		//retrieve export status + build string for output
-		add_filter( 'Eight_Day_Week\Articles\article_meta_export_status', ns( 'filter_export_status' ), 10, 2 );
-
-		add_filter( __NAMESPACE__ . '\short_circuit_article_export_files', ns( 'maybe_export_article_attachments' ), 10, 4 );
-
-		add_filter( __NAMESPACE__ . '\xml_filename', ns( 'filter_xml_filename_author' ), 10, 3 );
-	} );
-
+	);
 }
 
 /**
@@ -52,7 +53,7 @@ function output_article_export_buttons() {
 		<button id="article-export-checked" class="button button-secondary"><?php esc_html_e( 'Export checked', 'eight-day-week-print-workflow' ); ?></button>
 		<button id="article-export-all" class="button button-secondary"><?php esc_html_e( 'Export all', 'eight-day-week-print-workflow' ); ?></button>
 	</div>
-<?php
+	<?php
 }
 
 /**
@@ -68,10 +69,10 @@ function export_articles() {
 
 	$article_ids = $_POST['article_ids'];
 
-	$print_issue_id = absint( $_POST['print_issue_id'] );
+	$print_issue_id    = absint( $_POST['print_issue_id'] );
 	$print_issue_title = sanitize_text_field( $_POST['print_issue_title'] );
 
-	//sanitize - only allow comma delimited integers
+	// sanitize - only allow comma delimited integers
 	if ( ! ctype_digit( str_replace( ',', '', $article_ids ) ) ) {
 		die( __( 'Invalid article IDs specified in the request.', 'eight-day-week-print-workflow' ) );
 	}
@@ -94,7 +95,6 @@ function export_articles() {
 	}
 
 	do_action( __NAMESPACE__ . '\_after_export_articles', $article_ids, $print_issue_id, $print_issue_title );
-
 }
 
 /**
@@ -129,9 +129,9 @@ function set_and_get_export_status( $article_ids ) {
  */
 function article_status_response() {
 	Core\check_ajax_referer();
-	try{
+	try {
 		$export_status = article_status_handler();
-		Core\send_json_success( [ 'export_status' => $export_status] );
+		Core\send_json_success( array( 'export_status' => $export_status ) );
 	} catch ( \Exception $e ) {
 		Core\send_json_error();
 	}
@@ -153,7 +153,7 @@ function article_status_handler() {
 
 	$article_ids = $_POST['article_ids'];
 
-	//sanitize - only allow comma delimited integers
+	// sanitize - only allow comma delimited integers
 	if ( ! ctype_digit( str_replace( ',', '', $article_ids ) ) ) {
 		throw new \Exception( __( 'Invalid article IDs specified in the request.', 'eight-day-week-print-workflow' ) );
 	}
@@ -206,8 +206,7 @@ function get_export_status( $article_id ) {
 	}
 
 	$user_id = get_post_meta( $article_id, 'export_status_user_id', true );
-	$user = get_user_by( 'id', absint( $user_id ) );
-
+	$user    = get_user_by( 'id', absint( $user_id ) );
 
 	$zone = new \DateTimeZone( Core\get_timezone() );
 
@@ -216,12 +215,12 @@ function get_export_status( $article_id ) {
 
 	$now = new \DateTime( 'now', $zone );
 
-	$not_today = $export_datetime->diff( $now )->format( "%R%a" );
+	$not_today = $export_datetime->diff( $now )->format( '%R%a' );
 
-	if( ! $not_today ) {
+	if ( ! $not_today ) {
 		$export_status = sprintf( __( 'Exported on %1$s by %2$s', 'eight-day-week-print-workflow' ), $export_datetime->format( get_option( 'date_format' ) ), $user->display_name );
 	} else {
-		$export_status = sprintf( __( 'Exported at %1$s by %2$s', 'eight-day-week-print-workflow' ), $export_datetime->format( _x( 'g:ia', 'Format for article export timestamp', 'eight-day-week-print-workflow' ) ), $user->display_name );
+		$export_status = sprintf( __( 'Exported at %1$s by %2$s', 'eight-day-week-print-workflow' ), $export_datetime->format( _x( 'g:ia', 'Format for article export timestamp', 'eight-day-week' ) ), $user->display_name );
 	}
 
 	return $export_status;
@@ -229,13 +228,13 @@ function get_export_status( $article_id ) {
 
 /**
  * Class Article_Zip_Factory
+ *
  * @package Eight_Day_Week\Plugins\Article_Export
  *
  * Factory for building an export zip for an article
  *
  * @todo Pull out XML-related functions so this class is for a generic ZIP;
  * @todo Perhaps introduce a fallback filter vs explicitly requesting an XML file fallback
- *
  */
 class Article_Zip_Factory {
 
@@ -255,10 +254,15 @@ class Article_Zip_Factory {
 	var $files;
 
 	/**
+	 * @var array Images for all articles
+	 */
+	var $images;
+
+	/**
 	 * Sets up object properties
 	 *
-	 * @param array $ids Array of post IDs
-	 * @param int $print_issue_id ID of parent print issue
+	 * @param array  $ids Array of post IDs
+	 * @param int    $print_issue_id ID of parent print issue
 	 * @param string $print_issue_title Title of parent print issue (to avoid lookup)
 	 *
 	 * @throws \Exception Various points of failure in constructing the factory
@@ -270,10 +274,9 @@ class Article_Zip_Factory {
 			throw new \Exception( __( 'Invalid article IDs specified in the request.', 'eight-day-week-print-workflow' ) );
 		}
 
-		$this->ids = $ids;
-		$this->print_issue_id = absint( $print_issue_id );
+		$this->ids               = $ids;
+		$this->print_issue_id    = absint( $print_issue_id );
 		$this->print_issue_title = sanitize_text_field( $print_issue_title );
-
 	}
 
 	/**
@@ -282,7 +285,7 @@ class Article_Zip_Factory {
 	 * @return \WP_Post[]
 	 */
 	function import_articles() {
-		$articles = [ ];
+		$articles = array();
 		foreach ( $this->ids as $id ) {
 			$article = get_post( $id );
 			if ( $article ) {
@@ -320,13 +323,13 @@ class Article_Zip_Factory {
 
 		$articles = $this->get_articles();
 
-		$file_sets = [ ];
+		$file_sets = array();
 		foreach ( $articles as $article ) {
 
-			//allow articles to export an alternative file
+			// allow articles to export an alternative file
 			$files = apply_filters( __NAMESPACE__ . '\short_circuit_article_export_files', false, $article, $this->print_issue_id, $this->print_issue_title );
 
-			//but fall back to XML
+			// but fall back to XML
 			if ( ! $files ) {
 				$files = $this->get_xml_file( $article );
 			}
@@ -336,7 +339,6 @@ class Article_Zip_Factory {
 		}
 
 		return $file_sets;
-
 	}
 
 	/**
@@ -349,12 +351,15 @@ class Article_Zip_Factory {
 	function get_xml_file( $article ) {
 		$xml = $this->get_xml( $article );
 
-		$file_name = apply_filters( __NAMESPACE__ . '\xml_filename', $xml->root_element->getAttribute( 'title' ), $article, $xml );
+		$file_name  = apply_filters( __NAMESPACE__ . '\xml_filename', $xml->root_element->getAttribute( 'title' ), $article, $xml );
 		$file_name .= '.xml';
 
 		$file_contents = $xml->xml_document->saveXML();
 
-		return new File( $file_contents, apply_filters( __NAMESPACE__ . '\xml_full_filename', $file_name, $article ) );
+		$fileset   = array();
+		$fileset[] = new File( $file_contents, apply_filters( __NAMESPACE__ . '\xml_full_filename', $file_name, $article ) );
+
+		return $fileset;
 	}
 
 	/**
@@ -366,8 +371,10 @@ class Article_Zip_Factory {
 	 * @throws \Exception
 	 */
 	function get_xml( $article ) {
-		$xml = new Article_XML( $article );
-		return $xml->build_xml();
+		$xml                          = new Article_XML( $article );
+		$xmlContent                   = $xml->build_xml();
+		$this->images[ $article->ID ] = $xml->images;
+		return $xmlContent;
 	}
 
 	/**
@@ -384,27 +391,110 @@ class Article_Zip_Factory {
 	}
 
 	function output_zip() {
-		$file_sets = $this->get_file_sets();
-		$zip = new Articles_Zip( $this->print_issue_title );
+		// prepare folder
+		$tmp_folder = 'export_xml_' . get_current_user_id();
 
-		foreach ( $file_sets as $article_id => $files ) {
-
-			//force an array
-			$files = is_array( $files ) ? $files : [ $files ];
-			$zip->addFiles( $files );
+		if ( ! is_dir( get_temp_dir() . $tmp_folder ) ) {
+			mkdir( get_temp_dir() . $tmp_folder );
 		}
 
-		$zip->output_zip();
+		// create zip
+		$tmp_zip_file = get_temp_dir() . $tmp_folder . '/output.zip';
+		if ( file_exists( $tmp_zip_file ) ) {
+			unlink( $tmp_zip_file );
+		}
+		$zip  = new \ZipArchive( $this->print_issue_title );
+		$code = $zip->open( $tmp_zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE );
+
+		$file_sets = $this->get_file_sets();
+
+		$sub_folders = array();
+		foreach ( $file_sets as $article_id => $files ) {
+			foreach ( $files as $file ) {
+				if ( stripos( $file->filename, '.xml' ) !== false ) {
+					$filename                   = explode( '.', $file->filename );
+					$sub_folders[ $article_id ] = $filename[0];
+					break;
+				}
+			}
+
+			if ( ! $sub_folders[ $article_id ] ) {
+				$sub_folders[ $article_id ] = $article_id;
+			}
+		}
+
+		// add xml files
+		foreach ( $file_sets as $article_id => $files ) {
+
+			$zip->addEmptyDir( $sub_folders[ $article_id ] );
+
+			// force an array
+			$files = is_array( $files ) ? $files : array( $files );
+			foreach ( $files as $file ) {
+				$zip->addFromString( $sub_folders[ $article_id ] . '/' . $file->filename, $file->contents );
+			}
+		}
+
+		// add images (by path)
+		if ( is_array( $this->images ) ) {
+			foreach ( $this->images as $article_id => $images ) {
+				foreach ( $images as $image_full_path => $image_name ) {
+					$zip->addFile( $image_full_path, $sub_folders[ $article_id ] . '/' . remove_accents( $image_name ) );
+				}
+			}
+		}
+
+		$zip->close();
+
+		$this->out_zip_file( $tmp_zip_file );
+	}
+
+	/**
+	 * Builds the file name for the zip
+	 * Uses the print issue title & day/time
+	 *
+	 * @uses get_timezone
+	 *
+	 * @return string The zip file name
+	 */
+	function out_zip_file( $filename ) {
+		header( 'Content-type: application/octet-stream' );
+		header( 'Content-Disposition: attachment; filename="' . $this->get_zip_file_name() . '.zip"' );
+		$handle = fopen( $filename, 'rb' );
+		if ( $handle ) {
+			while ( ! feof( $handle ) ) {
+				echo fread( $handle, 4096 );
+				ob_flush();
+				flush();
+			}
+		}
+
+		fclose( $handle );
+		exit;
+	}
+
+
+	/**
+	 * Builds the file name for the zip
+	 * Uses the print issue title & day/time
+	 *
+	 * @uses get_timezone
+	 *
+	 * @return string The zip file name
+	 */
+	function get_zip_file_name() {
+		date_default_timezone_set( Core\get_timezone() );
+		return sprintf( __( 'Issue %1$s exported on %2$s at %3$s', 'eight-day-week' ), $this->print_issue_title, date( 'm-d-y' ), date( 'h:ia' ) );
 	}
 
 }
 
 /**
  * Class Article_XML
+ *
  * @package Eight_Day_Week\Plugins\Article_Export
  *
  * Builds an XML DOMDocument based on a WP_Post
- *
  */
 class Article_XML {
 
@@ -433,24 +523,20 @@ class Article_XML {
 
 		global $post;
 
-		//store global post backup
+		// store global post backup
 		$old = $post;
 
-		//and set global post to this post
+		// and set global post to this post
 		$post = $this->article;
 
-		$elements = apply_filters( __NAMESPACE__ . '\xml_outer_elements', [
-			'headline' => get_the_title( $this->article )
-		], $this->article );
-
-		$dom = new \DOMDocument;
-
-		$content = strip_shortcodes( $this->article->post_content );
-
+		$content = $this->get_article_content( $this->article );
 		if ( ! $content ) {
 			throw new \Exception( 'Post ' . $this->id . ' was empty.' );
 		}
 
+		$content = str_replace( array( "\r\n", "\r" ), "\n", $content );
+
+		$dom = new \DOMDocument();
 		@$dom->loadHTML(
 			mb_convert_encoding(
 				$content,
@@ -459,11 +545,17 @@ class Article_XML {
 			)
 		);
 
-		//perform dom manipulations
+		// perform dom manipulations
 		$dom = $this->manipulate_dom( $dom );
 
-		//do html_to_xml before adding elements so that the html wrap stuff is removed first
+		// do html_to_xml before adding elements so that the html wrap stuff is removed first
 		$xml_elements = $this->html_to_xml( $dom );
+
+		$elements = apply_filters(
+			__NAMESPACE__ . '\xml_outer_elements',
+			$this->get_outer_elements( $this->article ),
+			$this->article
+		);
 
 		if ( $elements ) {
 			$this->add_outer_elements( $xml_elements, $elements );
@@ -471,18 +563,152 @@ class Article_XML {
 
 		$this->add_article_attributes( $xml_elements->root_element, $elements );
 
-		//reset global post
+		// reset global post
 		$post = $old;
 
-		return $xml_elements;
+		$GLOBALS['recentComment'] = $elements['comment'] ? $elements['comment'] : false;
 
+		return $xml_elements;
+	}
+
+	/**
+	 * Get prepared article content
+	 *
+	 * @param object $article WP_Post article
+	 *
+	 * @return string article content
+	 */
+	function get_article_content( $article ) {
+
+		$content = $this->article->post_content;
+
+		if ( $post = get_post( get_post_thumbnail_id( $this->id ) ) ) {
+			if ( $image = $this->get_image_name( $post->ID ) ) {
+				$content = $this->get_image_tag( $image[1], $post->post_excerpt ) . $content;
+			}
+		}
+
+		$content = preg_replace_callback(
+			'/\[caption.*\[\/caption\]/Usi',
+			function ( $matches ) {
+				if ( preg_match( '/attachment_(\d+)\D/i', $matches[0], $matches2 ) ) {
+					$image = $this->get_image_name( (int) $matches2[1] );
+				}
+				if ( preg_match( '/\[caption[^\]]*](.*)\[\/caption\]/Usi', strip_tags( $matches[0] ), $matches2 ) ) {
+					$caption = trim( $matches2[1] );
+				}
+				return $image ? $this->get_image_tag( $image[1], $caption ) : '';
+			},
+			$content
+		);
+
+		$content = preg_replace_callback(
+			'/\[gallery[^]]*ids="([\d,]+)"[^]]*\]/Usi',
+			function ( $matches ) {
+
+				if ( $matches[1] ) {
+					$gallery_images = explode( ',', $matches[1] );
+					foreach ( $gallery_images as $img_id ) {
+						$image = $this->get_image_name( (int) $img_id );
+						wp_mail( 'aaaa@asefetbhtregfsefwef.com', 'TEST', print_r( $image, 1 ) );
+					}
+				}
+				// return $image ? $this->get_image_tag($image[1], $caption) : '';
+				return '';
+			},
+			$content
+		);
+
+		$content = strip_shortcodes( $content );
+
+		$content = preg_replace_callback(
+			'/((<img[^>]*>)([^<]*<\/img>|))/Usi',
+			function ( $matches ) {
+				$image = false;
+				if ( preg_match( '/wp\-image\-(\d+)\D/i', $matches[0], $matches2 ) ) {
+					$image = $this->get_image_name( (int) $matches2[1] );
+					// } else if( preg_match('/src="([^"]*)"|src=\'([^\']*)\'/Usi', $matches[0], $matches2 ) ) {
+					// $components = parse_url($matches2[1]);
+					// $full_url = empty($components['host']) ? $_SERVER['HTTP_HOST'] . '/' . $matches2[1] : $matches2[1];
+					// $image = $this->get_image_name(false, $full_url);
+				}
+				return $image ? $this->get_image_tag( $image[1] ) : '';
+			},
+			$content
+		);
+
+		return $content;
+	}
+
+	/**
+	 * Get array with various elements
+	 *
+	 * @param object $article WP_Post article
+	 *
+	 * @return array with elements
+	 */
+	function get_outer_elements( $article ) {
+
+		$res = array( 'headline' => get_the_title( $article ) );
+
+		if ( $featured_id = get_post_thumbnail_id( $this->id ) ) {
+			if ( $image = $this->get_image_name( $featured_id ) ) {
+				$res['featured'] = $image;
+			}
+		}
+
+		if ( $this->images ) {
+			$res['image'] = $this->images;
+		}
+
+		if ( function_exists( 'get_field' ) && $this->id && $comment = get_field( 'opombe_za_dtp', $this->id ) ) {
+			$res['comment'] = $comment;
+		}
+		return $res;
+	}
+
+	/**
+	 * Retrieves path and full filename for atatchment id
+	 *
+	 * @param int $attachment_id Attachment id to process
+	 *
+	 * @return Array with path and name
+	 */
+	function get_image_name( $attachment_id = false, $attachment_path = false ) {
+		$imageSrc = $attachment_path ? $attachment_path : get_attached_file( $attachment_id );
+
+		if ( preg_match( '/^(.*[\\/])([^\\/]+)\.(.*)$/', $imageSrc, $matches ) ) {
+			// [-_]\d+x\d+
+			$imagePath     = $matches[1];
+			$imageFilename = ( ! $attachment_id && preg_match( '/^(.+)[-_]\d+x\d+$/i', $matches[2], $matches2 ) ? $matches2[1] : $matches[2] ) . '.' . $matches[3];
+		}
+
+		if ( ! $imageFilename ) {
+			return array();
+		}
+
+		$this->images[ $imagePath . $imageFilename ] = $imageFilename;
+
+		return array( $imagePath, $imageFilename );
+	}
+
+	/**
+	 * Formats tag for atatchment name and caption
+	 *
+	 * @param string $attachment_name Attachment name
+	 * @param string $attachment_caption Attachment caption (optional)
+	 *
+	 * @return String with formatted image tag
+	 */
+	function get_image_tag( $attachment_name, $attachment_caption = false ) {
+		return ' ## ' . remove_accents( $attachment_name ) . ' ## ' . ( $attachment_caption ? trim( $attachment_caption ) : '' ) . ' ';
 	}
 
 	/**
 	 * Appends various elements
 	 *
 	 * @param object $xml_elements XML Document + children
-	 * @param array $outer_elements Elements to add to the root element
+	 * @param array  $outer_elements Elements to add to the root element
 	 *
 	 * @return \DOMDocument XML Doc with elements appended to the root
 	 */
@@ -491,11 +717,43 @@ class Article_XML {
 			if ( ! $value ) {
 				continue;
 			}
-			$element            = $xml_elements->xml_document->createElement( $tag_name );
-			$element->nodeValue = $value;
-			$xml_elements->root_element->appendChild( $element );
-		}
 
+			if ( $tag_name == 'headline' ) {
+
+				$element            = $xml_elements->xml_document->createElement( $tag_name );
+				$element->nodeValue = $value;
+				$afterSibling       = $xml_elements->root_element->firstChild;
+				$xml_elements->root_element->insertBefore( $element, $afterSibling );
+
+			} elseif ( $tag_name == 'featured' || $tag_name == 'image' ) {
+
+				if ( $tag_name == 'featured' ) {
+					$element = $xml_elements->xml_document->createElement( 'image' );
+					$value   = array_values( $value );
+					$element->setAttribute( 'href', 'file:///' . html_entity_decode( remove_accents( array_pop( $value ) ) ) );
+					$element->nodeValue = '';
+					$afterSibling       = $xml_elements->xml_document->getElementsByTagName( 'content' );
+					$xml_elements->root_element->insertBefore( $element, $afterSibling[0] );
+					$xml_elements->root_element->insertBefore( $xml_elements->xml_document->createTextNode( "\n" ), $afterSibling[0] );
+				} else {
+					foreach ( $value as $image_full_path => $image_name ) {
+						if ( $outer_elements['featured'] && $outer_elements['featured'][1] == $image_name ) {
+							continue;
+						}
+						$element = $xml_elements->xml_document->createElement( 'image' );
+						$element->setAttribute( 'href', 'file:///' . html_entity_decode( remove_accents( $image_name ) ) );
+						$element->nodeValue = '';
+						$xml_elements->root_element->appendChild( $element );
+					}
+				}
+			} else {
+
+				$element            = $xml_elements->xml_document->createElement( $tag_name );
+				$element->nodeValue = $value;
+				$xml_elements->root_element->appendChild( $element );
+
+			}
+		}
 	}
 
 	/**
@@ -507,7 +765,7 @@ class Article_XML {
 		if ( function_exists( 'get_coauthors' ) ) {
 			$authors = get_coauthors( $this->id );
 		} else {
-			$authors = [ get_userdata( $this->id ) ];
+			$authors = array( get_userdata( $this->id ) );
 		}
 
 		if ( ! $authors ) {
@@ -525,7 +783,6 @@ class Article_XML {
 		}
 
 		return $author->display_name;
-
 	}
 
 	/**
@@ -541,22 +798,32 @@ class Article_XML {
 	 * Adds the post title to the article element
 	 *
 	 * @param \DOMElement $article_element The root article element
-	 * @param string $title The post title to add
+	 * @param string      $title The post title to add
 	 */
 	function add_post_title( $article_element, $title ) {
 		$article_element->setAttribute( 'title', html_entity_decode( $title ) );
 	}
 
 	/**
+	 * Adds the post comment to the article element
+	 *
+	 * @param \DOMElement $article_element The root article element
+	 * @param string      $title The post comment to add
+	 */
+	function add_post_comment( $article_element, $comment ) {
+		$article_element->setAttribute( 'comment', html_entity_decode( $comment ) );
+	}
+
+	/**
 	 * Adds various attributes to the article element
 	 *
 	 * @param \DOMElement $article_element
-	 * @param array $elements Predefined attribute values
+	 * @param array       $elements Predefined attribute values
 	 */
 	function add_article_attributes( $article_element, $elements ) {
 		$this->add_author_name( $article_element );
 
-		if ( isset( $elements['headline' ] ) ) {
+		if ( isset( $elements['headline'] ) ) {
 			$this->add_post_title( $article_element, $elements['headline'] );
 		}
 	}
@@ -572,7 +839,7 @@ class Article_XML {
 		$this->extract_elements_by_xpath( $dom );
 		$this->remove_elements( $dom );
 
-		//allow third party modification of the entire dom
+		// allow third party modification of the entire dom
 		$dom = apply_filters( __NAMESPACE__ . '\dom', $dom );
 
 		return $dom;
@@ -585,9 +852,9 @@ class Article_XML {
 	 * @param $dom \DOMDocument
 	 */
 	function remove_elements( $dom ) {
-		$elements_to_remove = apply_filters( __NAMESPACE__ . '\remove_elements', [ 'img' ] );
+		$elements_to_remove = apply_filters( __NAMESPACE__ . '\remove_elements', array( 'img' ) );
 
-		$remove = [ ];
+		$remove = array();
 		foreach ( $elements_to_remove as $tag_name ) {
 			$found = $dom->getElementsByTagName( $tag_name );
 			foreach ( $found as $el ) {
@@ -625,12 +892,12 @@ class Article_XML {
 	 * Doesn't need to return anything because the DOM is aliiiiiive
 	 */
 	function extract_elements_by_xpath( $dom ) {
-		$xpath_extract = apply_filters( __NAMESPACE__ . '\xpath_extract', [] );
+		$xpath_extract = apply_filters( __NAMESPACE__ . '\xpath_extract', array() );
 		if ( $xpath_extract ) {
-			$domxpath      = new \DOMXPath( $dom );
+			$domxpath = new \DOMXPath( $dom );
 
 			foreach ( $xpath_extract as $set ) {
-				$remove   = [ ];
+				$remove   = array();
 				$elements = $domxpath->query( $set['query'] );
 				if ( $elements->length ) {
 					$wrap = $dom->createElement( $set['container'] );
@@ -662,12 +929,12 @@ class Article_XML {
 	function html_to_xml( $dom ) {
 		$content = $dom->getElementsByTagName( 'body' );
 		if ( ! $content ) {
-			throw new \Exception ( 'Empty content' );
+			throw new \Exception( 'Empty content' );
 		}
 
 		$content = $content->item( 0 );
 
-		$xml_document = new \DOMDocument;
+		$xml_document = new \DOMDocument();
 
 		$article_element = $xml_document->createElement( apply_filters( __NAMESPACE__ . '\xml_root_element', 'article' ) );
 		$xml_document->appendChild( $article_element );
@@ -679,145 +946,22 @@ class Article_XML {
 			$content_element->appendChild( $xml_document->importNode( $el, true ) );
 		}
 
-		$article_xml = new \stdClass;
-		$article_xml->xml_document = $xml_document;
-		$article_xml->root_element = $article_element;
+		$article_xml                  = new \stdClass();
+		$article_xml->xml_document    = $xml_document;
+		$article_xml->root_element    = $article_element;
 		$article_xml->content_element = $content_element;
 
 		return $article_xml;
-
-	}
-
-}
-
-/**
- * Class Articles_Zip
- * @package Eight_Day_Week\Plugins\Article_Export
- *
- * Represents an in-memory Zip, including implementation of the vendor zip lib
- *
- */
-class Articles_Zip {
-
-	/**
-	 * @var string The print issue title (used for building zip file name)
-	 */
-	protected $issue_title;
-
-	/**
-	 * @var File[] Files for the current articles
-	 */
-	protected $files;
-
-	/**
-	 * @var \ZipFile
-	 */
-	private $zip;
-
-	/**
-	 * Sets object properties
-	 *
-	 * @param $issue_title string The current print issue's title
-	 * @param $files File[] Set of Files
-	 */
-	function __construct( $issue_title, $files = [] ) {
-		$this->issue_title = $issue_title;
-		$this->files = $files;
-	}
-
-	/**
-	 * Builds the file name for the zip
-	 * Uses the print issue title & day/time
-	 *
-	 * @uses get_timezone
-	 *
-	 * @return string The zip file name
-	 */
-	function get_zip_file_name( ) {
-		$timezone_string = get_option( 'timezone_string' );
-		if ( empty( $timezone_string ) ) {
-			$offset  = get_option( 'gmt_offset' );
-			$hours   = (int) $offset;
-			$minutes = abs( ( $offset - (int) $offset ) * 60 );
-			$timezone_string  = sprintf( '%+03d:%02d', $hours, $minutes );
-		}
-		$date = new \DateTime( 'now', new \DateTimeZone( $timezone_string ) );
-		return 'Issue ' . $this->issue_title . ' exported on ' . $date->format( 'm-d-y' ) . ' at ' . $date->format( 'h:ia' );
-	}
-
-	/**
-	 * Adds a File to the object, for later addition to the zip
-	 *
-	 * @param $file File The file to add to the zip
-	 */
-	function addFile( $file ) {
-		$this->files[] = $file;
-	}
-
-	/**
-	 * Adds a set of files to the current set
-	 *
-	 * @param $files File[] FIles to add to the zip
-	 */
-	function addFiles( $files ) {
-		$this->files = array_merge( $this->files, $files );
-	}
-
-	/**
-	 * Creates a new \ZipFile, adds current file set to it, and yields it
-	 *
-	 * @return \ZipFile
-	 */
-	function build_zip(){
-		include_once EDW_INC . 'lib/zip.lib.php';
-		$zip = new \ZipFile();
-
-		foreach ( $this->files as $file ) {
-			$zip->addFile( $file->contents, $file->filename );
-		}
-
-		return $zip;
-	}
-
-	/**
-	 * Gets/builds a \ZipFile via the current file set
-	 *
-	 * @uses build_zip
-	 *
-	 * @return \ZipFile
-	 */
-	function get_zip() {
-		if ( $this->zip ) {
-			return $this->zip;
-		}
-
-		return $this->zip = $this->build_zip();
-	}
-
-	/**
-	 * Builds a zip and outputs it to the browser
-	 *
-	 * @uses get_zip
-	 *
-	 */
-	function output_zip() {
-
-		$zip = $this->get_zip();
-
-		header( "Content-type: application/octet-stream" );
-		header( 'Content-Disposition: attachment; filename="' . $this->get_zip_file_name() . '.zip"' );
-		echo $zip->file();
-		exit;
 	}
 
 }
 
 /**
  * Class File
+ *
  * @package Eight_Day_Week\Plugins\Article_Export
  *
  * Builds a "File" based on either a string or a readable, actual file
- *
  */
 class File {
 
@@ -838,10 +982,10 @@ class File {
 	 * Otherwise assumes provision of explicit file contents + name
 	 *
 	 * @param $contents_or_file_path
-	 * @param string $filename
+	 * @param string                $filename
 	 */
 	function __construct( $contents_or_file_path, $filename = '' ) {
-		if( is_readable( $contents_or_file_path ) ) {
+		if ( is_readable( $contents_or_file_path ) ) {
 			$this->contents = file_get_contents( $contents_or_file_path );
 			$this->filename = basename( $contents_or_file_path );
 		} else {
@@ -865,14 +1009,16 @@ function maybe_export_article_attachments( $incoming, $article, $issue_id, $issu
 
 	add_filter( 'posts_where', __NAMESPACE__ . '\filter_article_export_attachments_where' );
 
-	$attachments = new \WP_Query( [
-		'post_type' => 'attachment',
-		'post_parent' => absint( $article->ID ),
-		'posts_per_page' => 20,
-		'post_status' => 'inherit',
-		//meta will be used, so only disable term cache
-		'update_post_term_cache' => false,
-	] );
+	$attachments = new \WP_Query(
+		array(
+			'post_type'              => 'attachment',
+			'post_parent'            => absint( $article->ID ),
+			'posts_per_page'         => 20,
+			'post_status'            => 'inherit',
+			// meta will be used, so only disable term cache
+			'update_post_term_cache' => false,
+		)
+	);
 
 	remove_filter( 'posts_where', __NAMESPACE__ . '\filter_article_export_attachments_where' );
 
@@ -881,7 +1027,6 @@ function maybe_export_article_attachments( $incoming, $article, $issue_id, $issu
 	}
 
 	return $incoming;
-
 }
 
 function filter_article_export_attachments_where( $where ) {
@@ -896,9 +1041,12 @@ function filter_article_export_attachments_where( $where ) {
  * @return File[] Attachment files
  */
 function get_document_files( $attachments ) {
-	return array_map( function( $attachment ){
-		return get_attachment_file( $attachment );
-	}, $attachments );
+	return array_map(
+		function( $attachment ) {
+			return get_attachment_file( $attachment );
+		},
+		$attachments
+	);
 }
 
 /**
@@ -921,7 +1069,7 @@ function get_attachment_file( $attachment ) {
  * @return array Modified elements
  */
 function filter_xml_elements_headline( $elements, $article ) {
-	$elements['headline']    = get_the_title( $article );
+	$elements['headline'] = get_the_title( $article );
 	return $elements;
 }
 
@@ -936,7 +1084,7 @@ function filter_xml_elements_headline( $elements, $article ) {
  */
 function filter_xml_filename_author( $file_name, $article, $xml ) {
 	$author = $xml->root_element->getAttribute( 'author' );
-	if( $author ) {
+	if ( $author ) {
 		$file_name = $author . '.' . $file_name;
 	}
 
