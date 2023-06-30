@@ -6,7 +6,15 @@ module.exports = defineConfig({
   screenshotsFolder: 'tests/cypress/screenshots',
   videosFolder: 'tests/cypress/videos',
   downloadsFolder: 'tests/cypress/downloads',
-  video: false,
+  video: true,
+  reporter: 'mochawesome',
+  reporterOptions: {
+    mochaFile: 'mochawesome-[name]',
+    reportDir: 'tests/cypress/reports',
+    overwrite: false,
+    html: false,
+    json: true
+  },
   e2e: {
     setupNodeEvents(on, config) {
       return setBaseUrl(on, config);
