@@ -615,7 +615,6 @@ class Article_XML {
 					$gallery_images = explode( ',', $matches[1] );
 					foreach ( $gallery_images as $img_id ) {
 						$image = $this->get_image_name( (int) $img_id );
-						wp_mail( 'aaaa@asefetbhtregfsefwef.com', 'TEST', print_r( $image, 1 ) );
 					}
 				}
 				// return $image ? $this->get_image_tag($image[1], $caption) : '';
@@ -632,10 +631,6 @@ class Article_XML {
 				$image = false;
 				if ( preg_match( '/wp\-image\-(\d+)\D/i', $matches[0], $matches2 ) ) {
 					$image = $this->get_image_name( (int) $matches2[1] );
-					// } else if( preg_match('/src="([^"]*)"|src=\'([^\']*)\'/Usi', $matches[0], $matches2 ) ) {
-					// $components = parse_url($matches2[1]);
-					// $full_url = empty($components['host']) ? $_SERVER['HTTP_HOST'] . '/' . $matches2[1] : $matches2[1];
-					// $image = $this->get_image_name(false, $full_url);
 				}
 				return $image ? $this->get_image_tag( $image[1] ) : '';
 			},

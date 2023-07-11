@@ -188,7 +188,7 @@ class AL_Table extends \WP_Posts_List_Table {
 					$post->post_content .= $single;
 				}
 			}
-			$post_img_num = (int) preg_match_all( '/<img[^>]*>/', $post->post_content, $array );
+			$post_img_num = (int) preg_match_all( '/<img[^>]*>/', $post->post_content, $matches );
 			if ( has_post_thumbnail( $post->ID ) ) {
 				++$post_img_num;
 			}
