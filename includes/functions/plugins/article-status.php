@@ -109,7 +109,7 @@ function filter_article_columns_article_status( $columns ) {
 		'post_status' => __( 'Article Status', 'eight-day-week' ),
 	);
 
-			$title_offset = array_search( 'title', array_keys( $columns ) );
+	$title_offset = array_search( 'title', array_keys( $columns ) );
 	if ( $title_offset ) {
 		$end     = $status + array_slice( $columns, $title_offset + 1, null );
 		$columns = array_slice( $columns, 0, $title_offset + 1 ) + $end;

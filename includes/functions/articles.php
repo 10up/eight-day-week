@@ -201,8 +201,8 @@ class AL_Table extends \WP_Posts_List_Table {
 	/**
 	 * Generates content for a single row of the table
 	 *
-	 * @param object                                                         $item The current item
-	 * @param $level int The current item's level (parent relationship level)
+	 * @param object $item The current item.
+	 * @param int    $level The current item's level (parent relationship level).
 	 */
 	public function single_row( $item, $level = 0 ) {
 		if ( property_exists( $item, 'ID' ) ) {
@@ -279,8 +279,7 @@ class AL_Table extends \WP_Posts_List_Table {
 	 * @return string HTML for checkbox
 	 */
 	function column_cb( $item ) {
-		return '<input type="checkbox" class="article-status" name="article-status[]" value="' .
-				( isset( $item->ID ) ? absint( $item->ID ) : '' ) . '" />';
+		return '<input type="checkbox" class="article-status" name="article-status[]" value="' . ( isset( $item->ID ) ? absint( $item->ID ) : '' ) . '" />';
 	}
 
 	/**

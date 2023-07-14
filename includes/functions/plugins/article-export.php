@@ -346,12 +346,12 @@ class Article_Zip_Factory {
 		return $file_sets;
 	}
 
+
 	/**
-	 * Gets an xml export file for an article
+	 * Retrieve an XML file for the given article.
 	 *
-	 * @param $article \WP_Post the current post
-	 *
-	 * @return File The XML file for the provided post
+	 * @param mixed $article The article to retrieve the XML file for.
+	 * @return array An array containing the XML file.
 	 */
 	function get_xml_file( $article ) {
 		$xml = $this->get_xml( $article );
@@ -455,12 +455,11 @@ class Article_Zip_Factory {
 	}
 
 	/**
-	 * Builds the file name for the zip
-	 * Uses the print issue title & day/time
+	 * Outputs the contents of a zip file as a download.
 	 *
-	 * @uses get_timezone
-	 *
-	 * @return string The zip file name
+	 * @param string $filename The path to the zip file.
+	 * @throws Exception If the file cannot be opened.
+	 * @return void
 	 */
 	function out_zip_file( $filename ) {
 		header( 'Content-type: application/octet-stream' );
@@ -587,8 +586,10 @@ class Article_XML {
 
 		$content = $this->article->post_content;
 
-		if ( $post = get_post( get_post_thumbnail_id( $this->id ) ) ) {
-			if ( $image = $this->get_image_name( $post->ID ) ) {
+		$post = get_post( get_post_thumbnail_id( $this->id ) );
+		if ( $post ) {
+			$image = $this->get_image_name( $post->ID );
+			if ( $image ) {
 				$content = $this->get_image_tag( $image[1], $post->post_excerpt ) . $content;
 			}
 		}
@@ -617,7 +618,7 @@ class Article_XML {
 						$image = $this->get_image_name( (int) $img_id );
 					}
 				}
-				// return $image ? $this->get_image_tag($image[1], $caption) : '';
+
 				return '';
 			},
 			$content
@@ -651,7 +652,8 @@ class Article_XML {
 
 		$res = array( 'headline' => get_the_title( $article ) );
 
-		if ( $featured_id = get_post_thumbnail_id( $this->id ) ) {
+		$featured_id = get_post_thumbnail_id( $this->id );
+		if ( $featured_id ) {
 			if ( $image = $this->get_image_name( $featured_id ) ) {
 				$res['featured'] = $image;
 			}
@@ -693,7 +695,7 @@ class Article_XML {
 	}
 
 	/**
-	 * Formats tag for atatchment name and caption
+	 * Formats tag for attachment name and caption
 	 *
 	 * @param string $attachment_name Attachment name
 	 * @param string $attachment_caption Attachment caption (optional)
