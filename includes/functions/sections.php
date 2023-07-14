@@ -1,10 +1,4 @@
 <?php
-/**
- * Handles the sections functionality
- *
- * @package eight-day-week
- */
-
 namespace Eight_Day_Week\Sections;
 
 use Eight_Day_Week\Core as Core;
@@ -48,9 +42,10 @@ function setup() {
 
 	add_action( 'wp_ajax_meta-box-order', ns( 'save_metabox_order' ), 0 );
 
-	add_filter( 'get_user_option_meta-box-order_' . EDW_PRINT_ISSUE_CPT, ns( 'get_section_order' ) );
+	add_filter('get_user_option_meta-box-order_' . EDW_PRINT_ISSUE_CPT, ns( 'get_section_order') );
 
 	add_action( 'edw_section_metabox', ns( 'section_save_button' ), 999 );
+
 }
 
 /**
@@ -58,10 +53,10 @@ function setup() {
  */
 function register_post_type() {
 
-	$args = array(
+	$args = [
 		'public'   => false,
-		'supports' => array(),
-	);
+		'supports' => [ ],
+	];
 
 	\register_post_type( EDW_SECTION_CPT, $args );
 }
@@ -76,7 +71,7 @@ function register_post_type() {
  * @param $post
  */
 function edit_form_after_title( $post ) {
-	if ( EDW_PRINT_ISSUE_CPT !== $post->post_type ) {
+	if( EDW_PRINT_ISSUE_CPT !== $post->post_type ) {
 		return;
 	}
 	echo '<h2>' . esc_html( 'Sections', 'eight-day-week-print-workflow' ) . '</h2>';
@@ -97,15 +92,15 @@ function edit_form_after_title( $post ) {
 function add_sections_meta_box( $post ) {
 	$sections = explode( ',', get_sections( $post->ID ) );
 
-	// this is used as a template for duplicating metaboxes via JS
-	// It's also used in metabox saving to retrieve the post ID. So don't remove this!
+	//this is used as a template for duplicating metaboxes via JS
+	//It's also used in metabox saving to retrieve the post ID. So don't remove this!
 	array_unshift( $sections, $post->ID );
 
 	$i = 0;
 
 	foreach ( (array) $sections as $section_id ) {
 
-		// only allow 0 on first pass
+		//only allow 0 on first pass
 		if ( $i > 0 && ! $section_id ) {
 			continue;
 		}
@@ -113,8 +108,8 @@ function add_sections_meta_box( $post ) {
 		$section_id = absint( $section_id );
 		if ( 0 === $i || get_post( $section_id ) ) {
 
-			// The "template" is used in metabox saving to retrieve the post ID. So don't remove this!
-			// Don't change the ID either; it's what designates it to retreive the post ID.
+			//The "template" is used in metabox saving to retrieve the post ID. So don't remove this!
+			//Don't change the ID either; it's what designates it to retreive the post ID.
 			$id = ( 0 === $i ) ? "pi-sections-template-{$section_id}" : "pi-sections-box-{$section_id}";
 			add_meta_box(
 				$id,
@@ -123,12 +118,12 @@ function add_sections_meta_box( $post ) {
 				EDW_PRINT_ISSUE_CPT,
 				'normal',
 				'high',
-				array(
+				[
 					'section_id' => $section_id,
-				)
+				]
 			);
 		}
-		++$i;
+		$i ++;
 	}
 }
 
@@ -147,7 +142,7 @@ function sections_meta_box( $post, $args ) {
 	$section_id = $args['args']['section_id'];
 	do_action( 'edw_section_metabox', $section_id );
 
-	if ( User\current_user_can_edit_print_issue() ) : ?>
+	if( User\current_user_can_edit_print_issue() ) : ?>
 	<input type="hidden" class="section_id" name="section_id" value="<?php echo absint( $section_id ); ?>"/>
 	<p class="pi-section-delete">
 		<a href="#"><?php esc_html_e( 'Delete section', 'eight-day-week-print-workflow' ); ?></a>
@@ -166,7 +161,7 @@ function sections_meta_box( $post, $args ) {
  */
 function get_sections( $post_id ) {
 	$section_ids = get_post_meta( $post_id, 'sections', true );
-	// sanitize - only allow comma delimited integers
+	//sanitize - only allow comma delimited integers
 	if ( ! ctype_digit( str_replace( ',', '', $section_ids ) ) ) {
 		return '';
 	}
@@ -185,8 +180,8 @@ function get_sections( $post_id ) {
  * @param $post \WP_Post The current post
  */
 function add_section_output( $post ) {
-	if ( EDW_PRINT_ISSUE_CPT !== $post->post_type ||
-		! User\current_user_can_edit_print_issue()
+	if( EDW_PRINT_ISSUE_CPT !== $post->post_type ||
+	    ! User\current_user_can_edit_print_issue()
 	) {
 		return;
 	}
@@ -231,7 +226,7 @@ function add_section_output( $post ) {
  */
 function update_print_issue_sections( $post_id, $post, $update ) {
 
-	if ( ! isset( $_POST['pi-section-ids'] ) ) {
+	if( ! isset( $_POST['pi-section-ids'] ) ) {
 		return;
 	}
 
@@ -246,6 +241,7 @@ function update_print_issue_sections( $post_id, $post, $update ) {
 	}
 
 	set_print_issue_sections( $section_ids, $post_id );
+
 }
 /**
  * Saves section IDs to the DB
@@ -256,21 +252,21 @@ function update_print_issue_sections( $post_id, $post, $update ) {
  */
 function set_print_issue_sections( $section_ids, $print_issue_id ) {
 
-	// sanitize - only allow comma delimited integers
+	//sanitize - only allow comma delimited integers
 	if ( ! ctype_digit( str_replace( ',', '', $section_ids ) ) ) {
 		return;
 	}
 
 	update_post_meta( $print_issue_id, 'sections', $section_ids );
 
-	// allow other parts to hook
+	//allow other parts to hook
 	do_action( 'save_print_issue_sections', $print_issue_id, $section_ids );
+
 }
 
 
 /**
  * Class Section_Factory
- *
  * @package Eight_Day_Week\Sections
  *
  * Factory that creates + updates sections
@@ -288,10 +284,10 @@ class Section_Factory {
 	 */
 	public static function create( $name ) {
 
-		$info       = array(
+		$info       = [
 			'post_title' => $name,
-			'post_type'  => EDW_SECTION_CPT,
-		);
+			'post_type' => EDW_SECTION_CPT,
+		];
 		$section_id = wp_insert_post( $info );
 		if ( $section_id ) {
 			return new Section( $section_id );
@@ -302,7 +298,7 @@ class Section_Factory {
 
 	public static function assign_to_print_issue( $section, $print_issue ) {
 		$current_sections = get_sections( $print_issue->ID );
-		$new_sections     = $current_sections ? $current_sections . ',' . $section->ID : $section->ID;
+		$new_sections = $current_sections ? $current_sections . ',' . $section->ID : $section->ID;
 		set_print_issue_sections( $new_sections, $print_issue->ID );
 		return $new_sections;
 	}
@@ -318,7 +314,7 @@ class Section_Factory {
 
 		$name = isset( $_POST['name'] ) ? sanitize_text_field( $_POST['name'] ) : false;
 		if ( ! $name ) {
-			Core\send_json_error( array( 'message' => __( 'Please enter a section name.', 'eight-day-week-print-workflow' ) ) );
+			Core\send_json_error( [ 'message' => __( 'Please enter a section name.', 'eight-day-week-print-workflow' ) ] );
 		}
 
 		$print_issue_id = absint( $_POST['print_issue_id'] );
@@ -331,16 +327,16 @@ class Section_Factory {
 		try {
 			$section = self::create( $name );
 		} catch ( \Exception $e ) {
-			// let the whoops message run its course
+			//let the whoops message run its course
 			$section = null;
 		}
 
 		if ( $section instanceof Section ) {
 			self::assign_to_print_issue( $section, $print_issue );
-			Core\send_json_success( array( 'section_id' => $section->ID ) );
+			Core\send_json_success( [ 'section_id' => $section->ID ] );
 		}
 
-		Core\send_json_error( array( 'message' => __( 'Whoops! Something went awry.', 'eight-day-week-print-workflow' ) ) );
+		Core\send_json_error( [ 'message' => __( 'Whoops! Something went awry.', 'eight-day-week-print-workflow' ) ] );
 	}
 
 	/**
@@ -354,17 +350,17 @@ class Section_Factory {
 
 		$title = isset( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : false;
 		if ( ! $title ) {
-			Core\send_json_error( array( 'message' => __( 'Please enter a section name.', 'eight-day-week-print-workflow' ) ) );
+			Core\send_json_error( [ 'message' => __( 'Please enter a section name.', 'eight-day-week-print-workflow' ) ] );
 		}
 
 		$post_id = isset( $_POST['post_id'] ) ? sanitize_text_field( $_POST['post_id'] ) : false;
 		if ( ! $post_id ) {
-			Core\send_json_error( array( 'message' => __( 'Whoops! This section appears to be invalid.', 'eight-day-week-print-workflow' ) ) );
+			Core\send_json_error( [ 'message' => __( 'Whoops! This section appears to be invalid.', 'eight-day-week-print-workflow' ) ] );
 		}
 		try {
 			self::update_title( $title, $post_id );
 		} catch ( \Exception $e ) {
-			Core\send_json_error( array( 'message' => $e->getMessage() ) );
+			Core\send_json_error( [ 'message' => $e->getMessage() ] );
 		}
 		Core\send_json_success();
 	}
@@ -385,7 +381,6 @@ class Section_Factory {
 
 /**
  * Class Section
- *
  * @package Eight_Day_Week\Sections
  *
  * Class that represents a section object + offers utility functions for it
@@ -447,7 +442,7 @@ class Section {
 			foreach ( $info as $key => $value ) {
 				if ( ! empty( $key ) ) {
 					$this->$key = $value;
-				} elseif ( ! empty( $key ) && ! method_exists( $this, $key ) ) {
+				} else if ( ! empty( $key ) && ! method_exists( $this, $key ) ) {
 					$this->$key = $value;
 				}
 			}
@@ -486,10 +481,10 @@ class Section {
 			throw new \Exception( __( 'Please supply a valid, non-empty title', 'eight-day-week-print-workflow' ) );
 		}
 		$title  = sanitize_text_field( $title );
-		$args   = array(
+		$args   = [
 			'ID'         => $this->ID,
 			'post_title' => $title,
-		);
+		];
 		$result = $this->update( $args );
 	}
 }
@@ -505,50 +500,48 @@ function save_metabox_order() {
 	check_ajax_referer( 'meta-box-order' );
 	$order = isset( $_POST['order'] ) ? (array) $_POST['order'] : false;
 
-	if ( ! $order ) {
+	if( ! $order ) {
 		return;
 	}
 
 	$page = isset( $_POST['page'] ) ? $_POST['page'] : '';
 
-	if ( $page != sanitize_key( $page ) ) {
+	if ( $page != sanitize_key( $page ) )
 		wp_die( 0 );
-	}
 
-	// only intercept PI CPT
-	if ( EDW_PRINT_ISSUE_CPT !== $page ) {
+	//only intercept PI CPT
+	if( EDW_PRINT_ISSUE_CPT !== $page ) {
 		return;
 	}
 
-	if ( ! $user = wp_get_current_user() ) {
+	if ( ! $user = wp_get_current_user() )
+		wp_die( -1 );
+
+	//don't allow print prod users to re-order
+	if( ! User\current_user_can_edit_print_issue() ) {
 		wp_die( -1 );
 	}
 
-	// don't allow print prod users to re-order
-	if ( ! User\current_user_can_edit_print_issue() ) {
-		wp_die( -1 );
-	}
-
-	// grab the post ID from the section template
+	//grab the post ID from the section template
 	$metaboxes = explode( ',', $order['normal'] );
-	$template  = false;
-	foreach ( $metaboxes as $metabox ) {
-		if ( strpos( $metabox, 'template' ) !== false ) {
+	$template = false;
+	foreach( $metaboxes as $metabox ) {
+		if( strpos( $metabox, 'template' ) !== FALSE ) {
 			$template = $metabox;
 		}
 	}
 
-	// couldnt find PI template, which contains PI post ID
-	if ( ! $template ) {
+	//couldnt find PI template, which contains PI post ID
+	if( ! $template ) {
 		return;
 	}
 
-	$parts   = explode( '-', $template );
+	$parts = explode( '-', $template );
 	$post_id = end( $parts );
 
 	$post = get_post( $post_id );
 
-	if ( ! $post || ( $post ) && EDW_PRINT_ISSUE_CPT !== $post->post_type ) {
+	if( ! $post || ( $post ) && EDW_PRINT_ISSUE_CPT !== $post->post_type ) {
 		return;
 	}
 
@@ -567,7 +560,7 @@ function save_metabox_order() {
 function get_section_order( $result ) {
 	global $post;
 
-	if ( $post && $order = get_post_meta( $post->ID, 'section-order', true ) ) {
+	if( $post && $order = get_post_meta( $post->ID, 'section-order', true ) ) {
 		return $order;
 	}
 
@@ -577,7 +570,7 @@ function get_section_order( $result ) {
 /**
  * Outputs a Save button
  */
-function section_save_button() {
+function section_save_button(){
 	if ( Print_Issue\is_read_only_view() || ! User\current_user_can_edit_print_issue() ) {
 		return;
 	}

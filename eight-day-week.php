@@ -7,8 +7,6 @@
  * Author URI:  https://10up.com
  * License:     GPLv2+
  * Text Domain: eight-day-week-print-workflow
- *
- * @package eight-day-week
  */
 
 /**
@@ -29,26 +27,26 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-// load vip compat functions
+//load vip compat functions
 require_once __DIR__ . '/vip-compat.php';
 
-// load plugin loader
+//load plugin loader
 require_once __DIR__ . '/plugins.php';
 
 // Useful global constants
 define( 'EDW_VERSION', '1.2.1' );
-define( 'EDW_URL', Eight_Day_Week\plugins_url( __FILE__ ) );
-define( 'EDW_PATH', __DIR__ . '/' );
-define( 'EDW_INC', EDW_PATH . 'includes/' );
+define( 'EDW_URL',     Eight_Day_Week\plugins_url(  __FILE__ ) );
+define( 'EDW_PATH',    dirname( __FILE__ ) . '/' );
+define( 'EDW_INC',     EDW_PATH . 'includes/' );
 
-// allow override from wp-config (et al)
-if ( ! defined( 'EDW_PRODUCTION' ) ) {
+//allow override from wp-config (et al)
+if( ! defined( 'EDW_PRODUCTION' ) ) {
 
-	// if on VIP, let VIP define production state
+	//if on VIP, let VIP define production state
 	if ( defined( 'WPCOM_IS_VIP_ENV' ) ) {
 		define( 'EDW_PRODUCTION', WPCOM_IS_VIP_ENV );
 	} else {
-		// otherwise, assume production
+		//otherwise, assume production
 		define( 'EDW_PRODUCTION', true );
 	}
 }
@@ -74,7 +72,7 @@ function edw_bootstrap() {
 
 	$core_file = EDW_INC . 'functions' . DIRECTORY_SEPARATOR . 'core.php';
 
-	if ( ! isset( $map[ $core_file ] ) ) {
+	if( ! isset( $map[ $core_file ] ) ) {
 		return;
 	}
 
@@ -83,24 +81,25 @@ function edw_bootstrap() {
 
 	unset( $map[ $core_file ] );
 
-	foreach ( $map as $file => $namespace ) {
+	foreach( $map as $file => $namespace ) {
 
-		// play nice
-		try {
+		//play nice
+		try{
 			require_once $file;
 			$setup = $namespace . '\setup';
 
-			// allow files *not* to have a setup function
+			//allow files *not* to have a setup function
 			if ( function_exists( $setup ) ) {
 				$setup();
 				do_action( $namespace . '\setup' );
 			}
-		} catch ( \Exception $e ) {
+		} catch( \Exception $e ) {
 
 		}
 	}
+
 }
-// hook before init so the plugin has its own "init" action
+//hook before init so the plugin has its own "init" action
 add_action( 'after_setup_theme', 'edw_bootstrap' );
 
 /**
@@ -119,39 +118,39 @@ function edw_build_namespace_map() {
 		RecursiveIteratorIterator::CATCH_GET_CHILD
 	);
 
-	$map = array();
+	$map = [];
 	foreach ( $Iterator as $file ) {
 
 		if ( 'php' !== $file->getExtension() ) {
 			continue;
 		}
 
-		// get just the file name, e.g. "core"
+		//get just the file name, e.g. "core"
 		$file_name = str_replace( '.php', '', $file->getFileName() );
 
-		// convert dashes to spaces
+		//convert dashes to spaces
 		$spaced = str_replace( '-', ' ', $file_name );
 
-		// so that ucwords will work
+		//so that ucwords will work
 		$capitalized = ucwords( $spaced );
 
-		// get the "end" namespace
+		//get the "end" namespace
 		$tip_of_the_iceberg = str_replace( ' ', '_', $capitalized );
 
 		$path = $file->getPathInfo()->getPathname();
-		if ( $dir !== $path ) {
+		if( $dir !== $path ) {
 			$sub_directory = str_replace( $dir . DIRECTORY_SEPARATOR, '', $path );
 
-			// convert slashes to spaces
+			//convert slashes to spaces
 			$capitalized = ucwords( str_replace( DIRECTORY_SEPARATOR, ' ', $sub_directory ) );
 
 			$tip_of_the_iceberg = str_replace( ' ', '\\', $capitalized ) . '\\' . $tip_of_the_iceberg;
 		}
 
-		// add the namespace prefix + convert spaces to underscores for the final namespace
+		//add the namespace prefix + convert spaces to underscores for the final namespace
 		$namespace = '\Eight_Day_Week\\' . $tip_of_the_iceberg;
 
-		// add it all the map
+		//add it all the map
 		$map[ $file->getPathname() ] = $namespace;
 	}
 

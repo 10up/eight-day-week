@@ -1,10 +1,4 @@
 <?php
-/**
- * Handles printing issues
- *
- * @package eight-day-week
- */
-
 namespace Eight_Day_Week\Print_Issue;
 
 use Eight_Day_Week\User_Roles as User;
@@ -21,22 +15,22 @@ use Eight_Day_Week\Core as Core;
 function setup() {
 	function ns( $function ) {
 		return __NAMESPACE__ . "\\$function";
-	}
+	};
 
 	function a( $function ) {
 		add_action( $function, ns( $function ) );
-	}
+	};
 
 	add_action( 'Eight_Day_Week\Core\init', ns( 'register_post_type' ) );
 	add_filter( 'post_updated_messages', ns( 'post_type_updated_labels' ) );
 
-	// remove coauthors box
+	//remove coauthors box
 	add_action( 'add_meta_boxes', ns( 'alter_metaboxes' ) );
 
-	// enqueue admin-side scripts
+	//enqueue admin-side scripts
 	a( 'admin_enqueue_scripts' );
 
-	// general nonce for this CPT
+	//general nonce for this CPT
 	add_action( 'edit_form_top', ns( 'print_issue_nonce' ) );
 
 	add_action( 'save_post_' . EDW_PRINT_ISSUE_CPT, ns( 'save_print_issue' ), 10, 3 );
@@ -49,13 +43,14 @@ function setup() {
 
 	add_filter( 'gettext', ns( 'filter_publish_date_text' ) );
 
-	add_filter( 'get_user_option_meta-box-order_' . EDW_PRINT_ISSUE_CPT, ns( 'get_side_metabox_order' ), 9999 );
+	add_filter('get_user_option_meta-box-order_' . EDW_PRINT_ISSUE_CPT, ns( 'get_side_metabox_order'), 9999 );
 
 	add_filter( 'Eight_Day_Week\User_Roles\cuc_edit_print_issue', ns( 'filter_can_edit_for_rov' ), 10 );
 	add_filter( 'show_post_locked_dialog', ns( 'filter_show_post_locked_dialog_for_rov' ), 10, 2 );
 	add_filter( 'update_post_metadata', ns( 'filter_metadata_no_post_locks_on_rov' ), 9999, 3 );
 	add_filter( 'get_post_metadata', ns( 'filter_metadata_no_post_locks_on_rov' ), 9999, 3 );
 	add_filter( 'admin_title', ns( 'filter_admin_title_for_rov' ) );
+
 }
 
 /**
@@ -80,8 +75,8 @@ function post_type_updated_labels( $messages ) {
 	$permalink        = get_permalink( $post_id );
 	$page_preview_url = apply_filters( 'preview_post_link', add_query_arg( 'preview', 'true', $permalink ), $post );
 
-	$singular                        = __( 'Print Issue', 'eight-day-week-print-workflow' );
-	$messages[ EDW_PRINT_ISSUE_CPT ] = array(
+	$singular                          = __( 'Print Issue', 'eight-day-week-print-workflow' );
+	$messages[ EDW_PRINT_ISSUE_CPT ] = [
 		0  => '', // Unused. Messages start at index 1.
 		1  => __( 'Print Issue updated.', 'eight-day-week-print-workflow' ),
 		2  => __( 'Custom field updated.' ),
@@ -93,7 +88,7 @@ function post_type_updated_labels( $messages ) {
 		8  => __( 'Print Issue submitted.', 'eight-day-week-print-workflow' ),
 		9  => __( 'Print Issue scheduled', 'eight-day-week-print-workflow' ),
 		10 => __( 'Print Issue draft updated', 'eight-day-week-print-workflow' ),
-	);
+	];
 
 	return $messages;
 }
@@ -102,28 +97,28 @@ function post_type_updated_labels( $messages ) {
  * Register print issue CPT
  */
 function register_post_type() {
-	$labels = array(
-		'name'               => __( 'Print Issues', 'eight-day-week-print-workflow' ),
-		'singular_name'      => __( 'Print Issue', 'eight-day-week-print-workflow' ),
-		'add_new_item'       => __( 'Add New Print Issue', 'eight-day-week-print-workflow' ),
-		'edit_item'          => __( 'Edit Print Issue', 'eight-day-week-print-workflow' ),
-		'new_item'           => __( 'New Print Issue', 'eight-day-week-print-workflow' ),
-		'view_item'          => __( 'View Print Issue', 'eight-day-week-print-workflow' ),
-		'search_items'       => __( 'Search Print Issues', 'eight-day-week-print-workflow' ),
-		'not_found'          => __( 'No Print Issues found', 'eight-day-week-print-workflow' ),
+	$labels = [
+		'name' => __( 'Print Issues', 'eight-day-week-print-workflow' ),
+		'singular_name' => __( 'Print Issue', 'eight-day-week-print-workflow' ),
+		'add_new_item' => __( 'Add New Print Issue', 'eight-day-week-print-workflow' ),
+		'edit_item' => __( 'Edit Print Issue', 'eight-day-week-print-workflow' ),
+		'new_item' => __( 'New Print Issue', 'eight-day-week-print-workflow' ),
+		'view_item' => __( 'View Print Issue', 'eight-day-week-print-workflow' ),
+		'search_items' => __( 'Search Print Issues', 'eight-day-week-print-workflow' ),
+		'not_found' => __( 'No Print Issues found', 'eight-day-week-print-workflow' ),
 		'not_found_in_trash' => __( 'No Print Issues found in Trash', 'eight-day-week-print-workflow' ),
-	);
+	];
 
-	// post type args
+	//post type args
 	$capability_type = EDW_PRINT_ISSUE_CPT;
-	$args            = array(
-		'labels'              => $labels,
+	$args = [
+		'labels' => $labels,
 		'exclude_from_search' => true,
-		'show_in_nav_menus'   => false,
-		'show_ui'             => true,
-		'show_in_menu'        => false,
-		'show_in_admin_bar'   => false,
-		'capabilities'        => array(
+		'show_in_nav_menus' => false,
+		'show_ui' => true,
+		'show_in_menu' => false,
+		'show_in_admin_bar' => false,
+		'capabilities' => [
 			'edit_post'              => "edit_{$capability_type}",
 			'read_post'              => "read_{$capability_type}",
 			'delete_post'            => "delete_{$capability_type}",
@@ -138,13 +133,13 @@ function register_post_type() {
 			'edit_private_posts'     => "edit_private_{$capability_type}s",
 			'edit_published_posts'   => "edit_published_{$capability_type}s",
 			'create_posts'           => "edit_others_{$capability_type}s",
-		),
-		'map_meta_cap'        => false,
-		'supports'            => array(
+		],
+		'map_meta_cap' => false,
+		'supports' => [
 			'title',
 			'author',
-		),
-	);
+		],
+	];
 
 	\register_post_type( EDW_PRINT_ISSUE_CPT, $args );
 }
@@ -158,17 +153,19 @@ function alter_metaboxes() {
 
 	if ( EDW_PRINT_ISSUE_CPT === get_post_type() ) {
 
-		// remove co authors plus metabox
-		if ( is_object( $coauthors_plus )
-			&& property_exists( $coauthors_plus, 'coauthors_meta_box_name' )
+		//remove co authors plus metabox
+		if( is_object( $coauthors_plus )
+		    && property_exists( $coauthors_plus, 'coauthors_meta_box_name' )
 		) {
 			remove_meta_box( $coauthors_plus->coauthors_meta_box_name, get_post_type(), 'normal' );
 		}
 
-		// remove built in authors metabox
+		//remove built in authors metabox
 		remove_meta_box( 'authordiv', EDW_PRINT_ISSUE_CPT, 'normal' );
 
 	}
+
+
 }
 
 /**
@@ -178,33 +175,29 @@ function alter_metaboxes() {
  */
 function admin_enqueue_scripts( $hook ) {
 
-	if ( ( 'post.php' === $hook || 'post-new.php' === $hook ) && EDW_PRINT_ISSUE_CPT === get_post_type() ) {
+	if( ( 'post.php' === $hook || 'post-new.php' === $hook ) && EDW_PRINT_ISSUE_CPT === get_post_type() ) {
 
 		wp_enqueue_style( 'edw-admin', \Eight_Day_Week\Core\get_asset_url( 'style', 'css' ) );
 
-		wp_register_script(
-			'edw-admin',
+		wp_register_script( 'edw-admin',
 			\Eight_Day_Week\Core\get_asset_url( 'scripts', 'js' ),
-			array(
+			[
 				'jquery',
 				'wp-util',
-				'jquery-ui-autocomplete',
-			),
-			false,
-			true
+				'jquery-ui-autocomplete'
+			], false, true
 		);
 
-		wp_localize_script(
-			'edw-admin',
+		wp_localize_script( 'edw-admin',
 			'EDW_Vars',
-			array(
+			[
 				'progress_img'         => '<img class="edw-loading" src="' .
-											esc_url( includes_url( 'images/spinner-2x.gif' ) ) .
-											'" alt="..." />',
+				                          esc_url( includes_url( 'images/spinner-2x.gif' ) ) .
+				                          '" alt="..." />',
 				'nonce'                => \Eight_Day_Week\Core\create_nonce(),
 				'cuc_edit_print_issue' => User\current_user_can_edit_print_issue(),
-				'rov'                  => is_read_only_view(),
-			)
+				'rov' => is_read_only_view(),
+			]
 		);
 
 		wp_enqueue_script( 'jquery-ui-autocomplete' );
@@ -223,28 +216,28 @@ function admin_enqueue_scripts( $hook ) {
  */
 function save_print_issue( $post_id, $post, $update ) {
 
-	// bail if the nonce isn't present
-	if ( ! isset( $_POST['pi-nonce'] ) ) {
+	//bail if the nonce isn't present
+	if( ! isset( $_POST['pi-nonce'] ) ) {
 		return;
 	}
 
-	if ( wp_is_post_revision( $post_id ) ) {
+	if ( wp_is_post_revision( $post_id ) )
+		return;
+
+	if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 		return;
 	}
 
-	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+	if( ! User\current_user_can_edit_print_issue() ) {
 		return;
 	}
 
-	if ( ! User\current_user_can_edit_print_issue() ) {
-		return;
-	}
-
-	// verify general nonce
+	//verify general nonce
 	check_admin_referer( 'print-issue-' . $post_id, 'pi-nonce' );
 
-	// allow other parts to hook
+	//allow other parts to hook
 	do_action( 'save_print_issue', $post_id, $post, $update );
+
 }
 
 /**
@@ -253,7 +246,7 @@ function save_print_issue( $post_id, $post, $update ) {
  * 1. Remove "Quick Edit" from the Print Issue list table
  * 2. Change "Edit" To "View" for print prod. This still links to the editor.
  *
- * @param array    $actions Actions!
+ * @param array $actions Actions!
  * @param \WP_Post $post The post!
  *
  * @return array Modified actions
@@ -266,7 +259,7 @@ function modify_print_issue_actions( $actions, $post ) {
 	unset( $actions['inline hide-if-no-js'] );
 
 	if ( ! User\current_user_can_edit_print_issue() ) {
-		$actions = array();
+		$actions = [];
 	}
 
 	$actions['edit_view'] = get_rov_link( $post );
@@ -291,7 +284,7 @@ function remove_bulk_edit( $actions ) {
  * Remove the entire "Publish" box for print prod users
  */
 function remove_publish_box() {
-	if ( ! User\current_user_can_edit_print_issue() ) {
+	if( ! User\current_user_can_edit_print_issue() ) {
 		remove_meta_box( 'submitdiv', EDW_PRINT_ISSUE_CPT, 'side' );
 	}
 }
@@ -309,13 +302,13 @@ function filter_publish_date_text( $text ) {
 
 	global $typenow;
 
-	if ( is_admin() && isset( $_GET['post'] ) &&
-		( isset( $_GET['action'] ) && 'edit' === $_GET['action'] ) &&
-		( EDW_PRINT_ISSUE_CPT === $typenow ||
-			( isset( $_REQUEST['screen_id'] ) && EDW_PRINT_ISSUE_CPT === $_REQUEST['screen_id'] ) ||
-			EDW_PRINT_ISSUE_CPT === get_post_type( absint( $_GET['post'] ) )
-		) ||
-		isset( $_GET['post_type'] ) && EDW_PRINT_ISSUE_CPT === $_GET['post_type']
+	if( is_admin() && isset( $_GET['post'] ) &&
+	    ( isset( $_GET['action'] ) && 'edit' === $_GET['action'] ) &&
+	    ( EDW_PRINT_ISSUE_CPT === $typenow ||
+	      ( isset( $_REQUEST['screen_id'] ) && EDW_PRINT_ISSUE_CPT === $_REQUEST['screen_id'] ) ||
+	      EDW_PRINT_ISSUE_CPT === get_post_type( absint( $_GET['post'] ) )
+	    ) ||
+	    isset( $_GET['post_type'] ) && EDW_PRINT_ISSUE_CPT === $_GET['post_type']
 	) {
 
 		if ( 'Publish <b>immediately</b>' === $text ) {
@@ -340,7 +333,7 @@ function filter_publish_date_text( $text ) {
 				$text = 'Save';
 				break;
 			case '%1$s %2$s, %3$s @ %4$s : %5$s':
-				// WP 4.3.1
+				//WP 4.3.1
 			case '%1$s %2$s, %3$s @ %4$s:%5$s':
 				$text = '%1$s %2$s, %3$s <hide>@ %4$s : %5$s</hide>';
 				break;
@@ -351,6 +344,7 @@ function filter_publish_date_text( $text ) {
 	}
 
 	return $text;
+
 }
 
 /**
@@ -365,60 +359,61 @@ function get_side_metabox_order( $order ) {
 
 	global $wp_meta_boxes;
 
-	// if there's no current order, we have to build one
-	// $wp_meta_boxes structure:
-	// [
-	// 'location' => [
-	// 'priority' => [
-	// 'box1', 'box2', 'box3'
-	// ],
-	// ],
+	//if there's no current order, we have to build one
+	//$wp_meta_boxes structure:
+	//[
+	//    'location' => [
+	//        'priority' => [
+	//             'box1', 'box2', 'box3'
+	//         ],
+	//     ],
 	// ]
-	if ( false === $order ) {
+	if( false === $order ) {
 
-		// get all registered metaboxes, but only the KEYS (slugs)
+		//get all registered metaboxes, but only the KEYS (slugs)
 		$wpmb_order = array_keys_recursive( $wp_meta_boxes['print-issue'] );
 
-		foreach ( $wpmb_order as $location => $priorities ) {
+		foreach( $wpmb_order as $location => $priorities ) {
 
-			// remove empty locations
+			//remove empty locations
 			$priorities = array_filter( $priorities );
 
-			// initialize the string for this index (needed because concat is used below)
-			$order[ $location ] = array();
+			//initialize the string for this index (needed because concat is used below)
+			$order[ $location ] = [];
 
-			foreach ( $priorities as $priority => $boxes ) {
-				$keys               = array_keys( $boxes );
+			foreach( $priorities as $priority => $boxes ) {
+				$keys = array_keys( $boxes );
 				$order[ $location ] = array_merge( $order[ $location ], $keys );
 			}
 
-			// make submit div last
-			if ( 'side' === $location ) {
-				// remove submitdiv by value
-				unset( $order[ $location ][ array_flip( $order[ $location ] )['submitdiv'] ] );
+			//make submit div last
+			if( 'side' === $location ) {
+				//remove submitdiv by value
+				unset( $order[$location][ array_flip( $order[ $location ] )['submitdiv'] ] );
 				$order[ $location ][] = 'submitdiv';
 			}
 
-			// WP expects a comma separated string of metabox slugs
-			// give it to 'em
+			//WP expects a comma separated string of metabox slugs
+			//give it to 'em
 			$order[ $location ] = implode( ',', $order[ $location ] );
 		}
+
 	} else {
 
-		// if there is an order, it's an associative array of comma separated strings,
-		// [ 'location' => 'box1,box2,box3' ]
+		//if there is an order, it's an associative array of comma separated strings,
+		//[ 'location' => 'box1,box2,box3' ]
 
-		// we're just dealing with the side order here
+		//we're just dealing with the side order here
 		$side = explode( ',', $order['side'] );
 
-		// so we search for submitdiv metabox
+		//so we search for submitdiv metabox
 		$side_key = array_search( 'submitdiv', $side );
 
-		// and move it to the end
-		if ( false !== $side_key ) {
+		//and move it to the end
+		if( FALSE !== $side_key ) {
 			$save = $side[ $side_key ];
 			unset( $side[ $side_key ] );
-			$side[]        = $save;
+			$side[] = $save;
 			$order['side'] = implode( ',', $side );
 		}
 	}
@@ -436,9 +431,9 @@ function get_side_metabox_order( $order ) {
  *
  * @return array
  */
-function array_keys_recursive( $array, $MAXDEPTH = INF, $depth = 0, $arrayKeys = array() ) {
+function array_keys_recursive( $array, $MAXDEPTH = INF, $depth = 0, $arrayKeys = [] ) {
 	if ( $depth < $MAXDEPTH ) {
-		++$depth;
+		$depth ++;
 		$keys = array_keys( $array );
 		foreach ( $keys as $key ) {
 			if ( is_array( $array[ $key ] ) ) {
@@ -459,7 +454,7 @@ function array_keys_recursive( $array, $MAXDEPTH = INF, $depth = 0, $arrayKeys =
  */
 function filter_can_edit_for_rov( $can_edit ) {
 
-	if ( is_read_only_view() ) {
+	if( is_read_only_view() ) {
 		$can_edit = false;
 	}
 
@@ -509,8 +504,8 @@ function get_rov_url( $post ) {
  */
 function filter_show_post_locked_dialog_for_rov( $show, $post ) {
 
-	if ( EDW_PRINT_ISSUE_CPT === get_post_type() ) {
-		if ( is_read_only_view() || ! User\current_user_can_edit_print_issue() ) {
+	if( EDW_PRINT_ISSUE_CPT === get_post_type() ) {
+		if( is_read_only_view() || ! User\current_user_can_edit_print_issue() ) {
 			$show = false;
 		} else {
 			add_filter( 'preview_post_link', __NAMESPACE__ . '\filter_preview_post_link_for_rov', 10, 2 );
@@ -545,9 +540,9 @@ function filter_preview_post_link_for_rov( $preview, $post ) {
  *
  * @return bool
  */
-function filter_metadata_no_post_locks_on_rov( $orig, $object_id, $meta_key ) {
-	if ( '_edit_lock' === $meta_key && EDW_PRINT_ISSUE_CPT === get_post_type( $object_id ) ) {
-		if ( ! User\current_user_can_edit_print_issue() ) {
+function filter_metadata_no_post_locks_on_rov( $orig, $object_id, $meta_key ){
+	if( '_edit_lock' === $meta_key && EDW_PRINT_ISSUE_CPT === get_post_type( $object_id ) ) {
+		if( ! User\current_user_can_edit_print_issue() ) {
 			$orig = false;
 		}
 	}
@@ -562,8 +557,8 @@ function filter_metadata_no_post_locks_on_rov( $orig, $object_id, $meta_key ) {
  * @return string Modified title
  */
 function filter_admin_title_for_rov( $title ) {
-	if ( EDW_PRINT_ISSUE_CPT === get_post_type() ) {
-		if ( is_read_only_view() || ! User\current_user_can_edit_print_issue() ) {
+	if( EDW_PRINT_ISSUE_CPT === get_post_type() ) {
+		if( is_read_only_view() || ! User\current_user_can_edit_print_issue() ) {
 			$title = esc_html__( 'Print Issue (Read Only)', 'eight-day-week-print-workflow' );
 		}
 	}
@@ -583,8 +578,8 @@ function filter_admin_title_for_rov( $title ) {
  */
 function hide_post_states( $post_states, $post ) {
 
-	if ( EDW_PRINT_ISSUE_CPT === get_post_type( $post ) ) {
-		$post_states = array();
+	if( EDW_PRINT_ISSUE_CPT === get_post_type( $post ) ) {
+		$post_states = [];
 	}
 
 	return $post_states;

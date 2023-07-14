@@ -1,10 +1,4 @@
 <?php
-/**
- * Handles creating the print issue columns
- *
- * @package eight-day-week
- */
-
 namespace Eight_Day_Week\Print_Issue_Columns;
 
 use Eight_Day_Week\Core as Core;
@@ -23,6 +17,7 @@ function setup() {
 	add_filter( 'manage_edit-' . EDW_PRINT_ISSUE_CPT . '_columns', ns( 'print_issue_cpt_columns' ) );
 	add_action( 'manage_' . EDW_PRINT_ISSUE_CPT . '_posts_custom_column', ns( 'populate_print_issue_cpt_columns' ), 10, 2 );
 	add_filter( 'manage_edit-' . EDW_PRINT_ISSUE_CPT . '_sortable_columns', ns( 'print_issue_sortable_columns' ), 10, 2 );
+
 }
 
 /**
@@ -34,11 +29,11 @@ function setup() {
  */
 function print_issue_cpt_columns( $columns ) {
 
-	$custom                = array();
-	$custom['cb']          = $columns['cb'];
-	$custom['title']       = $columns['title'];
+	$custom = [];
+	$custom['cb'] = $columns['cb'];
+	$custom['title'] = $columns['title'];
 	$custom['custom-date'] = __( 'Issue Date', 'eight-day-week-print-workflow' );
-	$custom['modified']    = __( 'Last Modified', 'eight-day-week-print-workflow' );
+	$custom['modified'] = __( 'Last Modified', 'eight-day-week-print-workflow' );
 
 	return apply_filters( __NAMESPACE__ . '\pi_columns', $custom );
 }
@@ -49,7 +44,7 @@ function print_issue_cpt_columns( $columns ) {
  * @uses manage_edit-print-issue_sortable_columns
  * @return $columns post list table object
  */
-function print_issue_sortable_columns( $columns ) {
+function print_issue_sortable_columns($columns){
 	$columns['modified'] = 'modified';
 	return $columns;
 }
@@ -67,7 +62,7 @@ function populate_print_issue_cpt_columns( $colname, $post_id ) {
 	if ( 'modified' === $colname ) {
 		$t_time = get_the_time( __( 'Y/m/d g:i:s a' ) );
 		$m_time = $post->post_date;
-		$time   = get_post_time( 'G', true, $post );
+		$time = get_post_time( 'G', true, $post );
 
 		$time_diff = time() - $time;
 
@@ -78,7 +73,7 @@ function populate_print_issue_cpt_columns( $colname, $post_id ) {
 		}
 		echo esc_html( $h_time );
 	}
-	if ( 'custom-date' === $colname ) {
+	if( 'custom-date' === $colname ) {
 		echo esc_html( get_the_date() );
 	}
 }
