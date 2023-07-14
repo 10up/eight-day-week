@@ -594,19 +594,37 @@ class Article_XML {
 			}
 		}
 
-		$content = preg_replace_callback(
-			'/\[caption.*\[\/caption\]/Usi',
-			function ( $matches ) {
-				if ( preg_match( '/attachment_(\d+)\D/i', $matches[0], $matches2 ) ) {
-					$image = $this->get_image_name( (int) $matches2[1] );
-				}
-				if ( preg_match( '/\[caption[^\]]*](.*)\[\/caption\]/Usi', strip_tags( $matches[0] ), $matches2 ) ) {
-					$caption = trim( $matches2[1] );
-				}
-				return $image ? $this->get_image_tag( $image[1], $caption ) : '';
-			},
-			$content
-		);
+		$dom = new \DOMDocument();
+		$dom->loadHTML( $content );
+
+		$captions = $dom->getElementsByTagName('caption');
+
+		foreach ( $captions as $caption ) {
+			$image        = null;
+			$caption_text = '';
+
+			// Assuming the attachment id is an attribute in the caption tag.
+			$attachment_id = $caption->getAttribute( 'attachment' );
+			if ( $attachment_id ) {
+				$image = $this->get_image_name( (int) $attachment_id );
+			}
+
+			// Assuming the caption text is inside the caption tag.
+			if ( $caption->nodeValue ) { // phpcs:ignore
+				$caption_text = trim( $caption->nodeValue ); // phpcs:ignore
+			}
+
+			if ( $image ) {
+				$image_tag = $this->get_image_tag( $image[1], $caption_text );
+				$new_node  = $dom->createDocumentFragment();
+				$new_node->appendXML( $image_tag );
+				$caption->parentNode->replaceChild( $new_node, $caption ); // phpcs:ignore
+			} else {
+				$caption->parentNode->removeChild( $caption ); // phpcs:ignore
+			}
+		}
+
+		$content = $dom->saveHTML();
 
 		$content = preg_replace_callback(
 			'/\[gallery[^]]*ids="([\d,]+)"[^]]*\]/Usi',
