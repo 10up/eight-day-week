@@ -626,22 +626,6 @@ class Article_XML {
 
 		$content = $dom->saveHTML();
 
-		$content = preg_replace_callback(
-			'/\[gallery[^]]*ids="([\d,]+)"[^]]*\]/Usi',
-			function ( $matches ) {
-
-				if ( $matches[1] ) {
-					$gallery_images = explode( ',', $matches[1] );
-					foreach ( $gallery_images as $img_id ) {
-						$image = $this->get_image_name( (int) $img_id );
-					}
-				}
-
-				return '';
-			},
-			$content
-		);
-
 		$content = strip_shortcodes( $content );
 
 		$content = preg_replace_callback(
