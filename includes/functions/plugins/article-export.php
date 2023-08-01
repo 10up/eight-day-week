@@ -2,7 +2,7 @@
 /**
  * Handles the article export functionality
  *
- * @package eight-day-week
+ * @package Eight_Day_Week
  */
 
 namespace Eight_Day_Week\Plugins\Article_Export;
@@ -22,26 +22,36 @@ function setup() {
 	add_action(
 		'Eight_Day_Week\Core\plugin_init',
 		function () {
-
-			function ns( $function ) {
-				return __NAMESPACE__ . "\\$function";
+			/**
+			 * A function that returns the fully qualified namespace of a given function.
+			 *
+			 * @param string $func The name of the function.
+			 * @return string The fully qualified namespace of the function.
+			 */
+			function ns( $func ) {
+				return __NAMESPACE__ . "\\$func";
 			}
 
-			function a( $function ) {
-				add_action( $function, ns( $function ) );
+			/**
+			 * Add an action hook and associate it with a callback function.
+			 *
+			 * @param string $func The name of the action hook to add.
+			 */
+			function a( $func ) {
+				add_action( $func, ns( $func ) );
 			}
 			add_action( 'edw_sections_top', ns( 'output_article_export_buttons' ), 11 );
 			add_action( 'wp_ajax_pp-article-export', ns( 'export_articles' ) );
 
 			add_action( 'wp_ajax_pp-article-export-update', ns( 'article_status_response' ) );
 
-			// add export status column
+			// Add export status column.
 			add_filter( 'Eight_Day_Week\Articles\article_columns', ns( 'article_export_status_column' ), 10 );
 
-			// retrieve export status + build string for output
+			// Retrieve export status + build string for output.
 			add_filter( 'Eight_Day_Week\Articles\article_meta_export_status', ns( 'filter_export_status' ), 10, 2 );
 
-			add_filter( __NAMESPACE__ . '\short_circuit_article_export_files', ns( 'maybe_export_article_attachments' ), 10, 4 );
+			add_filter( __NAMESPACE__ . '\short_circuit_article_export_files', ns( 'maybe_export_article_attachments' ), 10, 2 );
 
 			add_filter( __NAMESPACE__ . '\xml_filename', ns( 'filter_xml_filename_author' ), 10, 3 );
 		}
@@ -69,17 +79,17 @@ function export_articles() {
 	Core\check_ajax_referer();
 
 	if ( ! isset( $_POST['article_ids'] ) ) {
-		die( __( 'No article IDs sent', 'eight-day-week-print-workflow' ) );
+		die( esc_html__( 'No article IDs sent', 'eight-day-week-print-workflow' ) );
 	}
 
-	$article_ids = $_POST['article_ids'];
+	$article_ids = sanitize_text_field( wp_unslash( $_POST['article_ids'] ) );
 
-	$print_issue_id    = absint( $_POST['print_issue_id'] );
-	$print_issue_title = sanitize_text_field( $_POST['print_issue_title'] );
+	$print_issue_id    = isset( $_POST['print_issue_id'] ) ? absint( $_POST['print_issue_id'] ) : false;
+	$print_issue_title = isset( $_POST['print_issue_title'] ) ? sanitize_text_field( wp_unslash( $_POST['print_issue_title'] ) ) : false;
 
-	// sanitize - only allow comma delimited integers
+	// Sanitize - only allow comma delimited integers.
 	if ( ! ctype_digit( str_replace( ',', '', $article_ids ) ) ) {
-		die( __( 'Invalid article IDs specified in the request.', 'eight-day-week-print-workflow' ) );
+		die( esc_html__( 'Invalid article IDs specified in the request.', 'eight-day-week-print-workflow' ) );
 	}
 
 	$article_ids = explode( ',', $article_ids );
@@ -103,11 +113,10 @@ function export_articles() {
 }
 
 /**
- * Adds exports status to the list table columns
+ * Adds the 'Export Status' column to the given array of columns.
  *
- * @param array $columns
- *
- * @return array Modified columns
+ * @param array $columns The array of columns to add the 'Export Status' column to.
+ * @return array The modified array of columns.
  */
 function article_export_status_column( $columns ) {
 	$columns['export_status'] = __( 'Export Status', 'eight-day-week-print-workflow' );
@@ -117,7 +126,7 @@ function article_export_status_column( $columns ) {
 /**
  * Updates post meta with export status and retrieves the built status string
  *
- * @param $article_ids array Post IDs
+ * @param array $article_ids Post IDs.
  *
  * @uses set_export_status
  * @uses get_export_status
@@ -148,7 +157,7 @@ function article_status_response() {
  * @uses set_and_get_export_status
  *
  * @return string The export status
- * @throws \Exception Points of failure in the process
+ * @throws \Exception Points of failure in the process.
  */
 function article_status_handler() {
 
@@ -156,9 +165,9 @@ function article_status_handler() {
 		throw new \Exception( __( 'No article IDs sent', 'eight-day-week-print-workflow' ) );
 	}
 
-	$article_ids = $_POST['article_ids'];
+	$article_ids = sanitize_text_field( wp_unslash( $_POST['article_ids'] ) );
 
-	// sanitize - only allow comma delimited integers
+	// Sanitize - only allow comma delimited integers.
 	if ( ! ctype_digit( str_replace( ',', '', $article_ids ) ) ) {
 		throw new \Exception( __( 'Invalid article IDs specified in the request.', 'eight-day-week-print-workflow' ) );
 	}
@@ -172,7 +181,7 @@ function article_status_handler() {
  * Updates each exported article with meta
  * about who last exported it, and when
  *
- * @param array $article_ids IDs of articles that were exported
+ * @param array $article_ids IDs of articles that were exported.
  */
 function set_export_status( $article_ids ) {
 	$article_ids = array_map( 'absint', $article_ids );
@@ -185,8 +194,8 @@ function set_export_status( $article_ids ) {
 /**
  * Gets the article's export status
  *
- * @param $incoming bool The incoming meta value (false by default)
- * @param $article \WP_Post The current post
+ * @param bool     $incoming The incoming meta value (false by default).
+ * @param \WP_Post $article The current post.
  *
  * @return string The article's export status, or the incoming value
  */
@@ -198,7 +207,7 @@ function filter_export_status( $incoming, $article ) {
 /**
  * Builds the export status string
  *
- * @param int $article_id The article post ID
+ * @param int $article_id The article post ID.
  *
  * @return string The export status
  */
@@ -223,9 +232,11 @@ function get_export_status( $article_id ) {
 	$not_today = $export_datetime->diff( $now )->format( '%R%a' );
 
 	if ( ! $not_today ) {
-		$export_status = sprintf( __( 'Exported on %1$s by %2$s', 'eight-day-week-print-workflow' ), $export_datetime->format( get_option( 'date_format' ) ), $user->display_name );
+		/* translators: 1: date when the export happened, 2: user's display name */
+		$export_status = sprintf( esc_html__( 'Exported on %1$s by %2$s', 'eight-day-week-print-workflow' ), $export_datetime->format( get_option( 'date_format' ) ), $user->display_name );
 	} else {
-		$export_status = sprintf( __( 'Exported at %1$s by %2$s', 'eight-day-week-print-workflow' ), $export_datetime->format( _x( 'g:ia', 'Format for article export timestamp', 'eight-day-week' ) ), $user->display_name );
+		/* translators: 1: time when the export happened, 2: user's display name */
+		$export_status = sprintf( esc_html__( 'Exported at %1$s by %2$s', 'eight-day-week-print-workflow' ), $export_datetime->format( _x( 'g:ia', 'Format for article export timestamp', 'eight-day-week' ) ), $user->display_name );
 	}
 
 	return $export_status;
@@ -244,35 +255,43 @@ function get_export_status( $article_id ) {
 class Article_Zip_Factory {
 
 	/**
+	 * Article IDs
+	 *
 	 * @var int[] Article IDs
 	 */
 	private $ids;
 
 	/**
+	 * Article array
+	 *
 	 * @var \WP_Post[] Articles
 	 */
-	var $articles;
+	public $articles;
 
 	/**
+	 * Files for articles
+	 *
 	 * @var File[] Files for all articles
 	 */
-	var $files;
+	public $files;
 
 	/**
+	 * Image for articles
+	 *
 	 * @var array Images for all articles
 	 */
-	var $images;
+	public $images;
 
 	/**
 	 * Sets up object properties
 	 *
-	 * @param array  $ids Array of post IDs
-	 * @param int    $print_issue_id ID of parent print issue
-	 * @param string $print_issue_title Title of parent print issue (to avoid lookup)
+	 * @param array  $ids Array of post IDs.
+	 * @param int    $print_issue_id ID of parent print issue.
+	 * @param string $print_issue_title Title of parent print issue (to avoid lookup).
 	 *
-	 * @throws \Exception Various points of failure in constructing the factory
+	 * @throws \Exception Various points of failure in constructing the factory.
 	 */
-	function __construct( $ids, $print_issue_id, $print_issue_title ) {
+	public function __construct( $ids, $print_issue_id, $print_issue_title ) {
 
 		$article_ids = array_filter( $ids, 'is_numeric' );
 		if ( count( $ids ) !== count( $article_ids ) ) {
@@ -289,7 +308,7 @@ class Article_Zip_Factory {
 	 *
 	 * @return \WP_Post[]
 	 */
-	function import_articles() {
+	public function import_articles() {
 		$articles = array();
 		foreach ( $this->ids as $id ) {
 			$article = get_post( $id );
@@ -308,12 +327,13 @@ class Article_Zip_Factory {
 	 *
 	 * @return \WP_Post[]
 	 */
-	function get_articles() {
+	public function get_articles() {
 		if ( $this->articles ) {
 			return $this->articles;
 		}
 
-		return $this->articles = $this->import_articles();
+		$this->articles = $this->import_articles();
+		return $this->articles;
 	}
 
 	/**
@@ -324,17 +344,17 @@ class Article_Zip_Factory {
 	 *
 	 * @return array File[] Set of export files
 	 */
-	function build_file_sets() {
+	public function build_file_sets() {
 
 		$articles = $this->get_articles();
 
 		$file_sets = array();
 		foreach ( $articles as $article ) {
 
-			// allow articles to export an alternative file
+			// Allow articles to export an alternative file.
 			$files = apply_filters( __NAMESPACE__ . '\short_circuit_article_export_files', false, $article, $this->print_issue_id, $this->print_issue_title );
 
-			// but fall back to XML
+			// But fall back to XML.
 			if ( ! $files ) {
 				$files = $this->get_xml_file( $article );
 			}
@@ -353,7 +373,7 @@ class Article_Zip_Factory {
 	 * @param mixed $article The article to retrieve the XML file for.
 	 * @return array An array containing the XML file.
 	 */
-	function get_xml_file( $article ) {
+	public function get_xml_file( $article ) {
 		$xml = $this->get_xml( $article );
 
 		$file_name  = apply_filters( __NAMESPACE__ . '\xml_filename', $xml->root_element->getAttribute( 'title' ), $article, $xml );
@@ -370,16 +390,15 @@ class Article_Zip_Factory {
 	/**
 	 * Builds and returns an XML file for an article
 	 *
-	 * @param $article \WP_Post the current post
+	 * @param \WP_Post $article the current post.
 	 *
 	 * @return object Contains properties of a DOMDocument object for easy access
-	 * @throws \Exception
 	 */
-	function get_xml( $article ) {
+	public function get_xml( $article ) {
 		$xml                          = new Article_XML( $article );
-		$xmlContent                   = $xml->build_xml();
+		$xml_content                  = $xml->build_xml();
 		$this->images[ $article->ID ] = $xml->images;
-		return $xmlContent;
+		return $xml_content;
 	}
 
 	/**
@@ -387,26 +406,35 @@ class Article_Zip_Factory {
 	 *
 	 * @return File[] Set of files
 	 */
-	function get_file_sets() {
+	public function get_file_sets() {
 		if ( $this->files ) {
 			return $this->files;
 		}
 
-		return $this->files = $this->build_file_sets();
+		$this->files = $this->build_file_sets();
+		return $this->files;
 	}
 
-	function output_zip() {
-		// prepare folder
-		$tmp_folder = 'export_xml_' . get_current_user_id();
+	/**
+	 * Generates a zip file containing the output of the function.
+	 */
+	public function output_zip() {
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		WP_Filesystem();
+		global $wp_filesystem;
 
-		if ( ! is_dir( get_temp_dir() . $tmp_folder ) ) {
-			mkdir( get_temp_dir() . $tmp_folder );
+		// Prepare folder.
+		$tmp_folder = 'export_xml_' . get_current_user_id();
+		$tmp_dir    = get_temp_dir() . $tmp_folder;
+
+		if ( ! $wp_filesystem->is_dir( $tmp_dir ) ) {
+			$wp_filesystem->mkdir( $tmp_dir );
 		}
 
-		// create zip
+		// Create zip.
 		$tmp_zip_file = get_temp_dir() . $tmp_folder . '/output.zip';
 		if ( file_exists( $tmp_zip_file ) ) {
-			unlink( $tmp_zip_file );
+			wp_delete_file( $tmp_zip_file );
 		}
 		$zip  = new \ZipArchive( $this->print_issue_title );
 		$code = $zip->open( $tmp_zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE );
@@ -428,19 +456,19 @@ class Article_Zip_Factory {
 			}
 		}
 
-		// add xml files
+		// Add xml files.
 		foreach ( $file_sets as $article_id => $files ) {
 
 			$zip->addEmptyDir( $sub_folders[ $article_id ] );
 
-			// force an array
+			// Force an array.
 			$files = is_array( $files ) ? $files : array( $files );
 			foreach ( $files as $file ) {
 				$zip->addFromString( $sub_folders[ $article_id ] . '/' . $file->filename, $file->contents );
 			}
 		}
 
-		// add images (by path)
+		// Add images (by path).
 		if ( is_array( $this->images ) ) {
 			foreach ( $this->images as $article_id => $images ) {
 				foreach ( $images as $image_full_path => $image_name ) {
@@ -461,7 +489,7 @@ class Article_Zip_Factory {
 	 * @throws Exception If the file cannot be opened.
 	 * @return void
 	 */
-	function out_zip_file( $filename ) {
+	public function out_zip_file( $filename ) {
 		header( 'Content-type: application/octet-stream' );
 		header( 'Content-Disposition: attachment; filename="' . $this->get_zip_file_name() . '.zip"' );
 		$handle = fopen( $filename, 'rb' );
@@ -486,9 +514,10 @@ class Article_Zip_Factory {
 	 *
 	 * @return string The zip file name
 	 */
-	function get_zip_file_name() {
+	public function get_zip_file_name() {
 		date_default_timezone_set( Core\get_timezone() );
-		return sprintf( __( 'Issue %1$s exported on %2$s at %3$s', 'eight-day-week' ), $this->print_issue_title, date( 'm-d-y' ), date( 'h:ia' ) );
+		/* translators: 1: title of the print issue, 2: date of the export (m-d-y), 3: time of the export (h:ia) */
+		return sprintf( __( 'Issue %1$s exported on %2$s at %3$s', 'eight-day-week' ), $this->print_issue_title, gmdate( 'm-d-y' ), gmdate( 'h:ia' ) );
 	}
 
 }
@@ -503,16 +532,18 @@ class Article_Zip_Factory {
 class Article_XML {
 
 	/**
+	 * Article
+	 *
 	 * @var \WP_Post
 	 */
-	var $article;
+	public $article;
 
 	/**
 	 * Sets object properties
 	 *
-	 * @param \WP_Post $article A post to export
+	 * @param \WP_Post $article A post to export.
 	 */
-	function __construct( \WP_Post $article ) {
+	public function __construct( \WP_Post $article ) {
 		$this->article = $article;
 		$this->id      = $article->ID;
 	}
@@ -521,19 +552,19 @@ class Article_XML {
 	 * Builds XML document from a WP_Post
 	 *
 	 * @return object DOMDocument + children elements for easy access
-	 * @throws \Exception Various points of failure
+	 * @throws \Exception Various points of failure.
 	 */
-	function build_xml() {
+	public function build_xml() {
 
 		global $post;
 
-		// store global post backup
+		// Store global post backup.
 		$old = $post;
 
-		// and set global post to this post
-		$post = $this->article;
+		// And set global post to this post.
+		$post = $this->article; // phpcs:ignore
 
-		$content = $this->get_article_content( $this->article );
+		$content = $this->get_article_content();
 		if ( ! $content ) {
 			throw new \Exception( 'Post ' . $this->id . ' was empty.' );
 		}
@@ -541,7 +572,7 @@ class Article_XML {
 		$content = str_replace( array( "\r\n", "\r" ), "\n", $content );
 
 		$dom = new \DOMDocument();
-		@$dom->loadHTML(
+		$dom->loadHTML(
 			mb_convert_encoding(
 				$content,
 				apply_filters( __NAMESPACE__ . '\dom_encoding_from', 'HTML-ENTITIES' ),
@@ -549,10 +580,10 @@ class Article_XML {
 			)
 		);
 
-		// perform dom manipulations
+		// Perform dom manipulations.
 		$dom = $this->manipulate_dom( $dom );
 
-		// do html_to_xml before adding elements so that the html wrap stuff is removed first
+		// Do html_to_xml before adding elements so that the html wrap stuff is removed first.
 		$xml_elements = $this->html_to_xml( $dom );
 
 		$elements = apply_filters(
@@ -567,8 +598,8 @@ class Article_XML {
 
 		$this->add_article_attributes( $xml_elements->root_element, $elements );
 
-		// reset global post
-		$post = $old;
+		// Reset global post.
+		$post = $old; // phpcs:ignore
 
 		$GLOBALS['recentComment'] = $elements['comment'] ? $elements['comment'] : false;
 
@@ -578,11 +609,9 @@ class Article_XML {
 	/**
 	 * Get prepared article content
 	 *
-	 * @param object $article WP_Post article
-	 *
 	 * @return string article content
 	 */
-	function get_article_content( $article ) {
+	public function get_article_content() {
 
 		$content = $this->article->post_content;
 
@@ -597,7 +626,7 @@ class Article_XML {
 		$dom = new \DOMDocument();
 		$dom->loadHTML( $content );
 
-		$captions = $dom->getElementsByTagName('caption');
+		$captions = $dom->getElementsByTagName( 'caption' );
 
 		foreach ( $captions as $caption ) {
 			$image        = null;
@@ -646,17 +675,18 @@ class Article_XML {
 	/**
 	 * Get array with various elements
 	 *
-	 * @param object $article WP_Post article
+	 * @param object $article WP_Post article.
 	 *
 	 * @return array with elements
 	 */
-	function get_outer_elements( $article ) {
+	public function get_outer_elements( $article ) {
 
 		$res = array( 'headline' => get_the_title( $article ) );
 
 		$featured_id = get_post_thumbnail_id( $this->id );
 		if ( $featured_id ) {
-			if ( $image = $this->get_image_name( $featured_id ) ) {
+			$image = $this->get_image_name( $featured_id );
+			if ( $image ) {
 				$res['featured'] = $image;
 			}
 		}
@@ -665,95 +695,96 @@ class Article_XML {
 			$res['image'] = $this->images;
 		}
 
-		if ( function_exists( 'get_field' ) && $this->id && $comment = get_field( 'opombe_za_dtp', $this->id ) ) {
-			$res['comment'] = $comment;
+		if ( function_exists( 'get_field' ) && $this->id ) {
+			$comment = get_field( 'opombe_za_dtp', $this->id );
+			if ( $comment ) {
+				$res['comment'] = $comment;
+			}
 		}
 		return $res;
 	}
 
 	/**
-	 * Retrieves path and full filename for atatchment id
+	 * Retrieves the name of an image based on the given attachment ID or path.
 	 *
-	 * @param int $attachment_id Attachment id to process
-	 *
-	 * @return Array with path and name
+	 * @param bool|int    $attachment_id The ID of the attachment. Defaults to false.
+	 * @param bool|string $attachment_path The path of the attachment. Defaults to false.
+	 * @return array An array containing the image path and filename.
 	 */
-	function get_image_name( $attachment_id = false, $attachment_path = false ) {
-		$imageSrc = $attachment_path ? $attachment_path : get_attached_file( $attachment_id );
+	public function get_image_name( $attachment_id = false, $attachment_path = false ) {
+		$image_src = $attachment_path ? $attachment_path : get_attached_file( $attachment_id );
 
-		if ( preg_match( '/^(.*[\\/])([^\\/]+)\.(.*)$/', $imageSrc, $matches ) ) {
+		if ( preg_match( '/^(.*[\\/])([^\\/]+)\.(.*)$/', $image_src, $matches ) ) {
 			// [-_]\d+x\d+
-			$imagePath     = $matches[1];
-			$imageFilename = ( ! $attachment_id && preg_match( '/^(.+)[-_]\d+x\d+$/i', $matches[2], $matches2 ) ? $matches2[1] : $matches[2] ) . '.' . $matches[3];
+			$image_path     = $matches[1];
+			$image_filename = ( ! $attachment_id && preg_match( '/^(.+)[-_]\d+x\d+$/i', $matches[2], $matches2 ) ? $matches2[1] : $matches[2] ) . '.' . $matches[3];
 		}
 
-		if ( ! $imageFilename ) {
+		if ( ! $image_filename ) {
 			return array();
 		}
 
-		$this->images[ $imagePath . $imageFilename ] = $imageFilename;
+		$this->images[ $image_path . $image_filename ] = $image_filename;
 
-		return array( $imagePath, $imageFilename );
+		return array( $image_path, $image_filename );
 	}
 
 	/**
 	 * Formats tag for attachment name and caption
 	 *
-	 * @param string $attachment_name Attachment name
-	 * @param string $attachment_caption Attachment caption (optional)
+	 * @param string $attachment_name Attachment name.
+	 * @param string $attachment_caption Attachment caption (optional).
 	 *
 	 * @return String with formatted image tag
 	 */
-	function get_image_tag( $attachment_name, $attachment_caption = false ) {
+	public function get_image_tag( $attachment_name, $attachment_caption = false ) {
 		return ' ## ' . remove_accents( $attachment_name ) . ' ## ' . ( $attachment_caption ? trim( $attachment_caption ) : '' ) . ' ';
 	}
 
 	/**
 	 * Appends various elements
 	 *
-	 * @param object $xml_elements XML Document + children
-	 * @param array  $outer_elements Elements to add to the root element
-	 *
-	 * @return \DOMDocument XML Doc with elements appended to the root
+	 * @param object $xml_elements XML Document + children.
+	 * @param array  $outer_elements Elements to add to the root element.
 	 */
-	function add_outer_elements( $xml_elements, $outer_elements ) {
+	public function add_outer_elements( $xml_elements, $outer_elements ) {
 		foreach ( $outer_elements as $tag_name => $value ) {
 			if ( ! $value ) {
 				continue;
 			}
 
-			if ( $tag_name == 'headline' ) {
+			if ( 'headline' === $tag_name ) {
 
 				$element            = $xml_elements->xml_document->createElement( $tag_name );
-				$element->nodeValue = $value;
-				$afterSibling       = $xml_elements->root_element->firstChild;
-				$xml_elements->root_element->insertBefore( $element, $afterSibling );
+				$element->nodeValue = $value; // phpcs:ignore
+				$after_sibling      = $xml_elements->root_element->firstChild;
+				$xml_elements->root_element->insertBefore( $element, $after_sibling );
 
-			} elseif ( $tag_name == 'featured' || $tag_name == 'image' ) {
+			} elseif ( 'featured' === $tag_name || 'image' === $tag_name ) {
 
-				if ( $tag_name == 'featured' ) {
+				if ( 'featured' === $tag_name ) {
 					$element = $xml_elements->xml_document->createElement( 'image' );
 					$value   = array_values( $value );
 					$element->setAttribute( 'href', 'file:///' . html_entity_decode( remove_accents( array_pop( $value ) ) ) );
-					$element->nodeValue = '';
-					$afterSibling       = $xml_elements->xml_document->getElementsByTagName( 'content' );
-					$xml_elements->root_element->insertBefore( $element, $afterSibling[0] );
-					$xml_elements->root_element->insertBefore( $xml_elements->xml_document->createTextNode( "\n" ), $afterSibling[0] );
+					$element->nodeValue = ''; // phpcs:ignore
+					$after_sibling      = $xml_elements->xml_document->getElementsByTagName( 'content' );
+					$xml_elements->root_element->insertBefore( $element, $after_sibling[0] );
+					$xml_elements->root_element->insertBefore( $xml_elements->xml_document->createTextNode( "\n" ), $after_sibling[0] );
 				} else {
 					foreach ( $value as $image_full_path => $image_name ) {
-						if ( $outer_elements['featured'] && $outer_elements['featured'][1] == $image_name ) {
+						if ( $outer_elements['featured'] && $outer_elements['featured'][1] === $image_name ) {
 							continue;
 						}
 						$element = $xml_elements->xml_document->createElement( 'image' );
 						$element->setAttribute( 'href', 'file:///' . html_entity_decode( remove_accents( $image_name ) ) );
-						$element->nodeValue = '';
+						$element->nodeValue = ''; // phpcs:ignore
 						$xml_elements->root_element->appendChild( $element );
 					}
 				}
 			} else {
 
 				$element            = $xml_elements->xml_document->createElement( $tag_name );
-				$element->nodeValue = $value;
+				$element->nodeValue = $value; // phpcs:ignore
 				$xml_elements->root_element->appendChild( $element );
 
 			}
@@ -765,7 +796,7 @@ class Article_XML {
 	 *
 	 * @return string The author's name (last name if set, but has fallbacks)
 	 */
-	function get_first_author_name() {
+	public function get_first_author_name() {
 		if ( function_exists( 'get_coauthors' ) ) {
 			$authors = get_coauthors( $this->id );
 		} else {
@@ -792,39 +823,40 @@ class Article_XML {
 	/**
 	 * Adds the first author's name to the article element
 	 *
-	 * @param \DOMElement $article_element The root article element
+	 * @param \DOMElement $article_element The root article element.
 	 */
-	function add_author_name( $article_element ) {
+	public function add_author_name( $article_element ) {
 		$article_element->setAttribute( 'author', html_entity_decode( $this->get_first_author_name() ) );
 	}
 
 	/**
 	 * Adds the post title to the article element
 	 *
-	 * @param \DOMElement $article_element The root article element
-	 * @param string      $title The post title to add
+	 * @param \DOMElement $article_element The root article element.
+	 * @param string      $title The post title to add.
 	 */
-	function add_post_title( $article_element, $title ) {
+	public function add_post_title( $article_element, $title ) {
 		$article_element->setAttribute( 'title', html_entity_decode( $title ) );
 	}
 
 	/**
 	 * Adds the post comment to the article element
 	 *
-	 * @param \DOMElement $article_element The root article element
-	 * @param string      $title The post comment to add
+	 * @param \DOMElement $article_element The root article element.
+	 * @param string      $comment The post comment to add.
 	 */
-	function add_post_comment( $article_element, $comment ) {
+	public function add_post_comment( $article_element, $comment ) {
 		$article_element->setAttribute( 'comment', html_entity_decode( $comment ) );
 	}
 
 	/**
-	 * Adds various attributes to the article element
+	 * Adds attributes to an article element.
 	 *
-	 * @param \DOMElement $article_element
-	 * @param array       $elements Predefined attribute values
+	 * @param mixed $article_element The article element to add attributes to.
+	 * @param array $elements An array of elements.
+	 * @return void
 	 */
-	function add_article_attributes( $article_element, $elements ) {
+	public function add_article_attributes( $article_element, $elements ) {
 		$this->add_author_name( $article_element );
 
 		if ( isset( $elements['headline'] ) ) {
@@ -833,29 +865,32 @@ class Article_XML {
 	}
 
 	/**
-	 * Performs various DOM manipulations
+	 * Manipulates the DOM.
 	 *
-	 * @param \DOMDocument $dom
+	 * This function extracts elements by XPath and removes elements from the DOM.
+	 * It also allows third-party modification of the entire DOM.
 	 *
-	 * @return \DOMDocument The modified DOM
+	 * @param mixed $dom The DOM to be manipulated.
+	 *
+	 * @return mixed The manipulated DOM.
 	 */
-	function manipulate_dom( $dom ) {
+	public function manipulate_dom( $dom ) {
 		$this->extract_elements_by_xpath( $dom );
 		$this->remove_elements( $dom );
 
-		// allow third party modification of the entire dom
+		// Allow third party modification of the entire dom.
 		$dom = apply_filters( __NAMESPACE__ . '\dom', $dom );
 
 		return $dom;
 	}
 
 	/**
-	 * Removes elements from the DOM
-	 * Doesn't need to return anything because the DOM is aliiiiiive
+	 * Removes specified elements from the given DOM.
 	 *
-	 * @param $dom \DOMDocument
+	 * @param DOMDocument $dom The DOM document to remove elements from.
+	 * @throws Exception If an error occurs while removing elements.
 	 */
-	function remove_elements( $dom ) {
+	public function remove_elements( $dom ) {
 		$elements_to_remove = apply_filters( __NAMESPACE__ . '\remove_elements', array( 'img' ) );
 
 		$remove = array();
@@ -869,9 +904,9 @@ class Article_XML {
 		foreach ( $remove as $tag_name => $els ) {
 			foreach ( $els as $el ) {
 				try {
-					$el->parentNode->removeChild( $el );
-				} catch ( \Exception $e ) {
-
+					$el->parentNode->removeChild( $el ); // phpcs:ignore
+				} catch ( \Exception $e ) { // phpcs:ignore
+					// Do nothing.
 				}
 			}
 		}
@@ -892,10 +927,13 @@ class Article_XML {
 	 * and add each found paragraph to the pullQuotes element
 	 * as a newly created "pullQuote" element with the content of the paragraph
 	 *
-	 * @param $dom \DOMDocument
-	 * Doesn't need to return anything because the DOM is aliiiiiive
+	 * @param \DOMDocument $dom The DOM document to extract elements from.
+	 *
+	 * @throws Some_Exception_Class Exception thrown if there is an error in the XPath query.
+	 *
+	 * @return void
 	 */
-	function extract_elements_by_xpath( $dom ) {
+	public function extract_elements_by_xpath( $dom ) {
 		$xpath_extract = apply_filters( __NAMESPACE__ . '\xpath_extract', array() );
 		if ( $xpath_extract ) {
 			$domxpath = new \DOMXPath( $dom );
@@ -909,11 +947,11 @@ class Article_XML {
 					foreach ( $elements as $el ) {
 						$remove[]           = $el;
 						$element            = $dom->createElement( $set['tag_name'] );
-						$element->nodeValue = $el->nodeValue;
+						$element->nodeValue = $el->nodeValue; // phpcs:ignore
 						$wrap->appendChild( $element );
 					}
 					foreach ( $remove as $el ) {
-						$el->parentNode->removeChild( $el );
+						$el->parentNode->removeChild( $el ); // phpcs:ignore
 					}
 				}
 			}
@@ -921,16 +959,13 @@ class Article_XML {
 	}
 
 	/**
-	 * Converts the html document to valid xml document
-	 * with a root element of 'article'
+	 * Convert HTML to XML.
 	 *
-	 * @param \DOMDocument $dom
-	 *
-	 * @throws \Exception Various points of failure
-	 *
-	 * @return object DOMDocument + child elements for easy access
+	 * @param DOMDocument $dom The HTML DOM document.
+	 * @throws \Exception If the content is empty.
+	 * @return \stdClass The converted XML.
 	 */
-	function html_to_xml( $dom ) {
+	public function html_to_xml( $dom ) {
 		$content = $dom->getElementsByTagName( 'body' );
 		if ( ! $content ) {
 			throw new \Exception( 'Empty content' );
@@ -946,7 +981,7 @@ class Article_XML {
 		$content_element = $xml_document->createElement( apply_filters( __NAMESPACE__ . '\xml_content_element', 'content' ) );
 		$article_element->appendChild( $content_element );
 
-		foreach ( $content->childNodes as $el ) {
+		foreach ( $content->childNodes as $el ) { // phpcs:ignore
 			$content_element->appendChild( $xml_document->importNode( $el, true ) );
 		}
 
@@ -970,27 +1005,31 @@ class Article_XML {
 class File {
 
 	/**
+	 * Filename
+	 *
 	 * @var string The File's name
 	 */
-	var $filename;
+	public $filename;
 
 	/**
+	 * File contents
+	 *
 	 * @var string The File's contents
 	 */
-	var $contents;
+	public $contents;
 
 	/**
-	 * Sets object properties
+	 * Constructs a new instance of the class.
 	 *
 	 * If given a readable file path, builds the file name + contents via the actual file
 	 * Otherwise assumes provision of explicit file contents + name
 	 *
-	 * @param $contents_or_file_path
-	 * @param string                $filename
+	 * @param mixed  $contents_or_file_path The contents of the file or the file path.
+	 * @param string $filename The name of the file.
 	 */
-	function __construct( $contents_or_file_path, $filename = '' ) {
+	public function __construct( $contents_or_file_path, $filename = '' ) {
 		if ( is_readable( $contents_or_file_path ) ) {
-			$this->contents = file_get_contents( $contents_or_file_path );
+			$this->contents = file_get_contents( $contents_or_file_path ); // phpcs:ignore
 			$this->filename = basename( $contents_or_file_path );
 		} else {
 			$this->contents = $contents_or_file_path;
@@ -1002,14 +1041,12 @@ class File {
 /**
  * Returns a set of Files if there are documents attached to provided article
  *
- * @param $incoming mixed|bool The previous filter value
- * @param $article \WP_Post The post to retrieve attachments from
- * @param $issue_id int The print issue's ID
- * @param $issue_title string The print issue's title
+ * @param mixed|bool $incoming  The previous filter value.
+ * @param \WP_Post   $article The post to retrieve attachments from.
  *
  * @return File[] Set of Attachment Files, or $incoming value
  */
-function maybe_export_article_attachments( $incoming, $article, $issue_id, $issue_title ) {
+function maybe_export_article_attachments( $incoming, $article ) {
 
 	add_filter( 'posts_where', __NAMESPACE__ . '\filter_article_export_attachments_where' );
 
@@ -1019,7 +1056,7 @@ function maybe_export_article_attachments( $incoming, $article, $issue_id, $issu
 			'post_parent'            => absint( $article->ID ),
 			'posts_per_page'         => 20,
 			'post_status'            => 'inherit',
-			// meta will be used, so only disable term cache
+			// Meta will be used, so only disable term cache.
 			'update_post_term_cache' => false,
 		)
 	);
@@ -1033,6 +1070,15 @@ function maybe_export_article_attachments( $incoming, $article, $issue_id, $issu
 	return $incoming;
 }
 
+/**
+ * Filter the WHERE clause for the article export attachments query.
+ *
+ * This function appends a condition to the WHERE clause of the query to exclude
+ * attachments with a post_mime_type starting with 'image'.
+ *
+ * @param string $where The original WHERE clause of the query.
+ * @return string The modified WHERE clause with the additional condition.
+ */
 function filter_article_export_attachments_where( $where ) {
 	return $where . " AND post_mime_type NOT LIKE 'image%'";
 }
@@ -1040,7 +1086,7 @@ function filter_article_export_attachments_where( $where ) {
 /**
  * Gets a set of Files[] from attachments
  *
- * @param $attachments \WP_Post[] Attachments of a parent article
+ * @param \WP_Post[] $attachments Attachments of a parent article.
  *
  * @return File[] Attachment files
  */
@@ -1054,11 +1100,11 @@ function get_document_files( $attachments ) {
 }
 
 /**
- * Builds a File from an attachment
+ * Retrieves the attachment file for a given attachment.
  *
- * @param $attachment
- *
- * @return File The File of the attachment
+ * @param mixed $attachment The attachment object or ID.
+ * @throws Exception If the attachment file cannot be retrieved.
+ * @return File The attachment file as a File object.
  */
 function get_attachment_file( $attachment ) {
 	return new File( get_attached_file( $attachment->ID ) );
@@ -1067,8 +1113,8 @@ function get_attachment_file( $attachment ) {
 /**
  * Adds a headline (title) element to the root of the XML document
  *
- * @param $elements array Incoming elements
- * @param $article \WP_Post The current post
+ * @param array    $elements Incoming elements.
+ * @param \WP_Post $article The current post.
  *
  * @return array Modified elements
  */
@@ -1080,9 +1126,9 @@ function filter_xml_elements_headline( $elements, $article ) {
 /**
  * Prefix the xml filename with the post author's name
  *
- * @param $file_name string The original file name
- * @param $article \WP_Post The post
- * @param $xml object Custom DOMDocument wrapper object
+ * @param string   $file_name The original file name.
+ * @param \WP_Post $article The post.
+ * @param object   $xml Custom DOMDocument wrapper object.
  *
  * @return string The modified filename
  */

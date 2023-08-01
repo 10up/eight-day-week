@@ -11,14 +11,24 @@ use Eight_Day_Week\Core as Core;
 use Eight_Day_Week\Taxonomies as Tax;
 use Eight_Day_Week\User_Roles as User;
 
+/**
+ * Sets up article status by registering actions and filters.
+ *
+ * @throws Exception Throws an exception if something goes wrong during the setup.
+ */
 function setup() {
 
 	add_action(
 		'Eight_Day_Week\Core\plugin_init',
 		function () {
-
-			function ns( $function ) {
-				return __NAMESPACE__ . "\\$function";
+			/**
+			 * A function that returns the fully qualified namespace of a given function.
+			 *
+			 * @param string $func The name of the function.
+			 * @return string The fully qualified namespace of the function.
+			 */
+			function ns( $func ) {
+				return __NAMESPACE__ . "\\$func";
 			}
 
 			register_taxonomy();
@@ -54,23 +64,22 @@ function register_taxonomy() {
 
 	$args = array(
 		'labels'             => $labels,
-		// only for the backend
+		// Only for the backend.
 		'public'             => false,
-		// don't show under posts menu
-		// as of WP 4.4, setting show_ui to false yields "You are not allowed to manage these items."
+		// Don't show under posts menu.
+		// As of WP 4.4, setting show_ui to false yields "You are not allowed to manage these items.".
 		'show_ui'            => true,
 		'show_in_menu'       => false,
 		'show_in_nav_menus'  => false,
-		'meta_box_cb'        => false,
-		// don't show on posts
+		// Don't show on posts.
 		'show_in_quick_edit' => false,
-		// don't show on posts
+		// Don't show on posts.
 		'meta_box_cb'        => false,
-		// don't show on posts
+		// Don't show on posts.
 		'show_admin_column'  => false,
-		// don't allow front end querying
+		// Don't allow front end querying.
 		'query_var'          => false,
-		// don't allow front end rewriting
+		// Don't allow front end rewriting.
 		'rewrite'            => false,
 		'capabilities'       => array(
 			'manage_terms' => 'manage_' . EDW_PRINT_ISSUE_CPT,
@@ -83,6 +92,9 @@ function register_taxonomy() {
 	\register_taxonomy( EDW_ARTICLE_STATUS_TAX, 'post', $args );
 }
 
+/**
+ * Adds a submenu page to the admin menu.
+ */
 function admin_menu() {
 	// Note that the &amp; is important.
 	// It is required to stay in line with how edit-tags.php
@@ -100,7 +112,7 @@ function admin_menu() {
 /**
  * Add Article Status to print issue table columns
  *
- * @param $columns array Incoming print issue table columns
+ * @param array $columns Incoming print issue table columns.
  *
  * @return array Modified columns
  */
@@ -109,7 +121,7 @@ function filter_article_columns_article_status( $columns ) {
 		'post_status' => __( 'Article Status', 'eight-day-week' ),
 	);
 
-	$title_offset = array_search( 'title', array_keys( $columns ) );
+	$title_offset = array_search( 'title', array_keys( $columns ), true );
 	if ( $title_offset ) {
 		$end     = $status + array_slice( $columns, $title_offset + 1, null );
 		$columns = array_slice( $columns, 0, $title_offset + 1 ) + $end;
@@ -123,7 +135,7 @@ function filter_article_columns_article_status( $columns ) {
 /**
  * Add Images to print issue table columns
  *
- * @param $columns array Incoming print issue table columns
+ * @param array $columns Incoming print issue table columns.
  *
  * @return array Modified columns
  */
@@ -133,7 +145,7 @@ function filter_article_columns_article_images( $columns ) {
 	);
 
 	/* put after char_count when available */
-	$title_offset = array_search( 'char_count', array_keys( $columns ) );
+	$title_offset = array_search( 'char_count', array_keys( $columns ), true );
 	if ( $title_offset ) {
 		$end     = $status + array_slice( $columns, $title_offset + 1, null );
 		$columns = array_slice( $columns, 0, $title_offset + 1 ) + $end;
@@ -145,12 +157,11 @@ function filter_article_columns_article_images( $columns ) {
 }
 
 /**
- * Adds article status metadata to the article rubric
+ * Filters the article meta article status.
  *
- * @param $incoming
- * @param $item
- *
- * @return string The article status, or the $incoming value
+ * @param mixed $incoming The incoming value.
+ * @param mixed $item The item value.
+ * @return mixed The filtered article meta article status.
  */
 function filter_article_meta_article_status( $incoming, $item ) {
 	$article_status = get_the_terms( $item->ID, EDW_ARTICLE_STATUS_TAX );
@@ -221,10 +232,10 @@ function bulk_edit_article_statuses_ajax() {
 
 	Core\check_elevated_ajax_referer();
 
-	$term_id     = absint( $_POST['status'] );
-	$article_ids = $_POST['checked_articles'];
+	$term_id     = isset( $_POST['status'] ) ? absint( $_POST['status'] ) : false;
+	$article_ids = isset( $_POST['checked_articles'] ) ? array_map( 'absint', wp_unslash( $_POST['checked_articles'] ) ) : false;
 
-	// sanitize - only allow comma delimited integers
+	// Sanitize - only allow comma delimited integers.
 	if ( ! ctype_digit( str_replace( ',', '', $article_ids ) ) ) {
 		\Eight_Day_Week\Core\send_json_error( array( 'message' => __( 'Invalid article IDs specified in the request.', 'eight-day-week-print-workflow' ) ) );
 	}
@@ -244,10 +255,10 @@ function bulk_edit_article_statuses_ajax() {
  * Sets the designated term on all designated articles
  * Note it does *not* append terms, it replaces them
  *
- * @param string $status_term_id The term ID to add to the articles
- * @param array  $article_ids Article IDs to which to add the term
+ * @param string $status_term_id The term ID to add to the articles.
+ * @param array  $article_ids Article IDs to which to add the term.
  *
- * @throws \Exception WP Error message if invalid tax specified
+ * @throws \Exception WP Error message if invalid tax specified.
  */
 function bulk_edit_article_statuses( $status_term_id, $article_ids ) {
 	foreach ( (array) $article_ids as $article_id ) {
