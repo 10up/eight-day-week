@@ -6,7 +6,15 @@ module.exports = defineConfig({
   screenshotsFolder: 'tests/cypress/screenshots',
   videosFolder: 'tests/cypress/videos',
   downloadsFolder: 'tests/cypress/downloads',
-  video: false,
+  video: true,
+  reporter: 'mochawesome',
+  reporterOptions: {
+    mochaFile: 'mochawesome-[name]',
+    reportDir: 'tests/cypress/reports',
+    overwrite: false,
+    html: false,
+    json: true
+  },
   e2e: {
     setupNodeEvents(on, config) {
       return setBaseUrl(on, config);
@@ -18,7 +26,7 @@ module.exports = defineConfig({
 
 /**
  * Set WP URL as baseUrl in Cypress config.
- * 
+ *
  * @param {Function} on    function that used to register listeners on various events.
  * @param {object} config  Cypress Config object.
  * @returns config Updated Cypress Config object.
@@ -30,7 +38,7 @@ const setBaseUrl = async (on, config) => {
     const port = wpEnvConfig.env.tests.port || null;
 
     if (port) {
-      config.baseUrl = wpEnvConfig.env.tests.config.WP_TESTS_DOMAIN;
+      config.baseUrl = wpEnvConfig.env.tests.config.WP_SITEURL;
     }
   }
 

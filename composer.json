@@ -15,12 +15,18 @@
 	],
 	"minimum-stability": "dev",
 	"require": {
-		"php": ">=5.4"
+		"php": ">=7.4"
 	},
 	"require-dev": {
 		"antecedent/patchwork": "2.1.*",
 		"phpunit/phpunit": "*@stable",
 		"brianium/paratest": "6.x-dev",
-		"10up/wp_mock": "dev-master"
+		"10up/wp_mock": "dev-trunk",
+		"10up/phpcs-composer": "dev-master"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
 	}
 }
