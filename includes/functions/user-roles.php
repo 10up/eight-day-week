@@ -303,7 +303,12 @@ function update_users_print_role() {
 		}
 	}
 
-	$redirect = remove_query_arg( array( 'pp-print-role' ) );
+	$redirect  = '';
+	$query_arg = 'pp-print-role';
+	if ( ! empty( get_query_var( $query_arg ) ) ) {
+		$redirect = remove_query_arg( array( $query_arg ) );
+	}
+
 	$redirect = add_query_arg( array( 'update' => 'promote' ), $redirect );
 	wp_safe_redirect( $redirect );
 	exit;
