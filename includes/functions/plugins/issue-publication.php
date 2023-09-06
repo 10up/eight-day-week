@@ -1,27 +1,44 @@
 <?php
+/**
+ * Handles the issue publication functionality
+ *
+ * @package Eight_Day_Week
+ */
 
 namespace Eight_Day_Week\Plugins\Issue_Publication;
 
 use Eight_Day_Week\Core as Core;
 use Eight_Day_Week\Taxonomies as Tax;
 
+/**
+ * Sets up the issue publication functionality
+ */
 function setup() {
 
-	add_action( 'Eight_Day_Week\Core\plugin_init', function () {
+	add_action(
+		'Eight_Day_Week\Core\plugin_init',
+		function () {
+			/**
+			 * A function that returns the fully qualified namespace of a given function.
+			 *
+			 * @param string $func The name of the function.
+			 * @return string The fully qualified namespace of the function.
+			 */
+			function ns( $func ) {
+				return __NAMESPACE__ . "\\$func";
+			}
 
-		function ns( $function ) {
-			return __NAMESPACE__ . "\\$function";
+			register_taxonomy();
+			add_action(
+				'add_meta_boxes',
+				function() {
+					Tax\add_taxonomy_dropdown_meta_box( 'print_issue_publication' );
+				}
+			);
+
+			add_action( 'Eight_Day_Week\Admin_Menu_Page\admin_menu', ns( 'admin_menu' ), 1 );
 		}
-
-		register_taxonomy();
-		add_action( 'add_meta_boxes', function(){
-			Tax\add_taxonomy_dropdown_meta_box( 'print_issue_publication' );
-		} );
-
-		add_action( 'Eight_Day_Week\Admin_Menu_Page\admin_menu', ns( 'admin_menu' ), 1 );
-
-	} );
-
+	);
 }
 
 /**
@@ -38,7 +55,7 @@ function admin_menu() {
  * @return void
  */
 function register_taxonomy() {
-	$labels   = [
+	$labels = array(
 		'name'                       => __( 'Publications', 'eight-day-week-print-workflow' ),
 		'singular_name'              => __( 'Publication', 'eight-day-week-print-workflow' ),
 		'search_items'               => __( 'Search Publications', 'eight-day-week-print-workflow' ),
@@ -50,10 +67,10 @@ function register_taxonomy() {
 		'menu_name'                  => __( 'Publication', 'eight-day-week-print-workflow' ),
 		'separate_items_with_commas' => '',
 		'choose_from_most_used'      => __( 'Choose a Publication', 'eight-day-week-print-workflow' ),
-		'not_found'                  => __( 'No Publications found.', 'eight-day-week-print-workflow' )
-	];
+		'not_found'                  => __( 'No Publications found.', 'eight-day-week-print-workflow' ),
+	);
 
-	$args = [
+	$args = array(
 		'hierarchical'       => true,
 		'labels'             => $labels,
 		'show_ui'            => true,
@@ -63,8 +80,8 @@ function register_taxonomy() {
 		'rewrite'            => false,
 		'public'             => true,
 		'publicly_queryable' => false,
-		'capabilities'       => [ 'manage_' . EDW_PRINT_ISSUE_CPT ]
-	];
+		'capabilities'       => array( 'manage_' . EDW_PRINT_ISSUE_CPT ),
+	);
 
 	\register_taxonomy( 'print_issue_publication', EDW_PRINT_ISSUE_CPT, $args );
 }
