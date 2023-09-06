@@ -9,6 +9,8 @@
 /.gitattributes export-ignore
 /.gitignore export-ignore
 /.jshintrc export-ignore
+/.phpcompat.xml export-ignore
+/.phpcs.xml export-ignore
 /.wordpress-version-checker.json export-ignore
 /.wp-env.json export-ignore
 /CHANGELOG.md export-ignore
