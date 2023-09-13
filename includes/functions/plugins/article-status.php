@@ -118,7 +118,7 @@ function admin_menu() {
  */
 function filter_article_columns_article_status( $columns ) {
 	$status = array(
-		'post_status' => __( 'Article Status', 'eight-day-week' ),
+		'article_status' => __( 'Article Status', 'eight-day-week' ),
 	);
 
 	$title_offset = array_search( 'title', array_keys( $columns ), true );
@@ -233,7 +233,7 @@ function bulk_edit_article_statuses_ajax() {
 	Core\check_elevated_ajax_referer();
 
 	$term_id     = isset( $_POST['status'] ) ? absint( $_POST['status'] ) : false;
-	$article_ids = isset( $_POST['checked_articles'] ) ? array_map( 'absint', wp_unslash( $_POST['checked_articles'] ) ) : false;
+	$article_ids = isset( $_POST['checked_articles'] ) ? wp_unslash( $_POST['checked_articles'] ) : false;
 
 	// Sanitize - only allow comma delimited integers.
 	if ( ! ctype_digit( str_replace( ',', '', $article_ids ) ) ) {
