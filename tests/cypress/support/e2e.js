@@ -19,8 +19,8 @@ import "@10up/cypress-wp-utils";
 import "./commands";
 
 // Preserve WP cookies.
-beforeEach(() => {
-  Cypress.Cookies.defaults({
-    preserve: /^wordpress.*?/,
-  });
-});
+beforeEach( () => {
+	cy.session( 'login', cy.login, {
+		cacheAcrossSpecs: true,
+	} );
+} );
