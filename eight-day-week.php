@@ -65,7 +65,7 @@ define( 'EDW_AJAX_NONCE_SLUG', 'edw_ajax_nonce' );
  *
  * @return string Minimum version required.
  */
-function minimum_php_requirement() {
+function edw_minimum_php_requirement() {
 	return '7.4';
 }
 
@@ -74,12 +74,12 @@ function minimum_php_requirement() {
  *
  * @return bool True if meets minimum requirements, false otherwise.
  */
-function site_meets_php_requirements() {
-	return version_compare( phpversion(), minimum_php_requirement(), '>=' );
+function edw_site_meets_php_requirements() {
+	return version_compare( phpversion(), edw_minimum_php_requirement(), '>=' );
 }
 
 
-if ( ! site_meets_php_requirements() ) {
+if ( ! edw_site_meets_php_requirements() ) {
 	add_action(
 		'admin_notices',
 		function() {
@@ -91,7 +91,7 @@ if ( ! site_meets_php_requirements() ) {
 						sprintf(
 							/* translators: %s: Minimum required PHP version */
 							__( 'Eight Day Week requires PHP version %s or later. Please upgrade PHP or disable the plugin.', 'eight-day-week-print-workflow' ),
-							esc_html( minimum_php_requirement() )
+							esc_html( edw_minimum_php_requirement() )
 						)
 					);
 					?>
