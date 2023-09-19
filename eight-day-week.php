@@ -61,6 +61,49 @@ define( 'EDW_ARTICLE_STATUS_TAX', 'pi-article-status' );
 define( 'EDW_AJAX_NONCE_SLUG', 'edw_ajax_nonce' );
 
 /**
+ * Get the minimum version of PHP required by this plugin.
+ *
+ * @return string Minimum version required.
+ */
+function edw_minimum_php_requirement() {
+	return '7.4';
+}
+
+/**
+ * Checks whether PHP installation meets the minimum requirements
+ *
+ * @return bool True if meets minimum requirements, false otherwise.
+ */
+function edw_site_meets_php_requirements() {
+	return version_compare( phpversion(), edw_minimum_php_requirement(), '>=' );
+}
+
+
+if ( ! edw_site_meets_php_requirements() ) {
+	add_action(
+		'admin_notices',
+		function() {
+			?>
+			<div class="notice notice-error">
+				<p>
+					<?php
+					echo wp_kses_post(
+						sprintf(
+							/* translators: %s: Minimum required PHP version */
+							__( 'Eight Day Week requires PHP version %s or later. Please upgrade PHP or disable the plugin.', 'eight-day-week-print-workflow' ),
+							esc_html( edw_minimum_php_requirement() )
+						)
+					);
+					?>
+				</p>
+			</div>
+			<?php
+		}
+	);
+	return;
+}
+
+/**
  * Calls the setup function of any namespaced files
  * in the includes/functions dir
  */
