@@ -58,7 +58,7 @@ Issue Statuses | Publications | Article Statuses
 ## Requirements
 
 * PHP 7.4+
-* [WordPress](http://wordpress.org) 4.6+
+* [WordPress](http://wordpress.org) 5.7+
 
 ## Installation
 
