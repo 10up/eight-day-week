@@ -522,7 +522,8 @@ function save_section_articles( $post_id ) {
 		return;
 	}
 
-	$article_ids_sets = wp_unslash( array_map( 'intval', $_POST['pi-article-ids'] ) );
+	$article_ids_sets = wp_unslash( $_POST['pi-article-ids'] );
+
 	if ( ! is_array( $article_ids_sets ) ) {
 		return;
 	}
