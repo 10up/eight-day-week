@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [1.2.3] - 2023-09-20
 ### Added
-- Error handling for environments that don't match our minimum PHP version (props [@bmarshall511](https://github.com/bmarshall511), [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter) via [#132](https://github.com/10up/eight-day-week/pull/132)).
+- Error handling for environments that don't match our minimum PHP version (props [@bmarshall511](https://github.com/bmarshall511), [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter), [@vikrampm1](https://github.com/vikrampm1) via [#132](https://github.com/10up/eight-day-week/pull/132)).
 
 ### Fixed
 - Ensure multiple articles can be saved within each Print Issue section (props [@dkotter](https://github.com/dkotter), [@xLesy](https://github.com/xLesy), [@iamdharmesh](https://github.com/iamdharmesh) via [#131](https://github.com/10up/eight-day-week/pull/131)).
