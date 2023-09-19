@@ -181,7 +181,7 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 == Changelog ==
 
 = 1.2.3 - 2023-09-20 =
-* **Added:** Error handling for environments that don't match our minimum PHP version (props [@bmarshall511](https://github.com/bmarshall511), [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter) via [#132](https://github.com/10up/eight-day-week/pull/132)).
+* **Added:** Error handling for environments that don't match our minimum PHP version (props [@bmarshall511](https://github.com/bmarshall511), [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter), [@vikrampm1](https://github.com/vikrampm1) via [#132](https://github.com/10up/eight-day-week/pull/132)).
 * **Fixed:** Ensure multiple articles can be saved within each Print Issue section (props [@dkotter](https://github.com/dkotter), [@xLesy](https://github.com/xLesy), [@iamdharmesh](https://github.com/iamdharmesh) via [#131](https://github.com/10up/eight-day-week/pull/131)).
 * **Fixed:** Ensure the article status shows correctly and can be bulk edited (props [@dkotter](https://github.com/dkotter), [@iamdharmesh](https://github.com/iamdharmesh) via [#131](https://github.com/10up/eight-day-week/pull/131)).
 * **Fixed:** Ensure our E2E tests run properly on Cypress 13 (props [@dkotter](https://github.com/dkotter), [@iamdharmesh](https://github.com/iamdharmesh) via [#131](https://github.com/10up/eight-day-week/pull/131)).
