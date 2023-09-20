@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+## [1.2.3] - 2023-09-20
+### Added
+- Error handling for environments that don't match our minimum PHP version (props [@bmarshall511](https://github.com/bmarshall511), [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter), [@vikrampm1](https://github.com/vikrampm1) via [#132](https://github.com/10up/eight-day-week/pull/132)).
+
+### Fixed
+- Ensure multiple articles can be saved within each Print Issue section (props [@dkotter](https://github.com/dkotter), [@xLesy](https://github.com/xLesy), [@iamdharmesh](https://github.com/iamdharmesh) via [#131](https://github.com/10up/eight-day-week/pull/131)).
+- Ensure the article status shows correctly and can be bulk edited (props [@dkotter](https://github.com/dkotter), [@iamdharmesh](https://github.com/iamdharmesh) via [#131](https://github.com/10up/eight-day-week/pull/131)).
+- Ensure our E2E tests run properly on Cypress 13 (props [@dkotter](https://github.com/dkotter), [@iamdharmesh](https://github.com/iamdharmesh) via [#131](https://github.com/10up/eight-day-week/pull/131)).
+
+### Security
+- Bump `@cypress/request` from 2.88.12 to 3.0.1 and `cypress` from 10.3.0 to 13.1.0 (props [@dependabot](https://github.com/apps/dependabot) via [#129](https://github.com/10up/eight-day-week/pull/129)).
+
 ## [1.2.2] - 2023-09-06
 ### Added
 - Add proper labels to the Issue Status taxonomy (props [@jayedul](https://github.com/jayedul), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#112](https://github.com/10up/eight-day-week/pull/112)).
@@ -107,6 +119,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 - Initial Release
 
 [Unreleased]: https://github.com/10up/eight-day-week/compare/trunk...develop
+[1.2.3]: https://github.com/10up/eight-day-week/compare/1.2.2...1.2.3
 [1.2.2]: https://github.com/10up/eight-day-week/compare/1.2.1...1.2.2
 [1.2.1]: https://github.com/10up/eight-day-week/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/10up/eight-day-week/compare/1.1.3...1.2.0
