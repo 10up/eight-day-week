@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Eight Day Week
  * Description: Tools that help improve digital & print workflows.
- * Version:     1.2.2
+ * Version:     1.2.3
  * Author:      10up
  * Author URI:  https://10up.com
  * License:     GPLv2+
@@ -36,7 +36,7 @@ require_once __DIR__ . '/vip-compat.php';
 require_once __DIR__ . '/plugins.php';
 
 // Useful global constants.
-define( 'EDW_VERSION', '1.2.2' );
+define( 'EDW_VERSION', '1.2.3' );
 define( 'EDW_URL', Eight_Day_Week\plugins_url( __FILE__ ) );
 define( 'EDW_PATH', __DIR__ . '/' );
 define( 'EDW_INC', EDW_PATH . 'includes/' );
@@ -59,6 +59,49 @@ define( 'EDW_ADMIN_MENU_SLUG', 'edit.php?post_type=' . EDW_PRINT_ISSUE_CPT );
 define( 'EDW_SECTION_CPT', 'pi-section' );
 define( 'EDW_ARTICLE_STATUS_TAX', 'pi-article-status' );
 define( 'EDW_AJAX_NONCE_SLUG', 'edw_ajax_nonce' );
+
+/**
+ * Get the minimum version of PHP required by this plugin.
+ *
+ * @return string Minimum version required.
+ */
+function edw_minimum_php_requirement() {
+	return '7.4';
+}
+
+/**
+ * Checks whether PHP installation meets the minimum requirements
+ *
+ * @return bool True if meets minimum requirements, false otherwise.
+ */
+function edw_site_meets_php_requirements() {
+	return version_compare( phpversion(), edw_minimum_php_requirement(), '>=' );
+}
+
+
+if ( ! edw_site_meets_php_requirements() ) {
+	add_action(
+		'admin_notices',
+		function() {
+			?>
+			<div class="notice notice-error">
+				<p>
+					<?php
+					echo wp_kses_post(
+						sprintf(
+							/* translators: %s: Minimum required PHP version */
+							__( 'Eight Day Week requires PHP version %s or later. Please upgrade PHP or disable the plugin.', 'eight-day-week-print-workflow' ),
+							esc_html( edw_minimum_php_requirement() )
+						)
+					);
+					?>
+				</p>
+			</div>
+			<?php
+		}
+	);
+	return;
+}
 
 /**
  * Calls the setup function of any namespaced files
