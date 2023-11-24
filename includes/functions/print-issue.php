@@ -402,8 +402,11 @@ function get_side_metabox_order( $order ) {
 
 			// Make submit div last.
 			if ( 'side' === $location ) {
-				// Remove submitdiv by value.
-				unset( $order[ $location ][ array_flip( $order[ $location ] )['submitdiv'] ] );
+				$locations = array_flip( $order[ $location ] );
+				if ( isset( $locations['submitdiv'] ) ) {
+					unset( $order[ $location ][ $locations['submitdiv'] ] );
+				}
+
 				$order[ $location ][] = 'submitdiv';
 			}
 
