@@ -1,4 +1,9 @@
 <?php
+/**
+ * Handles the article status functionality
+ *
+ * @package eight-day-week
+ */
 
 namespace Eight_Day_Week\Plugins\Article_Status;
 
@@ -6,34 +11,45 @@ use Eight_Day_Week\Core as Core;
 use Eight_Day_Week\Taxonomies as Tax;
 use Eight_Day_Week\User_Roles as User;
 
-function setup (){
+/**
+ * Sets up article status by registering actions and filters.
+ *
+ * @throws Exception Throws an exception if something goes wrong during the setup.
+ */
+function setup() {
 
-	add_action( 'Eight_Day_Week\Core\plugin_init', function () {
+	add_action(
+		'Eight_Day_Week\Core\plugin_init',
+		function () {
+			/**
+			 * A function that returns the fully qualified namespace of a given function.
+			 *
+			 * @param string $func The name of the function.
+			 * @return string The fully qualified namespace of the function.
+			 */
+			function ns( $func ) {
+				return __NAMESPACE__ . "\\$func";
+			}
 
-		function ns( $function ) {
-			return __NAMESPACE__ . "\\$function";
+			register_taxonomy();
+
+			add_filter( 'Eight_Day_Week\Articles\article_columns', ns( 'filter_article_columns_article_status' ), 0 );
+			add_filter( 'Eight_Day_Week\Articles\article_columns', ns( 'filter_article_columns_article_images' ), 0 );
+			add_filter( 'Eight_Day_Week\Articles\article_meta_article_status', ns( 'filter_article_meta_article_status' ), 10, 2 );
+
+			add_action( 'Eight_Day_Week\Admin_Menu_Page\admin_menu', ns( 'admin_menu' ) );
+
+			add_action( 'edw_sections_top', ns( 'output_bulk_article_status_editor' ) );
+			add_action( 'wp_ajax_pp-bulk-edit-article-statuses', ns( 'bulk_edit_article_statuses_ajax' ) );
 		}
-
-		register_taxonomy();
-
-		add_filter( 'Eight_Day_Week\Articles\article_columns', ns( 'filter_article_columns_article_status' ), 0 );
-		add_filter( 'Eight_Day_Week\Articles\article_meta_article_status', ns( 'filter_article_meta_article_status' ), 10, 2 );
-
-		add_action( 'Eight_Day_Week\Admin_Menu_Page\admin_menu', ns( 'admin_menu' ) );
-
-		add_action( 'edw_sections_top', ns( 'output_bulk_article_status_editor' ) );
-		add_action( 'wp_ajax_pp-bulk-edit-article-statuses', ns( 'bulk_edit_article_statuses_ajax' ) );
-
-
-	} );
-
+	);
 }
 
 /**
  * Register the Article Status taxonomy
  */
 function register_taxonomy() {
-	$labels   = [
+	$labels = array(
 		'name'          => __( 'Article Status', 'eight-day-week-print-workflow' ),
 		'singular_name' => __( 'Article Statuses', 'eight-day-week-print-workflow' ),
 		'all_items'     => __( 'Article Statuses', 'eight-day-week-print-workflow' ),
@@ -44,44 +60,46 @@ function register_taxonomy() {
 		'new_item_name' => __( 'New Article Status', 'eight-day-week-print-workflow' ),
 		'search_items'  => __( 'Search Article Status', 'eight-day-week-print-workflow' ),
 		'not_found'     => __( 'No Article Statuses found', 'eight-day-week-print-workflow' ),
-	];
+	);
 
-	$args = [
+	$args = array(
 		'labels'             => $labels,
-		//only for the backend
+		// Only for the backend.
 		'public'             => false,
-		//don't show under posts menu
-		//as of WP 4.4, setting show_ui to false yields "You are not allowed to manage these items."
+		// Don't show under posts menu.
+		// As of WP 4.4, setting show_ui to false yields "You are not allowed to manage these items.".
 		'show_ui'            => true,
 		'show_in_menu'       => false,
 		'show_in_nav_menus'  => false,
-		'meta_box_cb'        => false,
-		//don't show on posts
+		// Don't show on posts.
 		'show_in_quick_edit' => false,
-		//don't show on posts
+		// Don't show on posts.
 		'meta_box_cb'        => false,
-		//don't show on posts
+		// Don't show on posts.
 		'show_admin_column'  => false,
-		//don't allow front end querying
+		// Don't allow front end querying.
 		'query_var'          => false,
-		//don't allow front end rewriting
+		// Don't allow front end rewriting.
 		'rewrite'            => false,
-		'capabilities'       => [
+		'capabilities'       => array(
 			'manage_terms' => 'manage_' . EDW_PRINT_ISSUE_CPT,
 			'edit_terms'   => 'manage_' . EDW_PRINT_ISSUE_CPT,
 			'delete_terms' => 'manage_' . EDW_PRINT_ISSUE_CPT,
-			'assign_terms' => 'create_' . EDW_PRINT_ISSUE_CPT
-		]
-	];
+			'assign_terms' => 'create_' . EDW_PRINT_ISSUE_CPT,
+		),
+	);
 
 	\register_taxonomy( EDW_ARTICLE_STATUS_TAX, 'post', $args );
 }
 
+/**
+ * Adds a submenu page to the admin menu.
+ */
 function admin_menu() {
-	//Note that the &amp; is important.
-	//It is required to stay in line with how edit-tags.php
-	//builds the global $submenu_file, which is checked against
-	//to determine whether or not the active submenu gets a "current" CSS class.
+	// Note that the &amp; is important.
+	// It is required to stay in line with how edit-tags.php
+	// builds the global $submenu_file, which is checked against
+	// to determine whether or not the active submenu gets a "current" CSS class.
 	add_submenu_page(
 		EDW_ADMIN_MENU_SLUG,
 		__( 'Article Statuses', 'eight-day-week-print-workflow' ),
@@ -94,22 +112,56 @@ function admin_menu() {
 /**
  * Add Article Status to print issue table columns
  *
- * @param $columns array Incoming print issue table columns
+ * @param array $columns Incoming print issue table columns.
  *
  * @return array Modified columns
  */
 function filter_article_columns_article_status( $columns ) {
-	$columns['article_status'] = __( 'Article Status', 'eight-day-week-print-workflow' );
+	$status = array(
+		'article_status' => __( 'Article Status', 'eight-day-week' ),
+	);
+
+	$title_offset = array_search( 'title', array_keys( $columns ), true );
+	if ( $title_offset ) {
+		$end     = $status + array_slice( $columns, $title_offset + 1, null );
+		$columns = array_slice( $columns, 0, $title_offset + 1 ) + $end;
+	} else {
+		$columns += $status;
+	}
+
 	return $columns;
 }
 
 /**
- * Adds article status metadata to the article rubric
+ * Add Images to print issue table columns
  *
- * @param $incoming
- * @param $item
+ * @param array $columns Incoming print issue table columns.
  *
- * @return string The article status, or the $incoming value
+ * @return array Modified columns
+ */
+function filter_article_columns_article_images( $columns ) {
+	$status = array(
+		'post_img_num' => __( 'Images', 'eight-day-week' ),
+	);
+
+	/* put after char_count when available */
+	$title_offset = array_search( 'char_count', array_keys( $columns ), true );
+	if ( $title_offset ) {
+		$end     = $status + array_slice( $columns, $title_offset + 1, null );
+		$columns = array_slice( $columns, 0, $title_offset + 1 ) + $end;
+	} else {
+		$columns += $status;
+	}
+
+	return $columns;
+}
+
+/**
+ * Filters the article meta article status.
+ *
+ * @param mixed $incoming The incoming value.
+ * @param mixed $item The item value.
+ * @return mixed The filtered article meta article status.
  */
 function filter_article_meta_article_status( $incoming, $item ) {
 	$article_status = get_the_terms( $item->ID, EDW_ARTICLE_STATUS_TAX );
@@ -127,15 +179,18 @@ function filter_article_meta_article_status( $incoming, $item ) {
  * @return array Indexed article status terms
  */
 function get_indexed_article_statuses() {
-	$article_statuses = get_terms( EDW_ARTICLE_STATUS_TAX, [
-		'hide_empty' => false,
+	$article_statuses = get_terms(
+		EDW_ARTICLE_STATUS_TAX,
+		array(
+			'hide_empty' => false,
 
-	] );
+		)
+	);
 	if ( ! $article_statuses || is_wp_error( $article_statuses ) ) {
-		return [ ];
+		return array();
 	}
 
-	$actions = [ ];
+	$actions = array();
 	foreach ( $article_statuses as $article_status ) {
 		$actions[ $article_status->term_id ] = $article_status->name;
 	}
@@ -148,7 +203,7 @@ function get_indexed_article_statuses() {
  * Only does so for an print-issue-edit-capable user
  */
 function output_bulk_article_status_editor() {
-	if( ! User\current_user_can_edit_print_issue() ) {
+	if ( ! User\current_user_can_edit_print_issue() ) {
 		return;
 	}
 	$statuses = get_indexed_article_statuses();
@@ -170,18 +225,19 @@ function output_bulk_article_status_editor() {
 
 /**
  * Handles a request to edit articles' status
+ *
  * @todo refactor into pattern so that json functions are higher up, and the handler throws exceptions insteads
  */
 function bulk_edit_article_statuses_ajax() {
 
 	Core\check_elevated_ajax_referer();
 
-	$term_id     = absint( $_POST['status'] );
-	$article_ids = $_POST['checked_articles'];
+	$term_id     = isset( $_POST['status'] ) ? absint( $_POST['status'] ) : false;
+	$article_ids = isset( $_POST['checked_articles'] ) ? wp_unslash( $_POST['checked_articles'] ) : false;
 
-	//sanitize - only allow comma delimited integers
+	// Sanitize - only allow comma delimited integers.
 	if ( ! ctype_digit( str_replace( ',', '', $article_ids ) ) ) {
-		\Eight_Day_Week\Core\send_json_error( [ 'message' => __( 'Invalid article IDs specified in the request.', 'eight-day-week-print-workflow' ) ] );
+		\Eight_Day_Week\Core\send_json_error( array( 'message' => __( 'Invalid article IDs specified in the request.', 'eight-day-week-print-workflow' ) ) );
 	}
 
 	$article_ids = explode( ',', $article_ids );
@@ -189,21 +245,20 @@ function bulk_edit_article_statuses_ajax() {
 	try {
 		bulk_edit_article_statuses( $term_id, $article_ids );
 	} catch ( \Exception $e ) {
-		\Eight_Day_Week\Core\send_json_error( [ 'message' => $e->getMessage() ] );
+		\Eight_Day_Week\Core\send_json_error( array( 'message' => $e->getMessage() ) );
 	}
 
 	\Eight_Day_Week\Core\send_json_success();
-
 }
 
 /**
  * Sets the designated term on all designated articles
  * Note it does *not* append terms, it replaces them
  *
- * @param string $status_term_id The term ID to add to the articles
- * @param array $article_ids Article IDs to which to add the term
+ * @param string $status_term_id The term ID to add to the articles.
+ * @param array  $article_ids Article IDs to which to add the term.
  *
- * @throws \Exception WP Error message if invalid tax specified
+ * @throws \Exception WP Error message if invalid tax specified.
  */
 function bulk_edit_article_statuses( $status_term_id, $article_ids ) {
 	foreach ( (array) $article_ids as $article_id ) {
