@@ -33,6 +33,7 @@
     "grunt-phpunit": "^0.3.6",
     "grunt-wp-readme-to-markdown": "^2.0.1",
     "load-grunt-tasks": "^5.1.0",
+    "mochawesome-json-to-md": "^0.7.2",
     "qunit": "^2.9.3"
   },
   "keywords": [],
