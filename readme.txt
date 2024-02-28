@@ -180,6 +180,11 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 
 == Changelog ==
 
+= 1.2.4 - 2024-02-29 =
+* **Added:** Support for the WordPress.org plugin preview (props [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#137](https://github.com/10up/eight-day-week/pull/137)).
+* **Changed:** Bump WordPress "tested up to" version to 6.4 (props [@dhanendran](https://github.com/dhanendran), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#136](https://github.com/10up/eight-day-week/pull/136)).
+* **Fixed:** Undefined array key PHP warning (props [@dhanendran](https://github.com/dhanendran), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#136](https://github.com/10up/eight-day-week/pull/136)).
+
 = 1.2.3 - 2023-09-20 =
 * **Added:** Error handling for environments that don't match our minimum PHP version (props [@bmarshall511](https://github.com/bmarshall511), [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter), [@vikrampm1](https://github.com/vikrampm1) via [#132](https://github.com/10up/eight-day-week/pull/132)).
 * **Fixed:** Ensure multiple articles can be saved within each Print Issue section (props [@dkotter](https://github.com/dkotter), [@xLesy](https://github.com/xLesy), [@iamdharmesh](https://github.com/iamdharmesh) via [#131](https://github.com/10up/eight-day-week/pull/131)).
