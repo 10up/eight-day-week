@@ -2,8 +2,8 @@
 Contributors:      10up, observerteam, joshlevinson, brs14ku, jeffpaul
 Tags:              print, workflow, editorial
 Requires at least: 5.7
-Tested up to:      6.3
-Stable tag:        1.2.3
+Tested up to:      6.4
+Stable tag:        1.2.4
 Requires PHP:      7.4
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
@@ -179,6 +179,11 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 8. A sample article XML export for InDesign.
 
 == Changelog ==
+
+= 1.2.4 - 2024-02-29 =
+* **Added:** Support for the WordPress.org plugin preview (props [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#137](https://github.com/10up/eight-day-week/pull/137)).
+* **Changed:** Bump WordPress "tested up to" version to 6.4 (props [@dhanendran](https://github.com/dhanendran), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#136](https://github.com/10up/eight-day-week/pull/136)).
+* **Fixed:** Undefined array key PHP warning (props [@dhanendran](https://github.com/dhanendran), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#136](https://github.com/10up/eight-day-week/pull/136)).
 
 = 1.2.3 - 2023-09-20 =
 * **Added:** Error handling for environments that don't match our minimum PHP version (props [@bmarshall511](https://github.com/bmarshall511), [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter), [@vikrampm1](https://github.com/vikrampm1) via [#132](https://github.com/10up/eight-day-week/pull/132)).

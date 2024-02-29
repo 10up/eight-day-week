@@ -2,7 +2,7 @@
   "name": "eight-day-week",
   "title": "Eight Day Week",
   "description": "Tools that help improve the digital/print production workflows.",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "homepage": "http://10up.com",
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "grunt-phpunit": "^0.3.6",
     "grunt-wp-readme-to-markdown": "^2.0.1",
     "load-grunt-tasks": "^5.1.0",
+    "mochawesome-json-to-md": "^0.7.2",
     "qunit": "^2.9.3"
   },
   "keywords": [],
