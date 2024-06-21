@@ -34,7 +34,7 @@ module.exports = defineConfig({
  */
 const setBaseUrl = async (on, config) => {
   const cacheDirectory = await getCacheDirectory();
-	const wpEnvConfig = await loadConfig(cacheDirectory);
+  const wpEnvConfig = await loadConfig(cacheDirectory);
 
   if (wpEnvConfig) {
     const port = wpEnvConfig.env.tests.port || null;
