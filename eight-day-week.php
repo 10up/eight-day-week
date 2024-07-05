@@ -4,7 +4,7 @@
  * Plugin URI:        https://github.com/10up/eight-day-week
  * Description:       Optimize publication workflows by using WordPress as your print CMS.
  * Version:           1.2.4
- * Requires at least: 6.3
+ * Requires at least: 6.4
  * Requires PHP:      7.4
  * Author:            10up
  * Author URI:        https://10up.com
