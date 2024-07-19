@@ -53,6 +53,7 @@ jobs:
     - name: Set the core version and plugins config 
       run: ./tests/bin/set-wp-config.js --core=${{ matrix.core.version }} --plugins=./${{ github.event.repository.name }}
     - name: Set up WP environment
+
       run: npm run env:start
     - name: Test
       run: npm run cypress:run
