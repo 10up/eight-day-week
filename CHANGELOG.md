@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+## [1.2.4] - 2024-02-29
+### Added
+- Support for the WordPress.org plugin preview (props [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#137](https://github.com/10up/eight-day-week/pull/137)).
+
+### Changed
+- Bump WordPress "tested up to" version to 6.4 (props [@dhanendran](https://github.com/dhanendran), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#136](https://github.com/10up/eight-day-week/pull/136)).
+
+### Fixed
+- Undefined array key PHP warning (props [@dhanendran](https://github.com/dhanendran), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#136](https://github.com/10up/eight-day-week/pull/136)).
+
 ## [1.2.3] - 2023-09-20
 ### Added
 - Error handling for environments that don't match our minimum PHP version (props [@bmarshall511](https://github.com/bmarshall511), [@iamdharmesh](https://github.com/iamdharmesh), [@dkotter](https://github.com/dkotter), [@vikrampm1](https://github.com/vikrampm1) via [#132](https://github.com/10up/eight-day-week/pull/132)).
@@ -119,6 +129,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 - Initial Release
 
 [Unreleased]: https://github.com/10up/eight-day-week/compare/trunk...develop
+[1.2.4]: https://github.com/10up/eight-day-week/compare/1.2.3...1.2.4
 [1.2.3]: https://github.com/10up/eight-day-week/compare/1.2.2...1.2.3
 [1.2.2]: https://github.com/10up/eight-day-week/compare/1.2.1...1.2.2
 [1.2.1]: https://github.com/10up/eight-day-week/compare/1.2.0...1.2.1

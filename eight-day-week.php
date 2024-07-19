@@ -1,12 +1,15 @@
 <?php
 /**
- * Plugin Name: Eight Day Week
- * Description: Tools that help improve digital & print workflows.
- * Version:     1.2.3
- * Author:      10up
- * Author URI:  https://10up.com
- * License:     GPLv2+
- * Text Domain: eight-day-week-print-workflow
+ * Plugin Name:       Eight Day Week
+ * Plugin URI:        https://github.com/10up/eight-day-week
+ * Description:       Optimize publication workflows by using WordPress as your print CMS.
+ * Version:           1.2.4
+ * Requires at least: 6.4
+ * Requires PHP:      7.4
+ * Author:            10up
+ * Author URI:        https://10up.com
+ * License:           GPLv2+
+ * Text Domain:       eight-day-week-print-workflow
  *
  * @package Eight_Day_Week
  */
@@ -36,7 +39,7 @@ require_once __DIR__ . '/vip-compat.php';
 require_once __DIR__ . '/plugins.php';
 
 // Useful global constants.
-define( 'EDW_VERSION', '1.2.3' );
+define( 'EDW_VERSION', '1.2.4' );
 define( 'EDW_URL', Eight_Day_Week\plugins_url( __FILE__ ) );
 define( 'EDW_PATH', __DIR__ . '/' );
 define( 'EDW_INC', EDW_PATH . 'includes/' );
