@@ -2,18 +2,9 @@
 
 > Optimize publication workflows by using WordPress as your print CMS.
 
-[![Support Level](https://img.shields.io/badge/support-stable-blue.svg)](#support-level) [![E2E tests](https://github.com/10up/eight-day-week/actions/workflows/cypress.yml/badge.svg)](https://github.com/10up/eight-day-week/actions/workflows/cypress.yml) [![Release Version](https://img.shields.io/github/release/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/releases/latest) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/eight-day-week-print-workflow?label=WordPress) [![GPLv2 License](https://img.shields.io/github/license/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/blob/develop/LICENSE.md)
+[![Support Level](https://img.shields.io/badge/support-stable-blue.svg)](#support-level) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/eight-day-week-print-workflow?label=WordPress) [![GPLv2 License](https://img.shields.io/github/license/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/blob/develop/LICENSE.md) [![WordPress Plugin Version](https://img.shields.io/wordpress/plugin/v/eight-day-week-print-workflow?logo=wordpress&logoColor=FFFFFF&label=Playground%20Demo&labelColor=3858E9&color=3858E9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/10up/eight-day-week/develop/.wordpress-org/blueprints/blueprint.json)
 
-## Table of Contents
-* [Overview](#overview)
-* [Features](#features)
-* [Requirements](#requirements)
-* [Installation](#installation)
-* [Filters & Hooks](#filters--hooks)
-* [Screenshots](#screenshots)
-* [Known Caveats/Issues](#known-caveatsissues)
-* [Changelog](#changelog)
-* [Contributing](#contributing)
+[![E2E tests](https://github.com/10up/eight-day-week/actions/workflows/cypress.yml/badge.svg)](https://github.com/10up/eight-day-week/actions/workflows/cypress.yml) [![PHP Standards Scrutinizer](https://github.com/10up/eight-day-week/actions/workflows/php-standards-scrutinizer.yml/badge.svg)](https://github.com/10up/eight-day-week/actions/workflows/php-standards-scrutinizer.yml) [![Dependency Review](https://github.com/10up/eight-day-week/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/10up/eight-day-week/actions/workflows/dependency-review.yml)
 
 ## Overview
 
