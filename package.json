@@ -1,17 +1,18 @@
 {
   "name": "eight-day-week",
   "title": "Eight Day Week",
-  "description": "Tools that help improve the digital/print production workflows.",
   "version": "1.2.4",
+  "description": "Tools that help improve the digital/print production workflows.",
   "homepage": "http://10up.com",
-  "repository": {
-    "type": "git",
-    "url": ""
-  },
+  "license": "GPL-2.0-or-later",
   "author": {
     "name": "10up",
     "email": "plugins@10up.com",
     "url": "http://10up.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
   },
   "devDependencies": {
     "@10up/cypress-wp-utils": "github:10up/cypress-wp-utils#build",

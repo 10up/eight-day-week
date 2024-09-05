@@ -8,7 +8,7 @@
  * Requires PHP:      7.4
  * Author:            10up
  * Author URI:        https://10up.com
- * License:           GPLv2+
+ * License:           GPL-2.0-or-later
  * Text Domain:       eight-day-week-print-workflow
  *
  * @package Eight_Day_Week
