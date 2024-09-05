@@ -3,8 +3,8 @@ Contributors:      10up, observerteam, joshlevinson, brs14ku, jeffpaul
 Tags:              print, workflow, editorial
 Tested up to:      6.6
 Stable tag:        1.2.4
-License:           GPLv2 or later
-License URI:       http://www.gnu.org/licenses/gpl-2.0.html
+License:           GPL-2.0-or-later
+License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
 
 Optimize publication workflows by using WordPress as your print CMS
 
@@ -41,6 +41,7 @@ Two custom roles are added by this plugin to best model a real-world print team.
 Eight Day Week has no settings or configurations to set up. It just works!
 
 == Filters & Hooks ==
+
 Eight Day Week provides a number of filters and hooks for customizing and extending the plugin.
 
 **Modules**
