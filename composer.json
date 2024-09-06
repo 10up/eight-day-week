@@ -2,14 +2,13 @@
 	"name": "10up/eight-day-week",
 	"description": "Tools that help improve the digital/print production workflows.",
 	"type": "wordpress-plugin",
-	"keywords": [],
-	"homepage": "http://10up.com",
-	"license": "GPLv2.0+",
+	"homepage": "https://github.com/10up/eight-day-week",
+	"license": "GPL-2.0-or-later",
 	"authors": [
 		{
 			"name": "10up",
-			"email": "plugins@10up.com",
-			"homepage": "http://10up.com",
+			"email": "opensource@10up.com",
+			"homepage": "https://10up.com",
 			"role": "Developer"
 		}
 	],

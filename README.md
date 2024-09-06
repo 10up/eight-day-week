@@ -1,19 +1,12 @@
-# ![Eight Day Week Print Workflow](https://github.com/10up/eight-day-week/blob/develop/.wordpress-org/banner-1544x500.png "Eight Day Week Print Workflow")
+# Eight Day Week Print Workflow
+
+![Eight Day Week](https://github.com/10up/eight-day-week/blob/develop/.wordpress-org/banner-1544x500.png "Eight Day Week Print Workflow")
+
+[![Support Level](https://img.shields.io/badge/support-stable-blue.svg)](#support-level) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/eight-day-week-print-workflow?label=WordPress) [![GPLv2 License](https://img.shields.io/github/license/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/blob/develop/LICENSE.md) [![Dependency Review](https://github.com/10up/eight-day-week/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/10up/eight-day-week/actions/workflows/dependency-review.yml) [![WordPress Plugin Version](https://img.shields.io/wordpress/plugin/v/eight-day-week-print-workflow?logo=wordpress&logoColor=FFFFFF&label=Playground%20Demo&labelColor=3858E9&color=3858E9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/10up/eight-day-week/develop/.wordpress-org/blueprints/blueprint.json)
+
+[![E2E tests](https://github.com/10up/eight-day-week/actions/workflows/cypress.yml/badge.svg)](https://github.com/10up/eight-day-week/actions/workflows/cypress.yml) [![PHP Standards Scrutinizer](https://github.com/10up/eight-day-week/actions/workflows/php-standards-scrutinizer.yml/badge.svg)](https://github.com/10up/eight-day-week/actions/workflows/php-standards-scrutinizer.yml) [![CodeQL](https://github.com/10up/eight-day-week/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/10up/eight-day-week/actions/workflows/github-code-scanning/codeql)
 
 > Optimize publication workflows by using WordPress as your print CMS.
-
-[![Support Level](https://img.shields.io/badge/support-stable-blue.svg)](#support-level) [![E2E tests](https://github.com/10up/eight-day-week/actions/workflows/cypress.yml/badge.svg)](https://github.com/10up/eight-day-week/actions/workflows/cypress.yml) [![Release Version](https://img.shields.io/github/release/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/releases/latest) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/eight-day-week-print-workflow?label=WordPress) [![GPLv2 License](https://img.shields.io/github/license/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/blob/develop/LICENSE.md)
-
-## Table of Contents
-* [Overview](#overview)
-* [Features](#features)
-* [Requirements](#requirements)
-* [Installation](#installation)
-* [Filters & Hooks](#filters--hooks)
-* [Screenshots](#screenshots)
-* [Known Caveats/Issues](#known-caveatsissues)
-* [Changelog](#changelog)
-* [Contributing](#contributing)
 
 ## Overview
 
@@ -58,13 +51,14 @@ Issue Statuses | Publications | Article Statuses
 ## Requirements
 
 * PHP 7.4+
-* [WordPress](http://wordpress.org) 5.7+
+* [WordPress](http://wordpress.org) 6.4+
 
 ## Installation
 
 Eight Day Week has no settings or configurations to set up. It just works!
 
 ## Filters & Hooks
+
 Eight Day Week provides a number of filters and hooks for customizing and extending the plugin.
 
 ### Modules
@@ -87,6 +81,7 @@ The information displayed in the list of articles within a Print Issue is filter
 
 Sample usage:
 
+```
 	add_filter( 'Eight_Day_Week\Articles\article_columns', function( $columns ) {
 	    $columns['byline'] = _x( 'Byline', 'Label for multiple, comma separated authors', 'your-text-domain' );
 	    return $columns;
@@ -94,6 +89,7 @@ Sample usage:
 	add_filter( 'Eight_Day_Week\Articles\article_meta_byline', function( $incoming_value, $post ) {
 	    return implode( ', ', wp_list_pluck( my_get_post_authors_function( $post ), 'display_name' ) );
 	}
+```
 
 ### Print Issue Table
 
