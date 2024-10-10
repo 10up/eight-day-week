@@ -32,9 +32,22 @@ Two custom roles are added by this plugin to best model a real-world print team.
 
 - Circumvents the post locking feature by offering a read-only view of a print issue
 
-**XML Export to InDesign**
+**XML Export to InDesign: Classic Editor vs. Gutenberg Exports**
 
-- Export XML files specifically formatted for import into InDesign
+When exporting content from WordPress for use in InDesign, there are key differences between Classic Editor and Gutenberg (Block Editor) exports. This section highlights how each type of export behaves in InDesign and offers guidance on how to handle these differences.
+
+- Classic Editor exports use basic HTML tags like `<p>`, `<strong>`, and `<em>`, making them straightforward for import into InDesign.
+- Gutenberg exports include additional metadata such as HTML comments (`<!-- wp:paragraph -->`) that define block-level structures, which may require manual adjustments after importing into InDesign.
+
+**Import Differences:**
+
+- Classic Editor: Imports cleanly into InDesign without extra metadata.
+- Gutenberg: May include block-related metadata, requiring users to clean up the imported content or manually adjust formatting.
+
+**Recommendations:**
+
+- Classic Editor: Best for simple imports with minimal manual work.
+- Gutenberg: Recommended for users comfortable with removing metadata or adjusting block-based settings after the import.
 
 == Installation ==
 
