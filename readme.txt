@@ -192,6 +192,14 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 
 == Changelog ==
 
+= 1.2.5 - 2025-02-03 =
+**Note that this release bumps the WordPress minimum version from 5.7 to 6.5.**
+
+* **Added:** Documentation updates comparing Classic Editor vs. Gutenberg (Block Editor) XML exports for InDesign imports (props [@frankiebordone](https://github.com/frankiebordone), [@dkotter](https://github.com/dkotter) via [#159](https://github.com/10up/eight-day-week/pull/159), [#160](https://github.com/10up/eight-day-week/pull/160)).
+* **Changed:** Bump WordPress "tested up to" version to 6.7 (props [@qasumitbagthariya](https://github.com/qasumitbagthariya), [@sudip-md](https://github.com/sudip-md), [@zamanq](https://github.com/zamanq), [@jeffpaul](https://github.com/jeffpaul) via [#144](https://github.com/10up/eight-day-week/pull/144), [#152](https://github.com/10up/eight-day-week/pull/152), [#153](https://github.com/10up/eight-day-week/pull/153), [#163](https://github.com/10up/eight-day-week/pull/163), [#165](https://github.com/10up/eight-day-week/pull/165)).
+* **Changed:** Bump WordPress minimum from 5.7 to 6.5 (props [@qasumitbagthariya](https://github.com/qasumitbagthariya), [@sudip-md](https://github.com/sudip-md), [@zamanq](https://github.com/zamanq), [@jeffpaul](https://github.com/jeffpaul) via [#144](https://github.com/10up/eight-day-week/pull/144), [#152](https://github.com/10up/eight-day-week/pull/152), [#153](https://github.com/10up/eight-day-week/pull/153)).
+* **Security:** Bump `braces` from 3.0.2 to 3.0.3 and `ws` from 6.2.2 to 6.2.3 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#150](https://github.com/10up/eight-day-week/pull/150)).
+
 = 1.2.4 - 2024-02-29 =
 * **Added:** Support for the WordPress.org plugin preview (props [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#137](https://github.com/10up/eight-day-week/pull/137)).
 * **Changed:** Bump WordPress "tested up to" version to 6.4 (props [@dhanendran](https://github.com/dhanendran), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#136](https://github.com/10up/eight-day-week/pull/136)).
@@ -270,6 +278,10 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 * Initial Release.
 
 == Upgrade Notice ==
+
+= 1.2.5 =
+
+Note that this release bumps the WordPress minimum version from 5.7 to 6.5
 
 = 1.2.1 =
 
