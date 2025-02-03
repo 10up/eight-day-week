@@ -20,6 +20,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 ### Developer
 - Upgrade `download-artifact` from v3 to v4 (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#142](https://github.com/10up/eight-day-week/pull/142)).
 - Replaced `lee-dohm/no-response` with `actions/stale` to help with closing no-response/stale issues (props [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#143](https://github.com/10up/eight-day-week/pull/143)).
+- Add "Testing" section to the "CONTRIBUTING.md" file (props [@kmgalanakis](https://github.com/kmgalanakis) via [#145](https://github.com/10up/eight-day-week/pull/145)).
 - Add Repo Automator GitHub Action (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#146](https://github.com/10up/eight-day-week/pull/146)).
 - Update README with WordPress Playground badge, banner image and other minor updates (props [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#156](https://github.com/10up/eight-day-week/pull/156), [#157](https://github.com/10up/eight-day-week/pull/157), [#158](https://github.com/10up/eight-day-week/pull/158)).
 
