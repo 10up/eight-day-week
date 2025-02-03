@@ -1,12 +1,10 @@
 === Eight Day Week Print Workflow ===
 Contributors:      10up, observerteam, joshlevinson, brs14ku, jeffpaul
 Tags:              print, workflow, editorial
-Requires at least: 6.5
 Tested up to:      6.7
-Stable tag:        1.2.4
-Requires PHP:      7.4
-License:           GPLv2 or later
-License URI:       http://www.gnu.org/licenses/gpl-2.0.html
+Stable tag:        1.2.5
+License:           GPL-2.0-or-later
+License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
 
 Optimize publication workflows by using WordPress as your print CMS
 
@@ -34,15 +32,29 @@ Two custom roles are added by this plugin to best model a real-world print team.
 
 - Circumvents the post locking feature by offering a read-only view of a print issue
 
-**XML Export to InDesign**
+**XML Export to InDesign: Classic Editor vs. Gutenberg Exports**
 
-- Export XML files specifically formatted for import into InDesign
+When exporting content from WordPress for use in InDesign, there are key differences between Classic Editor and Gutenberg (Block Editor) exports. This section highlights how each type of export behaves in InDesign and offers guidance on how to handle these differences.
+
+- Classic Editor exports use basic HTML tags like `<p>`, `<strong>`, and `<em>`, making them straightforward for import into InDesign.
+- Gutenberg exports include additional metadata such as HTML comments (`<!-- wp:paragraph -->`) that define block-level structures, which may require manual adjustments after importing into InDesign.
+
+**Import Differences:**
+
+- Classic Editor: Imports cleanly into InDesign without extra metadata.
+- Gutenberg: May include block-related metadata, requiring users to clean up the imported content or manually adjust formatting.
+
+**Recommendations:**
+
+- Classic Editor: Best for simple imports with minimal manual work.
+- Gutenberg: Recommended for users comfortable with removing metadata or adjusting block-based settings after the import.
 
 == Installation ==
 
 Eight Day Week has no settings or configurations to set up. It just works!
 
 == Filters & Hooks ==
+
 Eight Day Week provides a number of filters and hooks for customizing and extending the plugin.
 
 **Modules**
@@ -180,6 +192,14 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 
 == Changelog ==
 
+= 1.2.5 - 2025-02-03 =
+**Note that this release bumps the WordPress minimum version from 5.7 to 6.5.**
+
+* **Added:** Documentation updates comparing Classic Editor vs. Gutenberg (Block Editor) XML exports for InDesign imports (props [@frankiebordone](https://github.com/frankiebordone), [@dkotter](https://github.com/dkotter) via [#159](https://github.com/10up/eight-day-week/pull/159), [#160](https://github.com/10up/eight-day-week/pull/160)).
+* **Changed:** Bump WordPress "tested up to" version to 6.7 (props [@qasumitbagthariya](https://github.com/qasumitbagthariya), [@sudip-md](https://github.com/sudip-md), [@zamanq](https://github.com/zamanq), [@jeffpaul](https://github.com/jeffpaul) via [#144](https://github.com/10up/eight-day-week/pull/144), [#152](https://github.com/10up/eight-day-week/pull/152), [#153](https://github.com/10up/eight-day-week/pull/153), [#163](https://github.com/10up/eight-day-week/pull/163), [#165](https://github.com/10up/eight-day-week/pull/165)).
+* **Changed:** Bump WordPress minimum from 5.7 to 6.5 (props [@qasumitbagthariya](https://github.com/qasumitbagthariya), [@sudip-md](https://github.com/sudip-md), [@zamanq](https://github.com/zamanq), [@jeffpaul](https://github.com/jeffpaul) via [#144](https://github.com/10up/eight-day-week/pull/144), [#152](https://github.com/10up/eight-day-week/pull/152), [#153](https://github.com/10up/eight-day-week/pull/153)).
+* **Security:** Bump `braces` from 3.0.2 to 3.0.3 and `ws` from 6.2.2 to 6.2.3 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#150](https://github.com/10up/eight-day-week/pull/150)).
+
 = 1.2.4 - 2024-02-29 =
 * **Added:** Support for the WordPress.org plugin preview (props [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#137](https://github.com/10up/eight-day-week/pull/137)).
 * **Changed:** Bump WordPress "tested up to" version to 6.4 (props [@dhanendran](https://github.com/dhanendran), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#136](https://github.com/10up/eight-day-week/pull/136)).
@@ -258,6 +278,10 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 * Initial Release.
 
 == Upgrade Notice ==
+
+= 1.2.5 =
+
+Note that this release bumps the WordPress minimum version from 5.7 to 6.5
 
 = 1.2.1 =
 
