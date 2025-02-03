@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+## [1.2.5] - 2025-02-03
+**Note that this release bumps the WordPress minimum version from 5.7 to 6.5.**
+
+### Added
+- Documentation updates comparing Classic Editor vs. Gutenberg (Block Editor) XML exports for InDesign imports (props [@frankiebordone](https://github.com/frankiebordone), [@dkotter](https://github.com/dkotter) via [#159](https://github.com/10up/eight-day-week/pull/159), [#160](https://github.com/10up/eight-day-week/pull/160)).
+
+### Changed
+- Bump WordPress "tested up to" version to 6.7 (props [@qasumitbagthariya](https://github.com/qasumitbagthariya), [@sudip-md](https://github.com/sudip-md), [@zamanq](https://github.com/zamanq), [@jeffpaul](https://github.com/jeffpaul) via [#144](https://github.com/10up/eight-day-week/pull/144), [#152](https://github.com/10up/eight-day-week/pull/152), [#153](https://github.com/10up/eight-day-week/pull/153), [#163](https://github.com/10up/eight-day-week/pull/163), [#165](https://github.com/10up/eight-day-week/pull/165)).
+- Bump WordPress minimum from 5.7 to 6.5 (props [@qasumitbagthariya](https://github.com/qasumitbagthariya), [@sudip-md](https://github.com/sudip-md), [@zamanq](https://github.com/zamanq), [@jeffpaul](https://github.com/jeffpaul) via [#144](https://github.com/10up/eight-day-week/pull/144), [#152](https://github.com/10up/eight-day-week/pull/152), [#153](https://github.com/10up/eight-day-week/pull/153)).
+
+### Security
+- Bump `braces` from 3.0.2 to 3.0.3 and `ws` from 6.2.2 to 6.2.3 (props [@dependabot](https://github.com/apps/dependabot), [@iamdharmesh](https://github.com/iamdharmesh) via [#150](https://github.com/10up/eight-day-week/pull/150)).
+
+### Developer
+- Upgrade `download-artifact` from v3 to v4 (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#142](https://github.com/10up/eight-day-week/pull/142)).
+- Replaced `lee-dohm/no-response` with `actions/stale` to help with closing no-response/stale issues (props [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#143](https://github.com/10up/eight-day-week/pull/143)).
+- Add "Testing" section to the "CONTRIBUTING.md" file (props [@kmgalanakis](https://github.com/kmgalanakis) via [#145](https://github.com/10up/eight-day-week/pull/145)).
+- Add Repo Automator GitHub Action (props [@iamdharmesh](https://github.com/iamdharmesh), [@jeffpaul](https://github.com/jeffpaul) via [#146](https://github.com/10up/eight-day-week/pull/146)).
+- Update README with WordPress Playground badge, banner image and other minor updates (props [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#156](https://github.com/10up/eight-day-week/pull/156), [#157](https://github.com/10up/eight-day-week/pull/157), [#158](https://github.com/10up/eight-day-week/pull/158)).
+
 ## [1.2.4] - 2024-02-29
 ### Added
 - Support for the WordPress.org plugin preview (props [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#137](https://github.com/10up/eight-day-week/pull/137)).
@@ -129,6 +149,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 - Initial Release
 
 [Unreleased]: https://github.com/10up/eight-day-week/compare/trunk...develop
+[1.2.5]: https://github.com/10up/eight-day-week/compare/1.2.4...1.2.5
 [1.2.4]: https://github.com/10up/eight-day-week/compare/1.2.3...1.2.4
 [1.2.3]: https://github.com/10up/eight-day-week/compare/1.2.2...1.2.3
 [1.2.2]: https://github.com/10up/eight-day-week/compare/1.2.1...1.2.2
