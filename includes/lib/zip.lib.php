@@ -108,7 +108,7 @@ class ZipFile {
 	 *
 	 * @return void
 	 */
-	public function addFile( $data, $name, $time = 0 ) {
+	public function addFile( $data, $name, $time = 0 ) { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
 		$name = str_replace( '\\', '/', $name );
 
 		$hexdtime = pack( 'V', $this->unix_2_dos_time( $time ) );
