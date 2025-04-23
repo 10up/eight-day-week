@@ -1,7 +1,8 @@
 === Eight Day Week Print Workflow ===
 Contributors:      10up, observerteam, joshlevinson, brs14ku, jeffpaul
 Tags:              print, workflow, editorial
-Tested up to:      6.7
+Requires at least: 6.6
+Tested up to:      6.8
 Stable tag:        1.2.5
 License:           GPL-2.0-or-later
 License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
