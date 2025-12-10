@@ -312,9 +312,10 @@ class Article_Zip_Factory {
 		$articles = array();
 		foreach ( $this->ids as $id ) {
 			$article = get_post( $id );
-			if ( $article ) {
-				$articles[ $id ] = $article;
+			if ( ! $article || ! current_user_can( 'read_post', $id ) ) {
+				continue;
 			}
+			$articles[ $id ] = $article;
 		}
 
 		return $articles;
@@ -499,9 +500,9 @@ class Article_Zip_Factory {
 				ob_flush();
 				flush();
 			}
-		}
 
-		fclose( $handle );
+			fclose( $handle );
+		}
 		exit;
 	}
 

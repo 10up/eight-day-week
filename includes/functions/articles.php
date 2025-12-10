@@ -303,8 +303,10 @@ class AL_Table extends \WP_Posts_List_Table {
 			$title = esc_html( get_the_title( $item->ID ) );
 		}
 
-		$title .= '<a class="pi-article-view" target="_blank" href="' .
-					esc_url( get_permalink( $item->ID ) ) . '">' . __( 'View', 'eight-day-week-print-workflow' ) . '</a>';
+		if ( current_user_can( 'read_post', $item->ID ) ) {
+			$title .= '<a class="pi-article-view" target="_blank" href="' .
+				esc_url( get_permalink( $item->ID ) ) . '">' . __( 'View', 'eight-day-week-print-workflow' ) . '</a>';
+		}
 
 		// Don't give remove link to print prod users.
 		if ( User\current_user_can_edit_print_issue() ) {
@@ -465,6 +467,13 @@ function get_articles( $title ) {
 	$articles = new \WP_Query( $args );
 	remove_filter( 'posts_where', __NAMESPACE__ . '\\title_filter', 10, 2 );
 
+	foreach ( $articles->posts as $key => $post ) {
+		// Exclude posts the user cannot read.
+		if ( ! current_user_can( 'read_post', $post->ID ) ) {
+			unset( $articles->posts[ $key ] );
+		}
+	}
+
 	if ( ! $articles->posts ) {
 		throw new \Exception( __( 'No matching articles found.', 'eight-day-week-print-workflow' ) );
 	}
@@ -501,6 +510,11 @@ function get_article_row_ajax() {
 	\Eight_Day_Week\Core\check_ajax_referer();
 
 	$article_id    = isset( $_GET['article_id'] ) ? absint( $_GET['article_id'] ) : false;
+
+	if ( ! $article_id || ! get_post( $article_id ) || ! current_user_can( 'read_post', $article_id ) ) {
+		\Eight_Day_Week\Core\send_json_error( array( 'message' => __( 'Invalid article ID.', 'eight-day-week-print-workflow' ) ) );
+	}
+
 	$article_table = new AL_Table( array( $article_id ) );
 	$article_table->prepare_items();
 
