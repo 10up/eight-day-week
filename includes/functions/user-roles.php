@@ -90,9 +90,9 @@ function add_print_editor_role() {
 }
 
 /**
- * Gets capabilities for print editors
+ * Gets capabilities for print editors.
  *
- * @return array Capabilities for print editors
+ * @return array Capabilities for print editors.
  */
 function get_editor_caps() {
 	$pt = EDW_PRINT_ISSUE_CPT;
