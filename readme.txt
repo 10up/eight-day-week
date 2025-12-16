@@ -287,6 +287,10 @@ Gutenberg-based exports include some additional metadata/details that a Classic 
 
 == Upgrade Notice ==
 
+= 1.2.6 =
+
+This includes a security update for a data exposure issue to authenticated users. Please upgrade promptly.
+
 = 1.2.5 =
 
 Note that this release bumps the WordPress minimum version from 5.7 to 6.5
