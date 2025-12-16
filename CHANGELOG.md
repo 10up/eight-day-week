@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+## [1.2.6] - 2025-12-16
+### Security
+- Resolve GHSA-c5vw-3gpx-gv22 data exposure to authenticated users (thank you Patchstack for responsibly disclosing this issue; props [@kmgalanakis](https://github.com/kmgalanakis), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-c5vw-3gpx-gv22](https://github.com/10up/eight-day-week/security/advisories/GHSA-c5vw-3gpx-gv22)).
+
+### Added
+- Expand E2E tests to increase coverage  (props [@sudip-md](https://github.com/sudip-md), [@jeffpaul](https://github.com/jeffpaul), [@iamdharmesh](https://github.com/iamdharmesh) via [#148](https://github.com/10up/eight-day-week/pull/148)).
+
+### Changed
+- Bump WordPress "tested up to" version 6.8 (props [@Sourabh208](https://github.com/Sourabh208), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#171](https://github.com/10up/eight-day-week/pull/171)).
+- Bump tar-fs from 2.1.1 to 2.1.2 (props [@dependabot](https://github.com/apps/dependabot), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#170](https://github.com/10up/eight-day-week/pull/170)).
+- Update CTA to Fueled (props [@jeffpaul](https://github.com/jeffpaul) via [#6ce451a2](https://github.com/10up/eight-day-week/commit/6ce451a22ad65b8518200e81fe33c2d65d448d9d)).
+
+### Developer
+- Update all third-party actions our workflows rely on to use versions based on specific commit hashes (props [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#168](https://github.com/10up/eight-day-week/pull/168)).
+- Update workflow permissions for various GitHub actions (props [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#176](https://github.com/10up/eight-day-week/pull/176), [#177](https://github.com/10up/eight-day-week/pull/177)).
+
 ## [1.2.5] - 2025-02-03
 **Note that this release bumps the WordPress minimum version from 5.7 to 6.5.**
 
@@ -149,6 +165,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 - Initial Release
 
 [Unreleased]: https://github.com/10up/eight-day-week/compare/trunk...develop
+[1.2.6]: https://github.com/10up/eight-day-week/compare/1.2.5...1.2.6
 [1.2.5]: https://github.com/10up/eight-day-week/compare/1.2.4...1.2.5
 [1.2.4]: https://github.com/10up/eight-day-week/compare/1.2.3...1.2.4
 [1.2.3]: https://github.com/10up/eight-day-week/compare/1.2.2...1.2.3
