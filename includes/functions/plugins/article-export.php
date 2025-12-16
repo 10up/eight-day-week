@@ -312,9 +312,10 @@ class Article_Zip_Factory {
 		$articles = array();
 		foreach ( $this->ids as $id ) {
 			$article = get_post( $id );
-			if ( $article ) {
-				$articles[ $id ] = $article;
+			if ( ! $article || ! current_user_can( 'read_post', $id ) ) {
+				continue;
 			}
+			$articles[ $id ] = $article;
 		}
 
 		return $articles;
@@ -495,13 +496,13 @@ class Article_Zip_Factory {
 		$handle = fopen( $filename, 'rb' );
 		if ( $handle ) {
 			while ( ! feof( $handle ) ) {
-				echo fread( $handle, 4096 );
+				echo fread( $handle, 4096 ); // phpcs:ignore WordPress.Security.EscapeOutput
 				ob_flush();
 				flush();
 			}
-		}
 
-		fclose( $handle );
+			fclose( $handle );
+		}
 		exit;
 	}
 
@@ -515,9 +516,8 @@ class Article_Zip_Factory {
 	 * @return string The zip file name
 	 */
 	public function get_zip_file_name() {
-		date_default_timezone_set( Core\get_timezone() );
 		/* translators: 1: title of the print issue, 2: date of the export (m-d-y), 3: time of the export (h:ia) */
-		return sprintf( __( 'Issue %1$s exported on %2$s at %3$s', 'eight-day-week' ), $this->print_issue_title, gmdate( 'm-d-y' ), gmdate( 'h:ia' ) );
+		return sprintf( __( 'Issue %1$s exported on %2$s at %3$s', 'eight-day-week' ), $this->print_issue_title, wp_date( 'm-d-y' ), wp_date( 'h:ia' ) );
 	}
 
 }

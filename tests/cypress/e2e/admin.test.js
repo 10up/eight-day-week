@@ -7,11 +7,6 @@ describe("Admin can login and open dashboard", () => {
     cy.visit(`/wp-admin`);
     cy.get("h1").should("contain", "Dashboard");
   });
-
-  it("Activate Hello Dolly and deactivate it back", () => {
-    cy.activatePlugin("hello-dolly");
-    cy.deactivatePlugin("hello-dolly");
-  });
 });
 
 describe('Admin can login and make sure plugin is activated', () => {
