@@ -25,7 +25,7 @@ jobs:
           - {name: 'PHP 7.4', version: '7.4'}
         core:
           - {name: 'WP stable', version: 'latest'}
-          - {name: 'WP minimum', version: 'WordPress/WordPress#6.6'}
+          - {name: 'WP minimum', version: 'WordPress/WordPress#6.5'}
           - {name: 'WP trunk', version: 'WordPress/WordPress#master'}
 
     steps:
