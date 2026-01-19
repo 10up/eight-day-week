@@ -6,6 +6,7 @@
  * Licensed under the GPLv2+ license.
  */
 
+@use "article-export";
 
 // Hide status, visibility, move to trash
 #minor-publishing-actions,
@@ -170,5 +171,3 @@ th.column-date{
 th.column-title{
   width: 28%;
 }
-
-@import "article-export";

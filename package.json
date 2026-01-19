@@ -15,35 +15,43 @@
     "url": ""
   },
   "devDependencies": {
-    "@10up/cypress-wp-utils": "github:10up/cypress-wp-utils#build",
-    "@wordpress/env": "^10.0.0",
-    "cypress": "^13.1.0",
+    "@10up/cypress-wp-utils": "^0.6.0",
+    "@lodder/grunt-postcss": "^3.1.1",
+    "@wordpress/env": "^10.38.0",
+    "autoprefixer": "^10.4.23",
+    "cypress": "^15.9.0",
     "cypress-mochawesome-reporter": "^3.5.1",
-    "grunt": "^1.5.3",
-    "grunt-autoprefixer": "^3.0.4",
-    "grunt-contrib-clean": "^2.0.0",
-    "grunt-contrib-compress": "^1.6.0",
-    "grunt-contrib-concat": "^1.0.1",
+    "grunt": "^1.6.1",
+    "grunt-contrib-clean": "^2.0.1",
+    "grunt-contrib-compress": "^2.0.0",
+    "grunt-contrib-concat": "^2.1.0",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-cssmin": "^5.0.0",
     "grunt-contrib-jshint": "^3.2.0",
     "grunt-contrib-qunit": "^3.1.0",
-    "grunt-contrib-sass": "^1.0.0",
-    "grunt-contrib-uglify": "^4.0.1",
+    "grunt-contrib-uglify": "^5.2.2",
     "grunt-contrib-watch": "^1.1.0",
-    "grunt-phpunit": "^0.3.6",
-    "grunt-wp-readme-to-markdown": "^2.0.1",
+    "grunt-sass": "^4.0.1",
+    "grunt-wp-readme-to-markdown": "^2.1.0",
     "load-grunt-tasks": "^5.1.0",
     "mochawesome-json-to-md": "^0.7.2",
-    "qunit": "^2.9.3"
+    "qunit": "^2.25.0",
+    "sass": "^1.97.2"
   },
   "keywords": [],
   "scripts": {
+    "build": "grunt build",
+    "start": "grunt watch",
     "cypress:open": "cypress open --config-file tests/cypress/config.js --e2e --browser chrome",
     "cypress:run": "cypress run --config-file tests/cypress/config.js",
     "env": "wp-env",
     "env:start": "wp-env start",
     "env:stop": "wp-env stop",
     "postenv:start": "./tests/bin/initialize.sh"
-  }
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "ie 8"
+  ]
 }
