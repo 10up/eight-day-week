@@ -17,7 +17,7 @@
   "devDependencies": {
     "@10up/cypress-wp-utils": "^0.6.0",
     "@wordpress/env": "^10.38.0",
-    "cypress": "^13.1.0",
+    "cypress": "^15.9.0",
     "cypress-mochawesome-reporter": "^3.5.1",
     "grunt": "^1.6.1",
     "grunt-autoprefixer": "^3.0.4",
