@@ -34,7 +34,7 @@
     "grunt-wp-readme-to-markdown": "^2.1.0",
     "load-grunt-tasks": "^5.1.0",
     "mochawesome-json-to-md": "^0.7.2",
-    "qunit": "^2.9.3",
+    "qunit": "^2.25.0",
     "sass": "^1.97.2"
   },
   "keywords": [],
