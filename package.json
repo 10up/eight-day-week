@@ -28,14 +28,15 @@
     "grunt-contrib-cssmin": "^3.0.0",
     "grunt-contrib-jshint": "^3.2.0",
     "grunt-contrib-qunit": "^3.1.0",
-    "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-uglify": "^4.0.1",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-phpunit": "^0.3.6",
+    "grunt-sass": "^4.0.1",
     "grunt-wp-readme-to-markdown": "^2.0.1",
     "load-grunt-tasks": "^5.1.0",
     "mochawesome-json-to-md": "^0.7.2",
-    "qunit": "^2.9.3"
+    "qunit": "^2.9.3",
+    "sass": "^1.97.2"
   },
   "keywords": [],
   "scripts": {

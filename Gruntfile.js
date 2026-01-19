@@ -1,3 +1,5 @@
+var sass = require('sass');
+
 module.exports = function( grunt ) {
 
 	// Project configuration
@@ -35,6 +37,9 @@ module.exports = function( grunt ) {
 		},
 
 		sass:   {
+			options: {
+				implementation: sass,
+			},
 			all: {
 				files: {
 					'assets/css/style.css': 'assets/css/sass/style.scss'
