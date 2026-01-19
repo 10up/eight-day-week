@@ -39,6 +39,8 @@
   },
   "keywords": [],
   "scripts": {
+    "build": "grunt build",
+    "start": "grunt watch",
     "cypress:open": "cypress open --config-file tests/cypress/config.js --e2e --browser chrome",
     "cypress:run": "cypress run --config-file tests/cypress/config.js",
     "env": "wp-env",
