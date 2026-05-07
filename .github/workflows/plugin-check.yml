@@ -24,15 +24,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      - name: Set up PHP
-        uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2.37.0
-        with:
-          php-version: '7.4'
-          coverage: none
-
       - name: Run plugin check
         uses: wordpress/plugin-check-action@6f5a57e173c065a394b78688f75df543e4011902 # v1.1.5
         with:
-          build-dir: ${{ github.event.repository.name }}
-          slug: eight-day-week-print-workflow
           exclude-directories: 'tests'
