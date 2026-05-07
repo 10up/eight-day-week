@@ -7,7 +7,6 @@
 
 namespace Eight_Day_Week\Articles;
 
-use Eight_Day_Week\Core as Core;
 use Eight_Day_Week\User_Roles as User;
 
 /**
@@ -141,7 +140,7 @@ class AL_Table extends \WP_Posts_List_Table {
 					return $item->$column_name;
 				}
 
-				$filtered = apply_filters( __NAMESPACE__ . '\article_meta_' . $column_name, false, $item, $column_name );
+				$filtered = apply_filters( __NAMESPACE__ . '\article_meta_' . $column_name, false, $item, $column_name ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 				if ( $filtered ) {
 					return $filtered;
 				}
@@ -164,7 +163,7 @@ class AL_Table extends \WP_Posts_List_Table {
 	 */
 	public function get_columns() {
 		return apply_filters(
-			__NAMESPACE__ . '\article_columns',
+			__NAMESPACE__ . '\article_columns', // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 			array(
 				'cb'    => '<input type="checkbox" />',
 				'title' => _x( 'Article', 'eight-day-week-print-workflow' ),
@@ -269,7 +268,7 @@ class AL_Table extends \WP_Posts_List_Table {
 	 *
 	 * @return string
 	 */
-	public function _column_title( $item, $classes = '', $data = '', $primary = false ) {
+	public function _column_title( $item, $classes = '', $data = '', $primary = false ) { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore, purposely overriding the parent method
 		$html  = '<td class="' . esc_attr( $classes ) . ' page-title" ' . esc_attr( $data ) . '>';
 		$html .= $this->column_title( $item );
 		$html .= '</td>';
@@ -367,7 +366,6 @@ class AL_Table extends \WP_Posts_List_Table {
 		$this->single_row( $item );
 		return ob_get_clean();
 	}
-
 }
 
 /**
@@ -407,6 +405,14 @@ function get_existing_articles( $section_id ) {
  * Handler for an ajax request to get articles by title search
  */
 function get_articles_ajax() {
+	if ( ! check_ajax_referer( EDW_AJAX_NONCE_SLUG, false, false ) ) {
+		wp_send_json_error(
+			array(
+				'message' => __( 'Invalid nonce.', 'eight-day-week-print-workflow' ),
+			),
+			403
+		);
+	}
 
 	$title = isset( $_GET['title'] ) ? sanitize_text_field( wp_unslash( $_GET['title'] ) ) : false;
 
@@ -447,10 +453,10 @@ function get_articles_autocomplete( $title ) {
  */
 function get_articles( $title ) {
 	if ( ! $title ) {
-		throw new \Exception( __( 'Please enter a valid/non-empty title.', 'eight-day-week-print-workflow' ) );
+		throw new \Exception( esc_html__( 'Please enter a valid/non-empty title.', 'eight-day-week-print-workflow' ) );
 	}
 
-	$post_types = apply_filters( __NAMESPACE__ . '\\post_types', array( 'post' ) );
+	$post_types = apply_filters( __NAMESPACE__ . '\\post_types', array( 'post' ) ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 
 	$args = array(
 		'search_by_title'        => sanitize_text_field( $title ),
@@ -465,7 +471,7 @@ function get_articles( $title ) {
 
 	add_filter( 'posts_where', __NAMESPACE__ . '\\title_filter', 10, 2 );
 	$articles = new \WP_Query( $args );
-	remove_filter( 'posts_where', __NAMESPACE__ . '\\title_filter', 10, 2 );
+	remove_filter( 'posts_where', __NAMESPACE__ . '\\title_filter', 10 );
 
 	foreach ( $articles->posts as $key => $post ) {
 		// Exclude posts the user cannot read.
@@ -475,7 +481,7 @@ function get_articles( $title ) {
 	}
 
 	if ( ! $articles->posts ) {
-		throw new \Exception( __( 'No matching articles found.', 'eight-day-week-print-workflow' ) );
+		throw new \Exception( esc_html__( 'No matching articles found.', 'eight-day-week-print-workflow' ) );
 	}
 
 	return $articles->posts;
@@ -506,10 +512,9 @@ function title_filter( $where, $wp_query ) {
  * Handles a request for the HTML of a new, post-specific AL_Table row
  */
 function get_article_row_ajax() {
+	check_ajax_referer( EDW_AJAX_NONCE_SLUG, false, false );
 
-	\Eight_Day_Week\Core\check_ajax_referer();
-
-	$article_id    = isset( $_GET['article_id'] ) ? absint( $_GET['article_id'] ) : false;
+	$article_id = isset( $_GET['article_id'] ) ? absint( wp_unslash( $_GET['article_id'] ) ) : false;
 
 	if ( ! $article_id || ! get_post( $article_id ) || ! current_user_can( 'read_post', $article_id ) ) {
 		\Eight_Day_Week\Core\send_json_error( array( 'message' => __( 'Invalid article ID.', 'eight-day-week-print-workflow' ) ) );
@@ -536,7 +541,7 @@ function save_section_articles( $post_id ) {
 		return;
 	}
 
-	$article_ids_sets = wp_unslash( $_POST['pi-article-ids'] );
+	$article_ids_sets = map_deep( wp_unslash( $_POST['pi-article-ids'] ), 'sanitize_text_field' );
 
 	if ( ! is_array( $article_ids_sets ) ) {
 		return;
@@ -548,6 +553,8 @@ function save_section_articles( $post_id ) {
 	}
 
 	foreach ( $article_ids_sets as $section_id => $article_ids ) {
+		$section_id = absint( $section_id );
+
 		// Validate section.
 		$section = get_post( $section_id );
 		if ( ! $section_id || ! $section ) {
@@ -563,7 +570,7 @@ function save_section_articles( $post_id ) {
 		$article_ids = explode( ',', $article_ids );
 		$article_ids = array_unique( $article_ids );
 
-		update_post_meta( absint( $section_id ), 'articles', implode( ',', $article_ids ) );
+		update_post_meta( $section_id, 'articles', implode( ',', $article_ids ) );
 	}
 }
 

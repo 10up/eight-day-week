@@ -57,9 +57,14 @@ function create_taxonomy_dropdown_metabox( $post, $metabox ) {
 	$names = get_the_terms( get_the_ID(), $taxonomy->name );
 
 	// Get all terms in this taxonomy.
-	$terms = (array) get_terms( $taxonomy->name, 'hide_empty=0' );
+	$terms = get_terms(
+		array(
+			'taxonomy'   => $taxonomy->name,
+			'hide_empty' => false,
+		)
+	);
 
-	if ( ! $terms ) {
+	if ( is_wp_error( $terms ) || empty( $terms ) ) {
 		echo '<p>' .
 			sprintf(
 				/* translators: %s: Name of the taxonomy. */
@@ -112,7 +117,10 @@ function create_taxonomy_dropdown_metabox( $post, $metabox ) {
 			$select .= '<option value="' . absint( $val ) . '"';
 
 			// If so, they get "checked".
-			$selected = ! empty( $existing ) && in_array( (int) $term->term_id, $existing, true ) || count( $terms ) <= 1;
+			$selected = (
+				! empty( $existing ) &&
+				in_array( (int) $term->term_id, $existing, true )
+			) || count( $terms ) <= 1;
 			$select  .= selected( $selected, true, false );
 
 			$select .= '> ' . esc_html( $term->name ) . '</option>';

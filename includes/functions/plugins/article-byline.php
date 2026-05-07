@@ -7,8 +7,6 @@
 
 namespace Eight_Day_Week\Plugins\Article_Byline;
 
-use Eight_Day_Week\Core as Core;
-
 /**
  * Default setup routine
  *
@@ -104,7 +102,7 @@ function get_authors( $post_id ) {
 	}
 
 	if ( function_exists( 'get_coauthors' ) ) {
-		$coauthors = get_coauthors( $post_id );
+		$coauthors = \get_coauthors( $post_id );
 		if ( ! is_wp_error( $coauthors ) ) {
 			$authors = $coauthors;
 		}

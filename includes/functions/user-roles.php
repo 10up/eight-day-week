@@ -33,7 +33,7 @@ function setup() {
 	 */
 	function a( $func ) {
 		add_action( $func, ns( $func ) );
-	};
+	}
 
 	/**
 	 * Add a filter hook and associate it with a callback function.
@@ -114,7 +114,6 @@ function get_editor_caps() {
 		"delete_others_{$pt}s"    => true,
 		"edit_private_{$pt}s"     => true,
 		"edit_published_{$pt}s"   => true,
-		"edit_{$pt}s"             => true,
 		// Custom cap for submenus.
 		"manage_{$pt}"            => true,
 	);
@@ -346,7 +345,6 @@ function re_save_print_roles( $user_id, $new_role, $old_roles ) {
 	$old_print_role = reset( $old_print_roles );
 
 	$user->add_role( $old_print_role );
-
 }
 
 /**
@@ -360,7 +358,7 @@ function re_save_print_roles( $user_id, $new_role, $old_roles ) {
  */
 function current_user_can_edit_print_issue( $capability = '' ) {
 	$default = current_user_can( 'publish_' . EDW_PRINT_ISSUE_CPT . 's' );
-	return apply_filters( __NAMESPACE__ . '\cuc_edit_print_issue', $default, $capability );
+	return apply_filters( __NAMESPACE__ . '\cuc_edit_print_issue', $default, $capability ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 }
 
 /**

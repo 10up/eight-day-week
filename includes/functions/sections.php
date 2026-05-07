@@ -7,9 +7,9 @@
 
 namespace Eight_Day_Week\Sections;
 
-use Eight_Day_Week\Core as Core;
+use Eight_Day_Week\Core;
 use Eight_Day_Week\User_Roles as User;
-use Eight_Day_Week\Print_Issue as Print_Issue;
+use Eight_Day_Week\Print_Issue;
 
 	/**
 	 * Sections are used as an "in between" p2p relationship
@@ -419,7 +419,7 @@ class Section {
 	 *
 	 * @var \WP_Post The section's post
 	 */
-	private $_post;
+	private $post_object;
 
 	/**
 	 * Ingests a section based on a post ID
@@ -433,16 +433,16 @@ class Section {
 	}
 
 	/**
-	 * Sets the object's _post property
+	 * Sets the object's post_object property
 	 *
 	 * @throws \Exception Invalid post ID supplied.
 	 */
 	private function import_post() {
 		$post = get_post( $this->ID );
 		if ( ! $post instanceof \WP_Post ) {
-			throw new \Exception( __( 'Invalid post ID supplied', 'eight-day-week-print-workflow' ) );
+			throw new \Exception( esc_html__( 'Invalid post ID supplied', 'eight-day-week-print-workflow' ) );
 		}
-		$this->_post = $post;
+		$this->post_object = $post;
 	}
 
 	/**
@@ -453,7 +453,7 @@ class Section {
 	 */
 	private function import_post_info() {
 
-		$info = $this->_post;
+		$info = $this->post_object;
 
 		if ( is_object( $info ) ) {
 			$info = get_object_vars( $info );
@@ -485,7 +485,7 @@ class Section {
 			return $result;
 		}
 		/* translators: %d: The ID of the section that failed to update. */
-		throw new \Exception( sprintf( esc_html__( 'Failed to update section %d', 'eight-day-week-print-workflow' ), $this->ID ) );
+		throw new \Exception( sprintf( esc_html__( 'Failed to update section %d', 'eight-day-week-print-workflow' ), absint( $this->ID ) ) );
 	}
 
 	/**
@@ -497,7 +497,7 @@ class Section {
 	 */
 	public function update_title( $title ) {
 		if ( ! $title ) {
-			throw new \Exception( __( 'Please supply a valid, non-empty title', 'eight-day-week-print-workflow' ) );
+			throw new \Exception( esc_html__( 'Please supply a valid, non-empty title', 'eight-day-week-print-workflow' ) );
 		}
 		$title  = sanitize_text_field( $title );
 		$args   = array(
@@ -523,7 +523,7 @@ function save_metabox_order() {
 		return;
 	}
 
-	$page = isset( $_POST['page'] ) ? wp_unslash( $_POST['page'] ) : '';
+	$page = isset( $_POST['page'] ) ? sanitize_text_field( wp_unslash( $_POST['page'] ) ) : '';
 
 	if ( sanitize_key( $page ) !== $page ) {
 		wp_die( 0 );
@@ -563,7 +563,7 @@ function save_metabox_order() {
 
 	$post = get_post( $post_id );
 
-	if ( ! $post || ( $post ) && EDW_PRINT_ISSUE_CPT !== $post->post_type ) {
+	if ( ! $post || EDW_PRINT_ISSUE_CPT !== $post->post_type ) {
 		return;
 	}
 

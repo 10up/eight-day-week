@@ -7,7 +7,7 @@
 
 namespace Eight_Day_Week\Plugins\Article_Export;
 
-use Eight_Day_Week\Core as Core;
+use Eight_Day_Week\Core;
 
 /**
  * Default setup routine
@@ -94,7 +94,7 @@ function export_articles() {
 
 	$article_ids = explode( ',', $article_ids );
 
-	do_action( __NAMESPACE__ . '\before_export_articles', $article_ids, $print_issue_id, $print_issue_title );
+	do_action( __NAMESPACE__ . '\before_export_articles', $article_ids, $print_issue_id, $print_issue_title ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 
 	try {
 		$factory = new Article_Zip_Factory( $article_ids, $print_issue_id, $print_issue_title );
@@ -109,7 +109,7 @@ function export_articles() {
 		Core\send_json_error( $e->getMessage() );
 	}
 
-	do_action( __NAMESPACE__ . '\_after_export_articles', $article_ids, $print_issue_id, $print_issue_title );
+	do_action( __NAMESPACE__ . '\_after_export_articles', $article_ids, $print_issue_id, $print_issue_title ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 }
 
 /**
@@ -162,14 +162,14 @@ function article_status_response() {
 function article_status_handler() {
 
 	if ( ! isset( $_POST['article_ids'] ) ) {
-		throw new \Exception( __( 'No article IDs sent', 'eight-day-week-print-workflow' ) );
+		throw new \Exception( esc_html__( 'No article IDs sent', 'eight-day-week-print-workflow' ) );
 	}
 
 	$article_ids = sanitize_text_field( wp_unslash( $_POST['article_ids'] ) );
 
 	// Sanitize - only allow comma delimited integers.
 	if ( ! ctype_digit( str_replace( ',', '', $article_ids ) ) ) {
-		throw new \Exception( __( 'Invalid article IDs specified in the request.', 'eight-day-week-print-workflow' ) );
+		throw new \Exception( esc_html__( 'Invalid article IDs specified in the request.', 'eight-day-week-print-workflow' ) );
 	}
 
 	$article_ids = explode( ',', $article_ids );
@@ -262,6 +262,20 @@ class Article_Zip_Factory {
 	private $ids;
 
 	/**
+	 * Print issue ID
+	 *
+	 * @var int Print issue ID
+	 */
+	private $print_issue_id;
+
+	/**
+	 * Print issue title
+	 *
+	 * @var string Print issue title
+	 */
+	private $print_issue_title;
+
+	/**
 	 * Article array
 	 *
 	 * @var \WP_Post[] Articles
@@ -295,7 +309,7 @@ class Article_Zip_Factory {
 
 		$article_ids = array_filter( $ids, 'is_numeric' );
 		if ( count( $ids ) !== count( $article_ids ) ) {
-			throw new \Exception( __( 'Invalid article IDs specified in the request.', 'eight-day-week-print-workflow' ) );
+			throw new \Exception( esc_html__( 'Invalid article IDs specified in the request.', 'eight-day-week-print-workflow' ) );
 		}
 
 		$this->ids               = $ids;
@@ -353,7 +367,7 @@ class Article_Zip_Factory {
 		foreach ( $articles as $article ) {
 
 			// Allow articles to export an alternative file.
-			$files = apply_filters( __NAMESPACE__ . '\short_circuit_article_export_files', false, $article, $this->print_issue_id, $this->print_issue_title );
+			$files = apply_filters( __NAMESPACE__ . '\short_circuit_article_export_files', false, $article, $this->print_issue_id, $this->print_issue_title ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 
 			// But fall back to XML.
 			if ( ! $files ) {
@@ -377,13 +391,13 @@ class Article_Zip_Factory {
 	public function get_xml_file( $article ) {
 		$xml = $this->get_xml( $article );
 
-		$file_name  = apply_filters( __NAMESPACE__ . '\xml_filename', $xml->root_element->getAttribute( 'title' ), $article, $xml );
+		$file_name  = apply_filters( __NAMESPACE__ . '\xml_filename', $xml->root_element->getAttribute( 'title' ), $article, $xml ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 		$file_name .= '.xml';
 
 		$file_contents = $xml->xml_document->saveXML();
 
 		$fileset   = array();
-		$fileset[] = new File( $file_contents, apply_filters( __NAMESPACE__ . '\xml_full_filename', $file_name, $article ) );
+		$fileset[] = new File( $file_contents, apply_filters( __NAMESPACE__ . '\xml_full_filename', $file_name, $article ) ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 
 		return $fileset;
 	}
@@ -487,21 +501,21 @@ class Article_Zip_Factory {
 	 * Outputs the contents of a zip file as a download.
 	 *
 	 * @param string $filename The path to the zip file.
-	 * @throws Exception If the file cannot be opened.
+	 * @throws \Exception If the file cannot be opened.
 	 * @return void
 	 */
 	public function out_zip_file( $filename ) {
 		header( 'Content-type: application/octet-stream' );
 		header( 'Content-Disposition: attachment; filename="' . $this->get_zip_file_name() . '.zip"' );
-		$handle = fopen( $filename, 'rb' );
+		$handle = fopen( $filename, 'rb' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen
 		if ( $handle ) {
 			while ( ! feof( $handle ) ) {
-				echo fread( $handle, 4096 ); // phpcs:ignore WordPress.Security.EscapeOutput
+				echo fread( $handle, 4096 ); // phpcs:ignore WordPress.Security.EscapeOutput, WordPress.WP.AlternativeFunctions.file_system_operations_fread
 				ob_flush();
 				flush();
 			}
 
-			fclose( $handle );
+			fclose( $handle ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
 		}
 		exit;
 	}
@@ -519,7 +533,6 @@ class Article_Zip_Factory {
 		/* translators: 1: title of the print issue, 2: date of the export (m-d-y), 3: time of the export (h:ia) */
 		return sprintf( __( 'Issue %1$s exported on %2$s at %3$s', 'eight-day-week' ), $this->print_issue_title, wp_date( 'm-d-y' ), wp_date( 'h:ia' ) );
 	}
-
 }
 
 /**
@@ -537,6 +550,20 @@ class Article_XML {
 	 * @var \WP_Post
 	 */
 	public $article;
+
+	/**
+	 * Article ID
+	 *
+	 * @var int Article ID
+	 */
+	private $id;
+
+	/**
+	 * Images
+	 *
+	 * @var array Images
+	 */
+	public $images;
 
 	/**
 	 * Sets object properties
@@ -566,7 +593,7 @@ class Article_XML {
 
 		$content = $this->get_article_content();
 		if ( ! $content ) {
-			throw new \Exception( 'Post ' . $this->id . ' was empty.' );
+			throw new \Exception( 'Post ' . absint( $this->id ) . ' was empty.' );
 		}
 
 		$content = str_replace( array( "\r\n", "\r" ), "\n", $content );
@@ -575,8 +602,8 @@ class Article_XML {
 		$dom->loadHTML(
 			mb_convert_encoding(
 				$content,
-				apply_filters( __NAMESPACE__ . '\dom_encoding_from', 'HTML-ENTITIES' ),
-				apply_filters( __NAMESPACE__ . '\dom_encoding_to', 'UTF-8' )
+				apply_filters( __NAMESPACE__ . '\dom_encoding_from', 'HTML-ENTITIES' ), // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+				apply_filters( __NAMESPACE__ . '\dom_encoding_to', 'UTF-8' ) // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 			)
 		);
 
@@ -587,7 +614,7 @@ class Article_XML {
 		$xml_elements = $this->html_to_xml( $dom );
 
 		$elements = apply_filters(
-			__NAMESPACE__ . '\xml_outer_elements',
+			__NAMESPACE__ . '\xml_outer_elements', // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 			$this->get_outer_elements( $this->article ),
 			$this->article
 		);
@@ -712,7 +739,9 @@ class Article_XML {
 	 * @return array An array containing the image path and filename.
 	 */
 	public function get_image_name( $attachment_id = false, $attachment_path = false ) {
-		$image_src = $attachment_path ? $attachment_path : get_attached_file( $attachment_id );
+		$image_filename = '';
+		$image_path     = '';
+		$image_src      = $attachment_path ? $attachment_path : get_attached_file( $attachment_id );
 
 		if ( preg_match( '/^(.*[\\/])([^\\/]+)\.(.*)$/', $image_src, $matches ) ) {
 			// [-_]\d+x\d+
@@ -798,7 +827,7 @@ class Article_XML {
 	 */
 	public function get_first_author_name() {
 		if ( function_exists( 'get_coauthors' ) ) {
-			$authors = get_coauthors( $this->id );
+			$authors = \get_coauthors( $this->id );
 		} else {
 			$authors = array( get_userdata( $this->id ) );
 		}
@@ -879,7 +908,7 @@ class Article_XML {
 		$this->remove_elements( $dom );
 
 		// Allow third party modification of the entire dom.
-		$dom = apply_filters( __NAMESPACE__ . '\dom', $dom );
+		$dom = apply_filters( __NAMESPACE__ . '\dom', $dom ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 
 		return $dom;
 	}
@@ -887,11 +916,11 @@ class Article_XML {
 	/**
 	 * Removes specified elements from the given DOM.
 	 *
-	 * @param DOMDocument $dom The DOM document to remove elements from.
-	 * @throws Exception If an error occurs while removing elements.
+	 * @param \DOMDocument $dom The DOM document to remove elements from.
+	 * @throws \Exception If an error occurs while removing elements.
 	 */
 	public function remove_elements( $dom ) {
-		$elements_to_remove = apply_filters( __NAMESPACE__ . '\remove_elements', array( 'img' ) );
+		$elements_to_remove = apply_filters( __NAMESPACE__ . '\remove_elements', array( 'img' ) ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 
 		$remove = array();
 		foreach ( $elements_to_remove as $tag_name ) {
@@ -929,12 +958,12 @@ class Article_XML {
 	 *
 	 * @param \DOMDocument $dom The DOM document to extract elements from.
 	 *
-	 * @throws Some_Exception_Class Exception thrown if there is an error in the XPath query.
+	 * @throws \Exception Exception thrown if there is an error in the XPath query.
 	 *
 	 * @return void
 	 */
 	public function extract_elements_by_xpath( $dom ) {
-		$xpath_extract = apply_filters( __NAMESPACE__ . '\xpath_extract', array() );
+		$xpath_extract = apply_filters( __NAMESPACE__ . '\xpath_extract', array() ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 		if ( $xpath_extract ) {
 			$domxpath = new \DOMXPath( $dom );
 
@@ -961,7 +990,7 @@ class Article_XML {
 	/**
 	 * Convert HTML to XML.
 	 *
-	 * @param DOMDocument $dom The HTML DOM document.
+	 * @param \DOMDocument $dom The HTML DOM document.
 	 * @throws \Exception If the content is empty.
 	 * @return \stdClass The converted XML.
 	 */
@@ -975,10 +1004,10 @@ class Article_XML {
 
 		$xml_document = new \DOMDocument();
 
-		$article_element = $xml_document->createElement( apply_filters( __NAMESPACE__ . '\xml_root_element', 'article' ) );
+		$article_element = $xml_document->createElement( apply_filters( __NAMESPACE__ . '\xml_root_element', 'article' ) ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 		$xml_document->appendChild( $article_element );
 
-		$content_element = $xml_document->createElement( apply_filters( __NAMESPACE__ . '\xml_content_element', 'content' ) );
+		$content_element = $xml_document->createElement( apply_filters( __NAMESPACE__ . '\xml_content_element', 'content' ) ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 		$article_element->appendChild( $content_element );
 
 		foreach ( $content->childNodes as $el ) { // phpcs:ignore
@@ -992,7 +1021,6 @@ class Article_XML {
 
 		return $article_xml;
 	}
-
 }
 
 /**
@@ -1092,7 +1120,7 @@ function filter_article_export_attachments_where( $where ) {
  */
 function get_document_files( $attachments ) {
 	return array_map(
-		function( $attachment ) {
+		static function ( $attachment ) {
 			return get_attachment_file( $attachment );
 		},
 		$attachments

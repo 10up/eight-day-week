@@ -7,8 +7,6 @@
 
 namespace Eight_Day_Week\Print_Issue_Columns;
 
-use Eight_Day_Week\Core as Core;
-
 /**
  * Default setup routine
  *
@@ -45,7 +43,7 @@ function print_issue_cpt_columns( $columns ) {
 	$custom['custom-date'] = __( 'Issue Date', 'eight-day-week-print-workflow' );
 	$custom['modified']    = __( 'Last Modified', 'eight-day-week-print-workflow' );
 
-	return apply_filters( __NAMESPACE__ . '\pi_columns', $custom );
+	return apply_filters( __NAMESPACE__ . '\pi_columns', $custom ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 }
 
 

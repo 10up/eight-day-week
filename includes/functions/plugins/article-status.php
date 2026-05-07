@@ -7,20 +7,19 @@
 
 namespace Eight_Day_Week\Plugins\Article_Status;
 
-use Eight_Day_Week\Core as Core;
-use Eight_Day_Week\Taxonomies as Tax;
+use Eight_Day_Week\Core;
 use Eight_Day_Week\User_Roles as User;
 
 /**
  * Sets up article status by registering actions and filters.
  *
- * @throws Exception Throws an exception if something goes wrong during the setup.
+ * @throws \Exception Throws an exception if something goes wrong during the setup.
  */
 function setup() {
 
 	add_action(
 		'Eight_Day_Week\Core\plugin_init',
-		function () {
+		static function () {
 			/**
 			 * A function that returns the fully qualified namespace of a given function.
 			 *
@@ -180,10 +179,9 @@ function filter_article_meta_article_status( $incoming, $item ) {
  */
 function get_indexed_article_statuses() {
 	$article_statuses = get_terms(
-		EDW_ARTICLE_STATUS_TAX,
 		array(
+			'taxonomy'   => EDW_ARTICLE_STATUS_TAX,
 			'hide_empty' => false,
-
 		)
 	);
 	if ( ! $article_statuses || is_wp_error( $article_statuses ) ) {
@@ -233,14 +231,15 @@ function bulk_edit_article_statuses_ajax() {
 	Core\check_elevated_ajax_referer();
 
 	$term_id     = isset( $_POST['status'] ) ? absint( $_POST['status'] ) : false;
-	$article_ids = isset( $_POST['checked_articles'] ) ? wp_unslash( $_POST['checked_articles'] ) : false;
+	$article_ids = isset( $_POST['checked_articles'] )
+		? sanitize_text_field( wp_unslash( $_POST['checked_articles'] ) )
+		: '';
 
-	// Sanitize - only allow comma delimited integers.
-	if ( ! ctype_digit( str_replace( ',', '', $article_ids ) ) ) {
-		\Eight_Day_Week\Core\send_json_error( array( 'message' => __( 'Invalid article IDs specified in the request.', 'eight-day-week-print-workflow' ) ) );
+	$article_ids = array_filter( array_map( 'absint', explode( ',', $article_ids ) ) );
+
+	if ( empty( $article_ids ) ) {
+		\Eight_Day_Week\Core\send_json_error( array( 'message' => esc_html__( 'Invalid article IDs specified in the request.', 'eight-day-week-print-workflow' ) ) );
 	}
-
-	$article_ids = explode( ',', $article_ids );
 
 	try {
 		bulk_edit_article_statuses( $term_id, $article_ids );
@@ -264,7 +263,7 @@ function bulk_edit_article_statuses( $status_term_id, $article_ids ) {
 	foreach ( (array) $article_ids as $article_id ) {
 		$result = wp_set_object_terms( absint( $article_id ), absint( $status_term_id ), EDW_ARTICLE_STATUS_TAX, false );
 		if ( is_wp_error( $result ) ) {
-			throw new \Exception( $result->get_error_message() );
+			throw new \Exception( esc_html( $result->get_error_message() ) );
 		}
 	}
 }
