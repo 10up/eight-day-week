@@ -220,10 +220,10 @@ function title_filter( $where, $wp_query ) {
 	global $wpdb;
 	$title = $wp_query->get( 'search_by_title' );
 	if ( $title ) {
-		/*using the esc_like() in here instead of other esc_sql()*/
-		$title  = $wpdb->esc_like( $title );
-		$title  = ' \'%' . $title . '%\'';
-		$where .= ' AND ' . $wpdb->posts . '.post_title LIKE ' . $title;
+		$where .= $wpdb->prepare(
+			" AND {$wpdb->posts}.post_title LIKE %s",
+			'%' . $wpdb->esc_like( $title ) . '%'
+		);
 	}
 
 	return $where;
