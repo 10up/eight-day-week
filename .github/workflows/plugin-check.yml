@@ -34,4 +34,5 @@ jobs:
         uses: wordpress/plugin-check-action@6f5a57e173c065a394b78688f75df543e4011902 # v1.1.5
         with:
           build-dir: ${{ github.event.repository.name }}
+          slug: eight-day-week-print-workflow
           exclude-directories: 'tests'
