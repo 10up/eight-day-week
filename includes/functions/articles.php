@@ -135,6 +135,14 @@ function get_articles_ajax() {
 		);
 	}
 
+	if ( ! User\current_user_can_edit_print_issue() ) {
+		\Eight_Day_Week\Core\send_json_error(
+			array(
+				'message' => __( 'Insufficient permissions.', 'eight-day-week-print-workflow' ),
+			)
+		);
+	}
+
 	$title = isset( $_GET['title'] ) ? sanitize_text_field( wp_unslash( $_GET['title'] ) ) : false;
 
 	try {
