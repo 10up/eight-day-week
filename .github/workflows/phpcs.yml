@@ -4,10 +4,6 @@ name: PHPCS
 # Any needed permissions should be configured at the job level.
 permissions: {}
 
-env:
-  COMPOSER_VERSION: "2"
-  COMPOSER_CACHE: "${{ github.workspace }}/.composer-cache"
-
 on:
   push:
     branches:
@@ -18,8 +14,8 @@ on:
       - develop
 
 jobs:
-  php_checks:
-    name: PHP scrutinizer
+  phpcs:
+    name: Run PHPCS coding standards checks
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -27,18 +23,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-
-    - name: Set standard 10up cache directories
-      run: |
-        composer config -g cache-dir "${{ env.COMPOSER_CACHE }}"
-
-    - name: Prepare composer cache
-      uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # 5.0.5
-      with:
-        path: ${{ env.COMPOSER_CACHE }}
-        key: composer-${{ env.COMPOSER_VERSION }}-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          composer-${{ env.COMPOSER_VERSION }}-
 
     - name: Set PHP version
       uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2.37.0
@@ -50,7 +34,7 @@ jobs:
       run: composer install
 
     - name: Check WordPress Coding Standards
-      run: ./vendor/bin/phpcs --standard=.phpcs.xml
+      run: composer phpcs
 
     - name: Check PHP Compatibility
-      run: ./vendor/bin/phpcs --standard=.phpcompat.xml
+      run: composer phpcs:compat

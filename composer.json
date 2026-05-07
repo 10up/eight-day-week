@@ -17,11 +17,12 @@
 		"php": ">=7.4"
 	},
 	"require-dev": {
-		"antecedent/patchwork": "2.1.*",
-		"phpunit/phpunit": "*@stable",
-		"brianium/paratest": "6.x-dev",
-		"10up/wp_mock": "dev-trunk",
-		"10up/phpcs-composer": "dev-master"
+		"10up/phpcs-composer": "^3.0"
+	},
+	"scripts": {
+		"phpcs": "./vendor/bin/phpcs --standard=./phpcs.xml -p .",
+		"phpcbf": "./vendor/bin/phpcbf .",
+		"phpcs:compat": "./vendor/bin/phpcs --standard=./phpcs-compat.xml -p ."
 	},
 	"config": {
 		"allow-plugins": {
