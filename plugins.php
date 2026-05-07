@@ -10,20 +10,20 @@ namespace Eight_Day_Week\Plugins;
 /**
  * Allows filtering of Eight Day Week plugin loading
  *
- * Use the first filter (Eight_Day_Week\Core\load_plugins) to disable all
- * Use the second (Eight_Day_Week\Core\load_{$plugin}) to disable a specific one
+ * Use the first filter (Eight_Day_Week\Plugins\load_plugins) to disable all
+ * Use the second (Eight_Day_Week\Plugins\load_{$plugin}) to disable a specific one
  *
  * @param string $plugin The plugin in question.
  *
  * @return mixed|void Whether or not to load the given plugin
  */
 function should_load_plugin( $plugin ) {
-	return apply_filters( __NAMESPACE__ . '\load_plugins', apply_filters( __NAMESPACE__ . '\load_' . $plugin, true ), $plugin );
+	return apply_filters( __NAMESPACE__ . '\load_plugins', apply_filters( __NAMESPACE__ . '\load_' . $plugin, true ), $plugin ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 }
 
 add_filter(
 	'edw_files_to_load',
-	function( $files ) {
+	static function ( $files ) {
 		foreach ( $files as $file_path => $namespace ) {
 			if ( false !== strpos( $file_path, EDW_INC . 'functions/plugins/' ) ) {
 				if ( ! should_load_plugin( str_replace( '.php', '', basename( $file_path ) ) ) ) {

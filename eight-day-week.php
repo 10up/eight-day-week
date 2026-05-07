@@ -85,7 +85,7 @@ function edw_site_meets_php_requirements() {
 if ( ! edw_site_meets_php_requirements() ) {
 	add_action(
 		'admin_notices',
-		function() {
+		static function () {
 			?>
 			<div class="notice notice-error">
 				<p>
@@ -139,7 +139,7 @@ function edw_bootstrap() {
 			// Allow files *not* to have a setup function.
 			if ( function_exists( $setup ) ) {
 				$setup();
-				do_action( $namespace . '\setup' );
+				do_action( $namespace . '\setup' ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 			}
 		} catch ( \Exception $e ) {
 			// Do nothing
