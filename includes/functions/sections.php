@@ -10,6 +10,9 @@ namespace Eight_Day_Week\Sections;
 use Eight_Day_Week\User_Roles as User;
 use Eight_Day_Week\Print_Issue;
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 	/**
 	 * Sections are used as an "in between" p2p relationship
 	 * Sections are managed via a metabox on the print issue CPT

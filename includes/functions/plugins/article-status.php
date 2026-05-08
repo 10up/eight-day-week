@@ -10,6 +10,9 @@ namespace Eight_Day_Week\Plugins\Article_Status;
 use Eight_Day_Week\Core;
 use Eight_Day_Week\User_Roles as User;
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Sets up article status by registering actions and filters.
  *

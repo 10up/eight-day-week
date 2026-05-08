@@ -9,6 +9,9 @@ namespace Eight_Day_Week\Plugins\Issue_Publication;
 
 use Eight_Day_Week\Taxonomies as Tax;
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Sets up the issue publication functionality
  */

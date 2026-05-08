@@ -11,6 +11,9 @@ use Eight_Day_Week\Core;
 use Eight_Day_Week\Plugins\Article_Export\Article_Zip_Factory;
 use Eight_Day_Week\Plugins\Article_Export\File;
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Default setup routine
  *

@@ -9,6 +9,9 @@ namespace Eight_Day_Week\Taxonomies;
 
 use Eight_Day_Week\User_Roles as User;
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Swaps out default taxonomy metabox for a dropdown metabox
  *
@@ -68,7 +71,7 @@ function create_taxonomy_dropdown_metabox( $post, $metabox ) {
 		echo '<p>' .
 			sprintf(
 				/* translators: %s: Name of the taxonomy. */
-				esc_html_x( 'No %s created.', 'eight-day-week-print-workflow' ),
+				esc_html__( 'No %s created.', 'eight-day-week-print-workflow' ),
 				esc_html( $taxonomy->labels->name )
 			) .
 		'</p>';
@@ -92,7 +95,7 @@ function create_taxonomy_dropdown_metabox( $post, $metabox ) {
 
 	$default_text = sprintf(
 		/* translators: %s: Singular name of the taxonomy. */
-		_x( 'No %s', 'eight-day-week-print-workflow' ),
+		esc_html__( 'No %s', 'eight-day-week-print-workflow' ),
 		esc_html( $taxonomy->labels->singular_name )
 	);
 
