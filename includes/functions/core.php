@@ -9,6 +9,9 @@ namespace Eight_Day_Week\Core;
 
 use Eight_Day_Week\Core\Helper_DateTimeZone;
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Default setup routine
  *

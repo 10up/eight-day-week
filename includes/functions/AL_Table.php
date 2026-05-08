@@ -90,7 +90,7 @@ class AL_Table extends \WP_Posts_List_Table {
 			__NAMESPACE__ . '\article_columns', // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 			array(
 				'cb'    => '<input type="checkbox" />',
-				'title' => _x( 'Article', 'eight-day-week-print-workflow' ),
+				'title' => __( 'Article', 'eight-day-week-print-workflow' ),
 			)
 		);
 	}

@@ -9,6 +9,9 @@ namespace Eight_Day_Week\Print_Issue;
 
 use Eight_Day_Week\User_Roles as User;
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Default setup routine
  *
@@ -85,8 +88,8 @@ function post_type_updated_labels( $messages ) {
 	$messages[ EDW_PRINT_ISSUE_CPT ] = array(
 		0  => '', // Unused. Messages start at index 1.
 		1  => __( 'Print Issue updated.', 'eight-day-week-print-workflow' ),
-		2  => __( 'Custom field updated.' ),
-		3  => __( 'Custom field deleted.' ),
+		2  => __( 'Custom field updated.', 'eight-day-week-print-workflow' ),
+		3  => __( 'Custom field deleted.', 'eight-day-week-print-workflow' ),
 		4  => __( 'Print Issue updated.', 'eight-day-week-print-workflow' ),
 		/* translators: %s: The date and time of the revision. */
 		5  => isset( $_GET['revision'] ) ? sprintf( __( 'Print Issue restored to revision from %s', 'eight-day-week-print-workflow' ), wp_post_revision_title( absint( wp_unslash( $_GET['revision'] ) ), false ) ) : false, // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized

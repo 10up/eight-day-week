@@ -7,6 +7,9 @@
 
 namespace Eight_Day_Week;
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Retrieves the URL to the plugins directory or a specific plugin file.
  *

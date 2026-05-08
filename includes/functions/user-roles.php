@@ -9,6 +9,9 @@ namespace Eight_Day_Week\User_Roles;
 
 use Eight_Day_Week as PP;
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Default setup routine
  *
@@ -281,12 +284,12 @@ function update_users_print_role() {
 		$id = (int) $id;
 
 		if ( ! current_user_can( 'promote_user', $id ) ) {
-			wp_die( esc_html__( 'You can&#8217;t edit that user.' ) );
+			wp_die( esc_html__( 'You can&#8217;t edit that user.', 'eight-day-week-print-workflow' ) );
 		}
 
 		// If the user doesn't already belong to the blog, bail.
 		if ( is_multisite() && ! is_user_member_of_blog( $id ) ) {
-			wp_die( esc_html__( 'Something went wrong.' ), 403 );
+			wp_die( esc_html__( 'Something went wrong.', 'eight-day-week-print-workflow' ), 403 );
 		}
 
 		$user = get_userdata( $id );

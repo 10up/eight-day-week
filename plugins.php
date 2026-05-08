@@ -7,6 +7,9 @@
 
 namespace Eight_Day_Week\Plugins;
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Allows filtering of Eight Day Week plugin loading
  *

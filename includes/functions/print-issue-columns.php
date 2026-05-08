@@ -7,6 +7,9 @@
 
 namespace Eight_Day_Week\Print_Issue_Columns;
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Default setup routine
  *
@@ -70,7 +73,6 @@ function populate_print_issue_cpt_columns( $colname, $post_id ) {
 	$post = get_post( $post_id );
 
 	if ( 'modified' === $colname ) {
-		$t_time = get_the_time( __( 'Y/m/d g:i:s a' ) );
 		$m_time = $post->post_date;
 		$time   = get_post_time( 'G', true, $post );
 
@@ -78,9 +80,9 @@ function populate_print_issue_cpt_columns( $colname, $post_id ) {
 
 		if ( $time_diff > 0 && $time_diff < DAY_IN_SECONDS ) {
 			/* translators: %s: Time difference in human readable format, i.e. "1 hour", "5 minutes", "2 days". */
-			$h_time = sprintf( __( '%s ago' ), human_time_diff( $time ) );
+			$h_time = sprintf( __( '%s ago', 'eight-day-week-print-workflow' ), human_time_diff( $time ) );
 		} else {
-			$h_time = mysql2date( __( 'Y/m/d' ), $m_time );
+			$h_time = mysql2date( 'Y/m/d', $m_time );
 		}
 		echo esc_html( $h_time );
 	}

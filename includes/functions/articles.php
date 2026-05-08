@@ -10,6 +10,9 @@ namespace Eight_Day_Week\Articles;
 use Eight_Day_Week\Articles\AL_Table;
 use Eight_Day_Week\User_Roles as User;
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Default setup routine
  *
