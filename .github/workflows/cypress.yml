@@ -16,6 +16,8 @@ permissions: {}
 jobs:
   build:
     uses: ./.github/workflows/build-release-zip.yml
+    permissions:
+      contents: read
 
   cypress:
     needs: build
