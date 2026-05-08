@@ -25,7 +25,7 @@ describe('Publish a new print issue', () => {
 
 	it("Add multiple section and Edit issue", () => {
 		cy.visit(`wp-admin/edit.php?post_type=print-issue`);
-		cy.get('[aria-label="“Print Title 01” (Edit)"]').click();
+		cy.get('a.row-title').contains("Print Title 01").first().click();
 		cy.get("#title").clear();
 		cy.get("#title").type("Print Title 02");
 		cy.get("#pi-section-add").click();
@@ -47,7 +47,7 @@ describe('Publish a new print issue', () => {
 
 	it("Export Issues", () => {
 		cy.visit(`wp-admin/edit.php?post_type=print-issue`);
-		cy.get('[aria-label="“Print Title 02” (Edit)"]').click();
+		cy.get('a.row-title').contains("Print Title 02").first().click();
 		cy.window().document().then(function (doc) {
 			doc.addEventListener('click', () => {
 			  setTimeout(function () { doc.location.reload() }, 5000)
@@ -59,7 +59,7 @@ describe('Publish a new print issue', () => {
 
 	it("Delete issue", () => {
 		cy.visit(`wp-admin/edit.php?post_type=print-issue`);
-		cy.get('[aria-label="“Print Title 02” (Edit)"]').click();
+		cy.get('a.row-title').contains("Print Title 02").first().click();
 		cy.get('.submitdelete').click();
 	});
 });
