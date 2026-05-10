@@ -4,6 +4,8 @@
 	<rule ref="WordPress.DB"/>
 	<rule ref="WordPress.Security"/>
 	<arg name="extensions" value="php" />
+	<arg value="s"/>
+
 	<file>.</file>
 	<exclude-pattern>release/</exclude-pattern>
 	<exclude-pattern>vendor/</exclude-pattern>
