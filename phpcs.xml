@@ -10,6 +10,12 @@
 	<config name="minimum_supported_wp_version" value="6.7"/>
 	<config name="testVersion" value="7.4-"/>
 
+	<rule ref="WordPress.NamingConventions.ValidHookName">
+		<properties>
+			<property name="additionalWordDelimiters" value="\-"/>
+		</properties>
+	</rule>
+
 	<!-- Exclude the PHPCompatibilityWP ruleset -->
 	<rule ref="PHPCompatibilityWP">
 		<exclude name="PHPCompatibilityWP"/>

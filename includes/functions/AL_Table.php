@@ -64,7 +64,7 @@ class AL_Table extends \WP_Posts_List_Table {
 					return $item->$column_name;
 				}
 
-				$filtered = apply_filters( __NAMESPACE__ . '\article_meta_' . $column_name, false, $item, $column_name ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+				$filtered = apply_filters( __NAMESPACE__ . '\article_meta_' . $column_name, false, $item, $column_name );
 				if ( $filtered ) {
 					return $filtered;
 				}
@@ -87,7 +87,7 @@ class AL_Table extends \WP_Posts_List_Table {
 	 */
 	public function get_columns() {
 		return apply_filters(
-			__NAMESPACE__ . '\article_columns', // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+			__NAMESPACE__ . '\article_columns',
 			array(
 				'cb'    => '<input type="checkbox" />',
 				'title' => _x( 'Article', 'eight-day-week-print-workflow' ),

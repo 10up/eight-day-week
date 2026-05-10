@@ -96,7 +96,7 @@ function export_articles() {
 
 	$article_ids = explode( ',', $article_ids );
 
-	do_action( __NAMESPACE__ . '\before_export_articles', $article_ids, $print_issue_id, $print_issue_title ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+	do_action( __NAMESPACE__ . '\before_export_articles', $article_ids, $print_issue_id, $print_issue_title );
 
 	try {
 		$factory = new Article_Zip_Factory( $article_ids, $print_issue_id, $print_issue_title );
@@ -111,7 +111,7 @@ function export_articles() {
 		Core\send_json_error( $e->getMessage() );
 	}
 
-	do_action( __NAMESPACE__ . '\_after_export_articles', $article_ids, $print_issue_id, $print_issue_title ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+	do_action( __NAMESPACE__ . '\_after_export_articles', $article_ids, $print_issue_id, $print_issue_title );
 }
 
 /**

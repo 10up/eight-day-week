@@ -174,7 +174,7 @@ function get_articles( $title ) {
 		throw new \Exception( esc_html__( 'Please enter a valid/non-empty title.', 'eight-day-week-print-workflow' ) );
 	}
 
-	$post_types = apply_filters( __NAMESPACE__ . '\\post_types', array( 'post' ) ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+	$post_types = apply_filters( __NAMESPACE__ . '\\post_types', array( 'post' ) );
 
 	$args = array(
 		'search_by_title'        => sanitize_text_field( $title ),

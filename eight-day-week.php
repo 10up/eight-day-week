@@ -139,7 +139,7 @@ function edw_bootstrap() {
 			// Allow files *not* to have a setup function.
 			if ( function_exists( $setup ) ) {
 				$setup();
-				do_action( $namespace . '\setup' ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+				do_action( $namespace . '\setup' );
 			}
 		} catch ( \Exception $e ) {
 			// Do nothing

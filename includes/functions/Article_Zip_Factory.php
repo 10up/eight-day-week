@@ -135,7 +135,7 @@ class Article_Zip_Factory {
 		foreach ( $articles as $article ) {
 
 			// Allow articles to export an alternative file.
-			$files = apply_filters( __NAMESPACE__ . '\short_circuit_article_export_files', false, $article, $this->print_issue_id, $this->print_issue_title ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+			$files = apply_filters( __NAMESPACE__ . '\short_circuit_article_export_files', false, $article, $this->print_issue_id, $this->print_issue_title );
 
 			// But fall back to XML.
 			if ( ! $files ) {
@@ -159,13 +159,13 @@ class Article_Zip_Factory {
 	public function get_xml_file( $article ) {
 		$xml = $this->get_xml( $article );
 
-		$file_name  = apply_filters( __NAMESPACE__ . '\xml_filename', $xml->root_element->getAttribute( 'title' ), $article, $xml ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+		$file_name  = apply_filters( __NAMESPACE__ . '\xml_filename', $xml->root_element->getAttribute( 'title' ), $article, $xml );
 		$file_name .= '.xml';
 
 		$file_contents = $xml->xml_document->saveXML();
 
 		$fileset   = array();
-		$fileset[] = new File( $file_contents, apply_filters( __NAMESPACE__ . '\xml_full_filename', $file_name, $article ) ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+		$fileset[] = new File( $file_contents, apply_filters( __NAMESPACE__ . '\xml_full_filename', $file_name, $article ) );
 
 		return $fileset;
 	}

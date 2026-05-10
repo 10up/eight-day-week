@@ -68,5 +68,5 @@ function admin_menu() {
 	// Dirty hack until https://core.trac.wordpress.org/ticket/22895 is solved.
 	add_submenu_page( EDW_ADMIN_MENU_SLUG, 'Dummy Submenu', 'Dummy Submenu', 'read', 'removeme' );
 
-	do_action( __NAMESPACE__ . '\admin_menu' ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+	do_action( __NAMESPACE__ . '\admin_menu' );
 }

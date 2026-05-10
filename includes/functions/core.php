@@ -32,7 +32,7 @@ function setup() {
 	// Activate current version of this plugin.
 	add_action( 'admin_init', ns( 'activate' ) );
 
-	do_action( __NAMESPACE__ . '\loaded' ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+	do_action( __NAMESPACE__ . '\loaded' );
 
 	// Add data to wp_send_json_*.
 	add_filter( 'pp-ajax-data', ns( 'tack_on_ajax_response' ) );
@@ -46,13 +46,13 @@ function setup() {
  * @return void
  */
 function init() {
-	do_action( __NAMESPACE__ . '\init' ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+	do_action( __NAMESPACE__ . '\init' );
 	if ( is_admin() ) {
-		do_action( __NAMESPACE__ . '\admin_init' ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+		do_action( __NAMESPACE__ . '\admin_init' );
 	}
 
 	// This should be used by plugins, so that they're guaranteed that all core functionality has been loaded.
-	do_action( __NAMESPACE__ . '\plugin_init' ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+	do_action( __NAMESPACE__ . '\plugin_init' );
 }
 
 /**
@@ -109,7 +109,7 @@ function create_nonce() {
  * @param array $data Data to send in the response.
  */
 function send_json_success( $data = array() ) {
-	wp_send_json_success( apply_filters( 'pp-ajax-data', $data ) ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+	wp_send_json_success( apply_filters( 'pp-ajax-data', $data ) );
 }
 
 /**
@@ -118,7 +118,7 @@ function send_json_success( $data = array() ) {
  * @param array $data Data to send in the response.
  */
 function send_json_error( $data = array() ) {
-	wp_send_json_error( apply_filters( 'pp-ajax-data', $data ) ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+	wp_send_json_error( apply_filters( 'pp-ajax-data', $data ) );
 }
 
 /**
@@ -222,7 +222,7 @@ function get_timezone() {
 		$timezone = new Helper_DateTimeZone( Helper_DateTimeZone::tzOffsetToName( get_offset() ) );
 		$timezone = $timezone->getName();
 	}
-	return apply_filters( __NAMESPACE__ . '\timezone', $timezone ? $timezone : 'America/New_York' ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+	return apply_filters( __NAMESPACE__ . '\timezone', $timezone ? $timezone : 'America/New_York' );
 }
 
 /**

@@ -74,8 +74,8 @@ class Article_XML {
 		$dom->loadHTML(
 			mb_convert_encoding(
 				$content,
-				apply_filters( __NAMESPACE__ . '\dom_encoding_from', 'HTML-ENTITIES' ), // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
-				apply_filters( __NAMESPACE__ . '\dom_encoding_to', 'UTF-8' ) // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+				apply_filters( __NAMESPACE__ . '\dom_encoding_from', 'HTML-ENTITIES' ),
+				apply_filters( __NAMESPACE__ . '\dom_encoding_to', 'UTF-8' )
 			)
 		);
 
@@ -86,7 +86,7 @@ class Article_XML {
 		$xml_elements = $this->html_to_xml( $dom );
 
 		$elements = apply_filters(
-			__NAMESPACE__ . '\xml_outer_elements', // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+			__NAMESPACE__ . '\xml_outer_elements',
 			$this->get_outer_elements( $this->article ),
 			$this->article
 		);
@@ -380,7 +380,7 @@ class Article_XML {
 		$this->remove_elements( $dom );
 
 		// Allow third party modification of the entire dom.
-		$dom = apply_filters( __NAMESPACE__ . '\dom', $dom ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+		$dom = apply_filters( __NAMESPACE__ . '\dom', $dom );
 
 		return $dom;
 	}
@@ -392,7 +392,7 @@ class Article_XML {
 	 * @throws \Exception If an error occurs while removing elements.
 	 */
 	public function remove_elements( $dom ) {
-		$elements_to_remove = apply_filters( __NAMESPACE__ . '\remove_elements', array( 'img' ) ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+		$elements_to_remove = apply_filters( __NAMESPACE__ . '\remove_elements', array( 'img' ) );
 
 		$remove = array();
 		foreach ( $elements_to_remove as $tag_name ) {
@@ -435,7 +435,7 @@ class Article_XML {
 	 * @return void
 	 */
 	public function extract_elements_by_xpath( $dom ) {
-		$xpath_extract = apply_filters( __NAMESPACE__ . '\xpath_extract', array() ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+		$xpath_extract = apply_filters( __NAMESPACE__ . '\xpath_extract', array() );
 		if ( $xpath_extract ) {
 			$domxpath = new \DOMXPath( $dom );
 
@@ -476,10 +476,10 @@ class Article_XML {
 
 		$xml_document = new \DOMDocument();
 
-		$article_element = $xml_document->createElement( apply_filters( __NAMESPACE__ . '\xml_root_element', 'article' ) ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+		$article_element = $xml_document->createElement( apply_filters( __NAMESPACE__ . '\xml_root_element', 'article' ) );
 		$xml_document->appendChild( $article_element );
 
-		$content_element = $xml_document->createElement( apply_filters( __NAMESPACE__ . '\xml_content_element', 'content' ) ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+		$content_element = $xml_document->createElement( apply_filters( __NAMESPACE__ . '\xml_content_element', 'content' ) );
 		$article_element->appendChild( $content_element );
 
 		foreach ( $content->childNodes as $el ) { // phpcs:ignore

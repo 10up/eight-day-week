@@ -43,7 +43,7 @@ function print_issue_cpt_columns( $columns ) {
 	$custom['custom-date'] = __( 'Issue Date', 'eight-day-week-print-workflow' );
 	$custom['modified']    = __( 'Last Modified', 'eight-day-week-print-workflow' );
 
-	return apply_filters( __NAMESPACE__ . '\pi_columns', $custom ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+	return apply_filters( __NAMESPACE__ . '\pi_columns', $custom );
 }
 
 
