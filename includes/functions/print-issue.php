@@ -363,7 +363,7 @@ function filter_publish_date_text( $text ) {
 				break;
 		}
 	}
-	// phpcs:enable WordPress.Security.NonceVerification.Recommended
+	// phpcs:enable
 
 	return $text;
 }
