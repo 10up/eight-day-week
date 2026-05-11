@@ -84,6 +84,7 @@ function activate() {
 	}
 
 	// Init has already been tacked onto the `init` hook, so all CPTs should be loaded.
+	// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.flush_rewrite_rules_flush_rewrite_rules -- Activate hook.
 	flush_rewrite_rules();
 
 	do_action( 'edw_activate', $stored_version, EDW_VERSION );
