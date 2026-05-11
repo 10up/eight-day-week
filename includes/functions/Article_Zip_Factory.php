@@ -299,6 +299,6 @@ class Article_Zip_Factory {
 	 */
 	public function get_zip_file_name() {
 		/* translators: 1: title of the print issue, 2: date of the export (m-d-y), 3: time of the export (h:ia) */
-		return sprintf( __( 'Issue %1$s exported on %2$s at %3$s', 'eight-day-week' ), $this->print_issue_title, wp_date( 'm-d-y' ), wp_date( 'h:ia' ) );
+		return sprintf( __( 'Issue %1$s exported on %2$s at %3$s', 'eight-day-week-print-workflow' ), $this->print_issue_title, wp_date( 'm-d-y' ), wp_date( 'h:ia' ) );
 	}
 }
