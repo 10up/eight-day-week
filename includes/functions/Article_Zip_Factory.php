@@ -275,15 +275,15 @@ class Article_Zip_Factory {
 	public function out_zip_file( $filename ) {
 		header( 'Content-type: application/octet-stream' );
 		header( 'Content-Disposition: attachment; filename="' . $this->get_zip_file_name() . '.zip"' );
-		$handle = fopen( $filename, 'rb' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fopen
+		$handle = fopen( $filename, 'rb' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fopen, WordPress.WP.AlternativeFunctions.file_system_operations_fopen
 		if ( $handle ) {
 			while ( ! feof( $handle ) ) {
-				echo fread( $handle, 4096 ); // phpcs:ignore WordPress.Security.EscapeOutput, WordPress.WP.AlternativeFunctions.file_system_read_fread
+				echo fread( $handle, 4096 ); // phpcs:ignore WordPress.Security.EscapeOutput, WordPress.WP.AlternativeFunctions.file_system_read_fread, WordPress.WP.AlternativeFunctions.file_system_operations_fread
 				ob_flush();
 				flush();
 			}
 
-			fclose( $handle ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fclose
+			fclose( $handle ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fclose, WordPress.WP.AlternativeFunctions.file_system_operations_fclose
 		}
 		exit;
 	}
