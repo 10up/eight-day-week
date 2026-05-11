@@ -80,6 +80,7 @@ function export_articles() {
 
 	Core\check_ajax_referer();
 
+	// phpcs:disable WordPress.Security.NonceVerification.Missing -- Nonce is verified in Core\check_ajax_referer() above.
 	if ( ! isset( $_POST['article_ids'] ) ) {
 		die( esc_html__( 'No article IDs sent', 'eight-day-week-print-workflow' ) );
 	}
@@ -88,6 +89,7 @@ function export_articles() {
 
 	$print_issue_id    = isset( $_POST['print_issue_id'] ) ? absint( $_POST['print_issue_id'] ) : false;
 	$print_issue_title = isset( $_POST['print_issue_title'] ) ? sanitize_text_field( wp_unslash( $_POST['print_issue_title'] ) ) : false;
+	// phpcs:enable
 
 	// Sanitize - only allow comma delimited integers.
 	if ( ! ctype_digit( str_replace( ',', '', $article_ids ) ) ) {
@@ -163,11 +165,15 @@ function article_status_response() {
  */
 function article_status_handler() {
 
+	Core\check_ajax_referer();
+
+	// phpcs:disable WordPress.Security.NonceVerification.Missing -- Nonce is verified in Core\check_ajax_referer() above.
 	if ( ! isset( $_POST['article_ids'] ) ) {
 		throw new \Exception( esc_html__( 'No article IDs sent', 'eight-day-week-print-workflow' ) );
 	}
 
 	$article_ids = sanitize_text_field( wp_unslash( $_POST['article_ids'] ) );
+	// phpcs:enable
 
 	// Sanitize - only allow comma delimited integers.
 	if ( ! ctype_digit( str_replace( ',', '', $article_ids ) ) ) {
@@ -175,6 +181,11 @@ function article_status_handler() {
 	}
 
 	$article_ids = explode( ',', $article_ids );
+	foreach ( $article_ids as $article_id ) {
+		if ( ! current_user_can( 'edit_post', absint( $article_id ) ) ) {
+			throw new \Exception( esc_html__( 'One or more invalid article IDs specified in the request.', 'eight-day-week-print-workflow' ) );
+		}
+	}
 
 	return set_and_get_export_status( $article_ids );
 }

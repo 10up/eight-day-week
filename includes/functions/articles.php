@@ -255,10 +255,12 @@ function get_article_row_ajax() {
  */
 function save_section_articles( $post_id ) {
 
+	// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce is verified in save_print_issues().
 	if ( ! isset( $_POST['pi-article-ids'] ) ) {
 		return;
 	}
 
+	// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce is verified in save_print_issues().
 	$article_ids_sets = map_deep( wp_unslash( $_POST['pi-article-ids'] ), 'sanitize_text_field' );
 
 	if ( ! is_array( $article_ids_sets ) ) {

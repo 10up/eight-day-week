@@ -230,10 +230,12 @@ function bulk_edit_article_statuses_ajax() {
 
 	Core\check_elevated_ajax_referer();
 
+	// phpcs:disable WordPress.Security.NonceVerification.Missing -- Nonce is verified in check_elevated_ajax_referer() above.
 	$term_id     = isset( $_POST['status'] ) ? absint( $_POST['status'] ) : false;
 	$article_ids = isset( $_POST['checked_articles'] )
 		? sanitize_text_field( wp_unslash( $_POST['checked_articles'] ) )
 		: '';
+	// phpcs:enable
 
 	$article_ids = array_filter( array_map( 'absint', explode( ',', $article_ids ) ) );
 

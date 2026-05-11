@@ -239,10 +239,12 @@ function add_section_output( $post ) {
  */
 function update_print_issue_sections( $post_id ) {
 
+	// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce is verified in save_print_issues().
 	if ( ! isset( $_POST['pi-section-ids'] ) ) {
 		return;
 	}
 
+	// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce is verified in save_print_issues().
 	$section_ids = sanitize_text_field( wp_unslash( $_POST['pi-section-ids'] ) );
 
 	$existing = get_sections( $post_id );
