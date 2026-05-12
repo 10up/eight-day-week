@@ -38,7 +38,7 @@ function setup() {
 	// Dirty hack until https://core.trac.wordpress.org/ticket/22895 is solved.
 	add_action(
 		'admin_head',
-		function() {
+		static function () {
 			?>
 			<style type="text/css">
 				a[href="removeme"]{
@@ -69,5 +69,4 @@ function admin_menu() {
 	add_submenu_page( EDW_ADMIN_MENU_SLUG, 'Dummy Submenu', 'Dummy Submenu', 'read', 'removeme' );
 
 	do_action( __NAMESPACE__ . '\admin_menu' );
-
 }

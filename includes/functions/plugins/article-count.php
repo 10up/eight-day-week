@@ -7,8 +7,6 @@
 
 namespace Eight_Day_Week\Plugins\Article_Count;
 
-use Eight_Day_Week\Core as Core;
-
 /**
  * Default setup routine
  */

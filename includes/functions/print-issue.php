@@ -8,7 +8,6 @@
 namespace Eight_Day_Week\Print_Issue;
 
 use Eight_Day_Week\User_Roles as User;
-use Eight_Day_Week\Core as Core;
 
 /**
  * Default setup routine
@@ -83,13 +82,6 @@ function print_issue_nonce() {
  * @return array Modified messages
  */
 function post_type_updated_labels( $messages ) {
-	global $post;
-	$post_id = $post->ID;
-
-	$permalink        = get_permalink( $post_id );
-	$page_preview_url = apply_filters( 'preview_post_link', add_query_arg( 'preview', 'true', $permalink ), $post );
-
-	$singular                        = __( 'Print Issue', 'eight-day-week-print-workflow' );
 	$messages[ EDW_PRINT_ISSUE_CPT ] = array(
 		0  => '', // Unused. Messages start at index 1.
 		1  => __( 'Print Issue updated.', 'eight-day-week-print-workflow' ),
@@ -97,7 +89,7 @@ function post_type_updated_labels( $messages ) {
 		3  => __( 'Custom field deleted.' ),
 		4  => __( 'Print Issue updated.', 'eight-day-week-print-workflow' ),
 		/* translators: %s: The date and time of the revision. */
-		5  => isset( $_GET['revision'] ) ? sprintf( __( 'Print Issue restored to revision from %s', 'eight-day-week-print-workflow' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+		5  => isset( $_GET['revision'] ) ? sprintf( __( 'Print Issue restored to revision from %s', 'eight-day-week-print-workflow' ), wp_post_revision_title( absint( wp_unslash( $_GET['revision'] ) ), false ) ) : false, // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Handled by WP Core.
 		6  => __( 'Print Issue published.', 'eight-day-week-print-workflow' ),
 		7  => __( 'Print Issue saved.', 'eight-day-week-print-workflow' ),
 		8  => __( 'Print Issue submitted.', 'eight-day-week-print-workflow' ),
@@ -317,22 +309,27 @@ function remove_publish_box() {
  * @return string Translated text
  */
 function filter_publish_date_text( $text ) {
-
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended
 	global $typenow;
 
 	if (
-		is_admin() &&
-		isset( $_GET['post'] ) &&
-		( isset( $_GET['action'] ) && 'edit' === $_GET['action'] ) &&
 		(
-			EDW_PRINT_ISSUE_CPT === $typenow ||
+			is_admin() &&
+			isset( $_GET['post'] ) &&
+			( isset( $_GET['action'] ) && 'edit' === sanitize_text_field( wp_unslash( $_GET['action'] ) ) ) &&
 			(
-				isset( $_REQUEST['screen_id'] ) &&
-				EDW_PRINT_ISSUE_CPT === $_REQUEST['screen_id']
-			) ||
-			EDW_PRINT_ISSUE_CPT === get_post_type( absint( $_GET['post'] ) )
+				EDW_PRINT_ISSUE_CPT === $typenow ||
+				(
+					isset( $_REQUEST['screen_id'] ) &&
+					EDW_PRINT_ISSUE_CPT === sanitize_text_field( wp_unslash( $_REQUEST['screen_id'] ) )
+				) ||
+				EDW_PRINT_ISSUE_CPT === get_post_type( absint( wp_unslash( $_GET['post'] ) ) )
+			)
 		) ||
-		isset( $_GET['post_type'] ) && EDW_PRINT_ISSUE_CPT === $_GET['post_type']
+		(
+			isset( $_GET['post_type'] ) &&
+			EDW_PRINT_ISSUE_CPT === sanitize_text_field( wp_unslash( $_GET['post_type'] ) )
+		)
 	) {
 
 		if ( 'Publish <b>immediately</b>' === $text ) {
@@ -366,6 +363,7 @@ function filter_publish_date_text( $text ) {
 				break;
 		}
 	}
+	// phpcs:enable
 
 	return $text;
 }
@@ -384,6 +382,8 @@ function get_side_metabox_order( $order ) {
 
 	if ( false === $order ) {
 
+		$order = array();
+
 		// Get all registered metaboxes, but only the KEYS (slugs).
 		$wpmb_order = array_keys_recursive( $wp_meta_boxes['print-issue'] );
 
@@ -395,7 +395,7 @@ function get_side_metabox_order( $order ) {
 			// Initialize the string for this index (needed because concat is used below).
 			$order[ $location ] = array();
 
-			foreach ( $priorities as $priority => $boxes ) {
+			foreach ( $priorities as $boxes ) {
 				$keys               = array_keys( $boxes );
 				$order[ $location ] = array_merge( $order[ $location ], $keys );
 			}
@@ -484,7 +484,7 @@ function filter_can_edit_for_rov( $can_edit ) {
  * @return bool Whether or not ROV is active
  */
 function is_read_only_view() {
-	return isset( $_GET['view'] ) && 'ro' === $_GET['view'];
+	return isset( $_GET['view'] ) && 'ro' === sanitize_text_field( wp_unslash( $_GET['view'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 }
 
 /**

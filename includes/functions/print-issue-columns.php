@@ -7,8 +7,6 @@
 
 namespace Eight_Day_Week\Print_Issue_Columns;
 
-use Eight_Day_Week\Core as Core;
-
 /**
  * Default setup routine
  *
@@ -72,7 +70,6 @@ function populate_print_issue_cpt_columns( $colname, $post_id ) {
 	$post = get_post( $post_id );
 
 	if ( 'modified' === $colname ) {
-		$t_time = get_the_time( __( 'Y/m/d g:i:s a' ) );
 		$m_time = $post->post_date;
 		$time   = get_post_time( 'G', true, $post );
 

@@ -7,7 +7,6 @@
 
 namespace Eight_Day_Week\Plugins\Issue_Publication;
 
-use Eight_Day_Week\Core as Core;
 use Eight_Day_Week\Taxonomies as Tax;
 
 /**
@@ -31,7 +30,7 @@ function setup() {
 			register_taxonomy();
 			add_action(
 				'add_meta_boxes',
-				function() {
+				static function () {
 					Tax\add_taxonomy_dropdown_meta_box( 'print_issue_publication' );
 				}
 			);
