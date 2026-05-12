@@ -7,11 +7,14 @@
 
 namespace Eight_Day_Week\Plugins;
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Allows filtering of Eight Day Week plugin loading
  *
- * Use the first filter (Eight_Day_Week\Core\load_plugins) to disable all
- * Use the second (Eight_Day_Week\Core\load_{$plugin}) to disable a specific one
+ * Use the first filter (Eight_Day_Week\Plugins\load_plugins) to disable all
+ * Use the second (Eight_Day_Week\Plugins\load_{$plugin}) to disable a specific one
  *
  * @param string $plugin The plugin in question.
  *
@@ -23,7 +26,7 @@ function should_load_plugin( $plugin ) {
 
 add_filter(
 	'edw_files_to_load',
-	function( $files ) {
+	static function ( $files ) {
 		foreach ( $files as $file_path => $namespace ) {
 			if ( false !== strpos( $file_path, EDW_INC . 'functions/plugins/' ) ) {
 				if ( ! should_load_plugin( str_replace( '.php', '', basename( $file_path ) ) ) ) {
