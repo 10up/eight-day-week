@@ -266,7 +266,7 @@ class Article_XML {
 				if ( 'featured' === $tag_name ) {
 					$element = $xml_elements->xml_document->createElement( 'image' );
 					$value   = array_values( $value );
-					$element->setAttribute( 'href', 'file:///' . html_entity_decode( remove_accents( array_pop( $value ) ) ) );
+					$element->setAttribute( 'href', 'file:///' . html_entity_decode( remove_accents( array_pop( $value ) ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ) );
 					$element->nodeValue = ''; // phpcs:ignore
 					$after_sibling      = $xml_elements->xml_document->getElementsByTagName( 'content' );
 					$xml_elements->root_element->insertBefore( $element, $after_sibling[0] );
@@ -277,7 +277,7 @@ class Article_XML {
 							continue;
 						}
 						$element = $xml_elements->xml_document->createElement( 'image' );
-						$element->setAttribute( 'href', 'file:///' . html_entity_decode( remove_accents( $image_name ) ) );
+						$element->setAttribute( 'href', 'file:///' . html_entity_decode( remove_accents( $image_name ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ) );
 						$element->nodeValue = ''; // phpcs:ignore
 						$xml_elements->root_element->appendChild( $element );
 					}
@@ -327,7 +327,7 @@ class Article_XML {
 	 * @param \DOMElement $article_element The root article element.
 	 */
 	public function add_author_name( $article_element ) {
-		$article_element->setAttribute( 'author', html_entity_decode( $this->get_first_author_name() ) );
+		$article_element->setAttribute( 'author', html_entity_decode( $this->get_first_author_name(), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ) );
 	}
 
 	/**
@@ -337,7 +337,7 @@ class Article_XML {
 	 * @param string      $title The post title to add.
 	 */
 	public function add_post_title( $article_element, $title ) {
-		$article_element->setAttribute( 'title', html_entity_decode( $title ) );
+		$article_element->setAttribute( 'title', html_entity_decode( $title, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ) );
 	}
 
 	/**
@@ -347,7 +347,7 @@ class Article_XML {
 	 * @param string      $comment The post comment to add.
 	 */
 	public function add_post_comment( $article_element, $comment ) {
-		$article_element->setAttribute( 'comment', html_entity_decode( $comment ) );
+		$article_element->setAttribute( 'comment', html_entity_decode( $comment, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ) );
 	}
 
 	/**
