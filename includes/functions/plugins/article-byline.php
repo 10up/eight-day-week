@@ -7,6 +7,9 @@
 
 namespace Eight_Day_Week\Plugins\Article_Byline;
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Default setup routine
  *

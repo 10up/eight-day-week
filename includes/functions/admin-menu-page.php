@@ -7,6 +7,9 @@
 
 namespace Eight_Day_Week\Admin_Menu_Page;
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Default setup routine
  *

@@ -24,6 +24,14 @@
 		</properties>
 	</rule>
 
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="eight-day-week-print-workflow"/>
+			</property>
+		</properties>
+	</rule>
+
 	<!-- Exclude the PHPCompatibilityWP ruleset -->
 	<rule ref="PHPCompatibilityWP">
 		<exclude name="PHPCompatibilityWP"/>
