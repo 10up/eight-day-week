@@ -124,6 +124,7 @@ function edw_bootstrap() {
 		return;
 	}
 
+	// phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
 	require_once $core_file;
 	Eight_Day_Week\Core\setup();
 
@@ -133,6 +134,7 @@ function edw_bootstrap() {
 
 		// Play nice.
 		try {
+			// phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
 			require_once $file;
 			$setup = $namespace . '\setup';
 
