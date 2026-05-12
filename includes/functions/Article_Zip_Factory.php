@@ -135,7 +135,7 @@ class Article_Zip_Factory {
 		foreach ( $articles as $article ) {
 
 			// Allow articles to export an alternative file.
-			$files = apply_filters( __NAMESPACE__ . '\short_circuit_article_export_files', false, $article, $this->print_issue_id, $this->print_issue_title ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+			$files = apply_filters( __NAMESPACE__ . '\short_circuit_article_export_files', false, $article, $this->print_issue_id, $this->print_issue_title );
 
 			// But fall back to XML.
 			if ( ! $files ) {
@@ -159,13 +159,13 @@ class Article_Zip_Factory {
 	public function get_xml_file( $article ) {
 		$xml = $this->get_xml( $article );
 
-		$file_name  = apply_filters( __NAMESPACE__ . '\xml_filename', $xml->root_element->getAttribute( 'title' ), $article, $xml ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+		$file_name  = apply_filters( __NAMESPACE__ . '\xml_filename', $xml->root_element->getAttribute( 'title' ), $article, $xml );
 		$file_name .= '.xml';
 
 		$file_contents = $xml->xml_document->saveXML();
 
 		$fileset   = array();
-		$fileset[] = new File( $file_contents, apply_filters( __NAMESPACE__ . '\xml_full_filename', $file_name, $article ) ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+		$fileset[] = new File( $file_contents, apply_filters( __NAMESPACE__ . '\xml_full_filename', $file_name, $article ) );
 
 		return $fileset;
 	}
@@ -219,8 +219,8 @@ class Article_Zip_Factory {
 		if ( file_exists( $tmp_zip_file ) ) {
 			wp_delete_file( $tmp_zip_file );
 		}
-		$zip  = new \ZipArchive( $this->print_issue_title );
-		$code = $zip->open( $tmp_zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE );
+		$zip = new \ZipArchive( $this->print_issue_title );
+		$zip->open( $tmp_zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE );
 
 		$file_sets = $this->get_file_sets();
 
@@ -275,15 +275,15 @@ class Article_Zip_Factory {
 	public function out_zip_file( $filename ) {
 		header( 'Content-type: application/octet-stream' );
 		header( 'Content-Disposition: attachment; filename="' . $this->get_zip_file_name() . '.zip"' );
-		$handle = fopen( $filename, 'rb' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen
+		$handle = fopen( $filename, 'rb' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fopen, WordPress.WP.AlternativeFunctions.file_system_operations_fopen
 		if ( $handle ) {
 			while ( ! feof( $handle ) ) {
-				echo fread( $handle, 4096 ); // phpcs:ignore WordPress.Security.EscapeOutput, WordPress.WP.AlternativeFunctions.file_system_operations_fread
+				echo fread( $handle, 4096 ); // phpcs:ignore WordPress.Security.EscapeOutput, WordPress.WP.AlternativeFunctions.file_system_read_fread, WordPress.WP.AlternativeFunctions.file_system_operations_fread
 				ob_flush();
 				flush();
 			}
 
-			fclose( $handle ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
+			fclose( $handle ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fclose, WordPress.WP.AlternativeFunctions.file_system_operations_fclose
 		}
 		exit;
 	}
@@ -299,6 +299,6 @@ class Article_Zip_Factory {
 	 */
 	public function get_zip_file_name() {
 		/* translators: 1: title of the print issue, 2: date of the export (m-d-y), 3: time of the export (h:ia) */
-		return sprintf( __( 'Issue %1$s exported on %2$s at %3$s', 'eight-day-week' ), $this->print_issue_title, wp_date( 'm-d-y' ), wp_date( 'h:ia' ) );
+		return sprintf( __( 'Issue %1$s exported on %2$s at %3$s', 'eight-day-week-print-workflow' ), $this->print_issue_title, wp_date( 'm-d-y' ), wp_date( 'h:ia' ) );
 	}
 }

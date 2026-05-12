@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
  * @return mixed|void Whether or not to load the given plugin
  */
 function should_load_plugin( $plugin ) {
-	return apply_filters( __NAMESPACE__ . '\load_plugins', apply_filters( __NAMESPACE__ . '\load_' . $plugin, true ), $plugin ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+	return apply_filters( __NAMESPACE__ . '\load_plugins', apply_filters( __NAMESPACE__ . '\load_' . $plugin, true ), $plugin );
 }
 
 add_filter(

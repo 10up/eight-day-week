@@ -1,7 +1,15 @@
 <?xml version="1.0"?>
 <ruleset name="Custom Standard">
-	<rule ref="10up-Default" />
+	<rule ref="WordPress-Core">
+		<!-- Ignore file naming rules for PSR conventions -->
+		<exclude name="WordPress.Files.FileName"/>
+	</rule>
+	<rule ref="WordPress.DB"/>
+	<rule ref="WordPress.Security"/>
+	<rule ref="WordPressVIPMinimum"/>
 	<arg name="extensions" value="php" />
+	<arg value="s"/>
+
 	<file>.</file>
 	<exclude-pattern>release/</exclude-pattern>
 	<exclude-pattern>vendor/</exclude-pattern>
@@ -9,6 +17,20 @@
 
 	<config name="minimum_supported_wp_version" value="6.7"/>
 	<config name="testVersion" value="7.4-"/>
+
+	<rule ref="WordPress.NamingConventions.ValidHookName">
+		<properties>
+			<property name="additionalWordDelimiters" value="\-"/>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.WP.I18n">
+	<properties>
+		<property name="text_domain" type="array">
+			<element value="eight-day-week-print-workflow"/>
+		</property>
+	</properties>
+</rule>
 
 	<!-- Exclude the PHPCompatibilityWP ruleset -->
 	<rule ref="PHPCompatibilityWP">

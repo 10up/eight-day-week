@@ -3,6 +3,7 @@
  * Handles the VIP functionality.
  *
  * @package Eight_Day_Week
+ * phpcs:disable WordPressVIPMinimum.Functions.RestrictedFunctions -- This is the entire reason for this file.
  */
 
 namespace Eight_Day_Week;

@@ -92,7 +92,7 @@ function post_type_updated_labels( $messages ) {
 		3  => __( 'Custom field deleted.', 'eight-day-week-print-workflow' ),
 		4  => __( 'Print Issue updated.', 'eight-day-week-print-workflow' ),
 		/* translators: %s: The date and time of the revision. */
-		5  => isset( $_GET['revision'] ) ? sprintf( __( 'Print Issue restored to revision from %s', 'eight-day-week-print-workflow' ), wp_post_revision_title( absint( wp_unslash( $_GET['revision'] ) ), false ) ) : false, // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		5  => isset( $_GET['revision'] ) ? sprintf( __( 'Print Issue restored to revision from %s', 'eight-day-week-print-workflow' ), wp_post_revision_title( absint( wp_unslash( $_GET['revision'] ) ), false ) ) : false, // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Handled by WP Core.
 		6  => __( 'Print Issue published.', 'eight-day-week-print-workflow' ),
 		7  => __( 'Print Issue saved.', 'eight-day-week-print-workflow' ),
 		8  => __( 'Print Issue submitted.', 'eight-day-week-print-workflow' ),
@@ -366,7 +366,7 @@ function filter_publish_date_text( $text ) {
 				break;
 		}
 	}
-	// phpcs:enable WordPress.Security.NonceVerification.Recommended
+	// phpcs:enable
 
 	return $text;
 }
@@ -398,7 +398,7 @@ function get_side_metabox_order( $order ) {
 			// Initialize the string for this index (needed because concat is used below).
 			$order[ $location ] = array();
 
-			foreach ( $priorities as $priority => $boxes ) {
+			foreach ( $priorities as $boxes ) {
 				$keys               = array_keys( $boxes );
 				$order[ $location ] = array_merge( $order[ $location ], $keys );
 			}

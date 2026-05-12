@@ -16,9 +16,6 @@
 	"require": {
 		"php": ">=7.4"
 	},
-	"require-dev": {
-		"10up/phpcs-composer": "^3.0"
-	},
 	"scripts": {
 		"phpcs": "./vendor/bin/phpcs --standard=./phpcs.xml -p .",
 		"phpcbf": "./vendor/bin/phpcbf .",
@@ -28,5 +25,10 @@
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
+	},
+	"require-dev": {
+		"wp-coding-standards/wpcs": "^3.0",
+		"phpcompatibility/phpcompatibility-wp": "^3.0@dev",
+		"automattic/vipwpcs": "^3.0"
 	}
 }

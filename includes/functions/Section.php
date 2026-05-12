@@ -110,11 +110,11 @@ class Section {
 		if ( ! $title ) {
 			throw new \Exception( esc_html__( 'Please supply a valid, non-empty title', 'eight-day-week-print-workflow' ) );
 		}
-		$title  = sanitize_text_field( $title );
-		$args   = array(
+		$title = sanitize_text_field( $title );
+		$args  = array(
 			'ID'         => $this->ID,
 			'post_title' => $title,
 		);
-		$result = $this->update( $args );
+		$this->update( $args );
 	}
 }

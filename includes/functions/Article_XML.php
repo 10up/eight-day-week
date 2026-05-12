@@ -74,8 +74,8 @@ class Article_XML {
 		$dom->loadHTML(
 			mb_convert_encoding(
 				$content,
-				apply_filters( __NAMESPACE__ . '\dom_encoding_from', 'HTML-ENTITIES' ), // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
-				apply_filters( __NAMESPACE__ . '\dom_encoding_to', 'UTF-8' ) // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+				apply_filters( __NAMESPACE__ . '\dom_encoding_from', 'HTML-ENTITIES' ),
+				apply_filters( __NAMESPACE__ . '\dom_encoding_to', 'UTF-8' )
 			)
 		);
 
@@ -86,7 +86,7 @@ class Article_XML {
 		$xml_elements = $this->html_to_xml( $dom );
 
 		$elements = apply_filters(
-			__NAMESPACE__ . '\xml_outer_elements', // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+			__NAMESPACE__ . '\xml_outer_elements',
 			$this->get_outer_elements( $this->article ),
 			$this->article
 		);
@@ -216,7 +216,7 @@ class Article_XML {
 		$image_src      = $attachment_path ? $attachment_path : get_attached_file( $attachment_id );
 
 		if ( preg_match( '/^(.*[\\/])([^\\/]+)\.(.*)$/', $image_src, $matches ) ) {
-			// [-_]\d+x\d+
+			// Regex pattern to match: [-_]\d+x\d+
 			$image_path     = $matches[1];
 			$image_filename = ( ! $attachment_id && preg_match( '/^(.+)[-_]\d+x\d+$/i', $matches[2], $matches2 ) ? $matches2[1] : $matches[2] ) . '.' . $matches[3];
 		}
@@ -266,18 +266,18 @@ class Article_XML {
 				if ( 'featured' === $tag_name ) {
 					$element = $xml_elements->xml_document->createElement( 'image' );
 					$value   = array_values( $value );
-					$element->setAttribute( 'href', 'file:///' . html_entity_decode( remove_accents( array_pop( $value ) ) ) );
+					$element->setAttribute( 'href', 'file:///' . html_entity_decode( remove_accents( array_pop( $value ) ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ) );
 					$element->nodeValue = ''; // phpcs:ignore
 					$after_sibling      = $xml_elements->xml_document->getElementsByTagName( 'content' );
 					$xml_elements->root_element->insertBefore( $element, $after_sibling[0] );
 					$xml_elements->root_element->insertBefore( $xml_elements->xml_document->createTextNode( "\n" ), $after_sibling[0] );
 				} else {
-					foreach ( $value as $image_full_path => $image_name ) {
+					foreach ( $value as $image_name ) {
 						if ( $outer_elements['featured'] && $outer_elements['featured'][1] === $image_name ) {
 							continue;
 						}
 						$element = $xml_elements->xml_document->createElement( 'image' );
-						$element->setAttribute( 'href', 'file:///' . html_entity_decode( remove_accents( $image_name ) ) );
+						$element->setAttribute( 'href', 'file:///' . html_entity_decode( remove_accents( $image_name ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ) );
 						$element->nodeValue = ''; // phpcs:ignore
 						$xml_elements->root_element->appendChild( $element );
 					}
@@ -327,7 +327,7 @@ class Article_XML {
 	 * @param \DOMElement $article_element The root article element.
 	 */
 	public function add_author_name( $article_element ) {
-		$article_element->setAttribute( 'author', html_entity_decode( $this->get_first_author_name() ) );
+		$article_element->setAttribute( 'author', html_entity_decode( $this->get_first_author_name(), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ) );
 	}
 
 	/**
@@ -337,7 +337,7 @@ class Article_XML {
 	 * @param string      $title The post title to add.
 	 */
 	public function add_post_title( $article_element, $title ) {
-		$article_element->setAttribute( 'title', html_entity_decode( $title ) );
+		$article_element->setAttribute( 'title', html_entity_decode( $title, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ) );
 	}
 
 	/**
@@ -347,7 +347,7 @@ class Article_XML {
 	 * @param string      $comment The post comment to add.
 	 */
 	public function add_post_comment( $article_element, $comment ) {
-		$article_element->setAttribute( 'comment', html_entity_decode( $comment ) );
+		$article_element->setAttribute( 'comment', html_entity_decode( $comment, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ) );
 	}
 
 	/**
@@ -380,7 +380,7 @@ class Article_XML {
 		$this->remove_elements( $dom );
 
 		// Allow third party modification of the entire dom.
-		$dom = apply_filters( __NAMESPACE__ . '\dom', $dom ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+		$dom = apply_filters( __NAMESPACE__ . '\dom', $dom );
 
 		return $dom;
 	}
@@ -392,7 +392,7 @@ class Article_XML {
 	 * @throws \Exception If an error occurs while removing elements.
 	 */
 	public function remove_elements( $dom ) {
-		$elements_to_remove = apply_filters( __NAMESPACE__ . '\remove_elements', array( 'img' ) ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+		$elements_to_remove = apply_filters( __NAMESPACE__ . '\remove_elements', array( 'img' ) );
 
 		$remove = array();
 		foreach ( $elements_to_remove as $tag_name ) {
@@ -435,7 +435,7 @@ class Article_XML {
 	 * @return void
 	 */
 	public function extract_elements_by_xpath( $dom ) {
-		$xpath_extract = apply_filters( __NAMESPACE__ . '\xpath_extract', array() ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+		$xpath_extract = apply_filters( __NAMESPACE__ . '\xpath_extract', array() );
 		if ( $xpath_extract ) {
 			$domxpath = new \DOMXPath( $dom );
 
@@ -476,10 +476,10 @@ class Article_XML {
 
 		$xml_document = new \DOMDocument();
 
-		$article_element = $xml_document->createElement( apply_filters( __NAMESPACE__ . '\xml_root_element', 'article' ) ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+		$article_element = $xml_document->createElement( apply_filters( __NAMESPACE__ . '\xml_root_element', 'article' ) );
 		$xml_document->appendChild( $article_element );
 
-		$content_element = $xml_document->createElement( apply_filters( __NAMESPACE__ . '\xml_content_element', 'content' ) ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+		$content_element = $xml_document->createElement( apply_filters( __NAMESPACE__ . '\xml_content_element', 'content' ) );
 		$article_element->appendChild( $content_element );
 
 		foreach ( $content->childNodes as $el ) { // phpcs:ignore

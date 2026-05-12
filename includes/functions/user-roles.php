@@ -361,7 +361,7 @@ function re_save_print_roles( $user_id, $new_role, $old_roles ) {
  */
 function current_user_can_edit_print_issue( $capability = '' ) {
 	$default = current_user_can( 'publish_' . EDW_PRINT_ISSUE_CPT . 's' );
-	return apply_filters( __NAMESPACE__ . '\cuc_edit_print_issue', $default, $capability ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+	return apply_filters( __NAMESPACE__ . '\cuc_edit_print_issue', $default, $capability );
 }
 
 /**

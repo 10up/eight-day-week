@@ -120,7 +120,7 @@ function admin_menu() {
  */
 function filter_article_columns_article_status( $columns ) {
 	$status = array(
-		'article_status' => __( 'Article Status', 'eight-day-week' ),
+		'article_status' => __( 'Article Status', 'eight-day-week-print-workflow' ),
 	);
 
 	$title_offset = array_search( 'title', array_keys( $columns ), true );
@@ -143,7 +143,7 @@ function filter_article_columns_article_status( $columns ) {
  */
 function filter_article_columns_article_images( $columns ) {
 	$status = array(
-		'post_img_num' => __( 'Images', 'eight-day-week' ),
+		'post_img_num' => __( 'Images', 'eight-day-week-print-workflow' ),
 	);
 
 	/* put after char_count when available */
@@ -233,10 +233,12 @@ function bulk_edit_article_statuses_ajax() {
 
 	Core\check_elevated_ajax_referer();
 
+	// phpcs:disable WordPress.Security.NonceVerification.Missing -- Nonce is verified in check_elevated_ajax_referer() above.
 	$term_id     = isset( $_POST['status'] ) ? absint( $_POST['status'] ) : false;
 	$article_ids = isset( $_POST['checked_articles'] )
 		? sanitize_text_field( wp_unslash( $_POST['checked_articles'] ) )
 		: '';
+	// phpcs:enable
 
 	$article_ids = array_filter( array_map( 'absint', explode( ',', $article_ids ) ) );
 

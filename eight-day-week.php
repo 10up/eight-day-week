@@ -127,6 +127,7 @@ function edw_bootstrap() {
 		return;
 	}
 
+	// phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
 	require_once $core_file;
 	Eight_Day_Week\Core\setup();
 
@@ -136,13 +137,14 @@ function edw_bootstrap() {
 
 		// Play nice.
 		try {
+			// phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
 			require_once $file;
 			$setup = $namespace . '\setup';
 
 			// Allow files *not* to have a setup function.
 			if ( function_exists( $setup ) ) {
 				$setup();
-				do_action( $namespace . '\setup' ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+				do_action( $namespace . '\setup' );
 			}
 		} catch ( \Exception $e ) {
 			// Do nothing

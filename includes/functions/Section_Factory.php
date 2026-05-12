@@ -68,12 +68,14 @@ class Section_Factory {
 
 		Core\check_elevated_ajax_referer();
 
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- Cap check and Nonce verification in check_elevated_ajax_referer() above.
 		$name = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : false;
 		if ( ! $name ) {
 			Core\send_json_error( array( 'message' => __( 'Please enter a section name.', 'eight-day-week-print-workflow' ) ) );
 		}
 
 		$print_issue_id = isset( $_POST['print_issue_id'] ) ? absint( $_POST['print_issue_id'] ) : false;
+		// phpcs:enable
 
 		$print_issue = get_post( $print_issue_id );
 		if ( ! $print_issue ) {
@@ -104,12 +106,15 @@ class Section_Factory {
 
 		Core\check_elevated_ajax_referer();
 
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- Cap check and Nonce verification in check_elevated_ajax_referer() above.
 		$title = isset( $_POST['title'] ) ? sanitize_text_field( wp_unslash( $_POST['title'] ) ) : false;
 		if ( ! $title ) {
 			Core\send_json_error( array( 'message' => __( 'Please enter a section name.', 'eight-day-week-print-workflow' ) ) );
 		}
 
 		$post_id = isset( $_POST['post_id'] ) ? sanitize_text_field( wp_unslash( $_POST['post_id'] ) ) : false;
+		// phpcs:enable
+
 		if ( ! $post_id ) {
 			Core\send_json_error( array( 'message' => __( 'Whoops! This section appears to be invalid.', 'eight-day-week-print-workflow' ) ) );
 		}
