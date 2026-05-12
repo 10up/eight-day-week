@@ -216,7 +216,7 @@ class Article_XML {
 		$image_src      = $attachment_path ? $attachment_path : get_attached_file( $attachment_id );
 
 		if ( preg_match( '/^(.*[\\/])([^\\/]+)\.(.*)$/', $image_src, $matches ) ) {
-			// [-_]\d+x\d+
+			// Regex pattern to match: [-_]\d+x\d+
 			$image_path     = $matches[1];
 			$image_filename = ( ! $attachment_id && preg_match( '/^(.+)[-_]\d+x\d+$/i', $matches[2], $matches2 ) ? $matches2[1] : $matches[2] ) . '.' . $matches[3];
 		}
@@ -272,7 +272,7 @@ class Article_XML {
 					$xml_elements->root_element->insertBefore( $element, $after_sibling[0] );
 					$xml_elements->root_element->insertBefore( $xml_elements->xml_document->createTextNode( "\n" ), $after_sibling[0] );
 				} else {
-					foreach ( $value as $image_full_path => $image_name ) {
+					foreach ( $value as $image_name ) {
 						if ( $outer_elements['featured'] && $outer_elements['featured'][1] === $image_name ) {
 							continue;
 						}

@@ -219,8 +219,8 @@ class Article_Zip_Factory {
 		if ( file_exists( $tmp_zip_file ) ) {
 			wp_delete_file( $tmp_zip_file );
 		}
-		$zip  = new \ZipArchive( $this->print_issue_title );
-		$code = $zip->open( $tmp_zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE );
+		$zip = new \ZipArchive( $this->print_issue_title );
+		$zip->open( $tmp_zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE );
 
 		$file_sets = $this->get_file_sets();
 

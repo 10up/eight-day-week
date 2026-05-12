@@ -395,7 +395,7 @@ function get_side_metabox_order( $order ) {
 			// Initialize the string for this index (needed because concat is used below).
 			$order[ $location ] = array();
 
-			foreach ( $priorities as $priority => $boxes ) {
+			foreach ( $priorities as $boxes ) {
 				$keys               = array_keys( $boxes );
 				$order[ $location ] = array_merge( $order[ $location ], $keys );
 			}
