@@ -132,7 +132,7 @@ class AL_Table extends \WP_Posts_List_Table {
 	 * @param object $item The current item.
 	 * @param int    $level The current item's level (parent relationship level).
 	 */
-	public function single_row( $item, $level = 0 ) {
+	public function single_row( $item, $level = 0 ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Parent method compat.
 		if ( property_exists( $item, 'ID' ) ) {
 			echo '<tr data-article-id="' . absint( $item->ID ) . '">';
 		} else {
@@ -167,7 +167,7 @@ class AL_Table extends \WP_Posts_List_Table {
 	 * @param array $posts An array of posts to loop through and display.
 	 * @param int   $level The level of the rows to display.
 	 */
-	public function display_rows( $posts = array(), $level = 0 ) {
+	public function display_rows( $posts = array(), $level = 0 ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Parent method compat.
 		foreach ( $this->items as $article ) {
 			$this->single_row( $article );
 		}
@@ -178,7 +178,7 @@ class AL_Table extends \WP_Posts_List_Table {
 	 *
 	 * @param string $which The position of the tablenav (top or bottom).
 	 */
-	public function display_tablenav( $which ) {
+	public function display_tablenav( $which ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Parent method compat.
 	}
 
 	/**
@@ -192,7 +192,7 @@ class AL_Table extends \WP_Posts_List_Table {
 	 *
 	 * @return string
 	 */
-	public function _column_title( $item, $classes = '', $data = '', $primary = false ) { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore, purposely overriding the parent method
+	public function _column_title( $item, $classes = '', $data = '', $primary = false ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable, PSR2.Methods.MethodDeclaration.Underscore, purposely overriding the parent method
 		$html  = '<td class="' . esc_attr( $classes ) . ' page-title" ' . esc_attr( $data ) . '>';
 		$html .= $this->column_title( $item );
 		$html .= '</td>';
