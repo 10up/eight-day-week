@@ -16,39 +16,6 @@
   display: none;
 }
 
-#submitdiv {
-  border: none;
-  display: block;
-  margin-bottom: 20px;
-  background: none !important;
-}
-#submitdiv .hndle {
-  background: white;
-  border: 1px solid #e5e5e5;
-}
-
-#minor-publishing {
-  background: white;
-  border: 1px solid #e5e5e5;
-  border-top: 0;
-}
-
-#major-publishing-actions {
-  padding: 0;
-  border: none;
-  margin-top: 20px;
-  background: white;
-}
-#major-publishing-actions .hndle {
-  border: 1px solid #e5e5e5;
-}
-
-#publishing-actions {
-  padding: 8px 12px;
-  border: 1px solid #e5e5e5;
-  border-top: 0;
-}
-
 .timestamp-wrap hide, #timestamp hide {
   display: none;
 }
