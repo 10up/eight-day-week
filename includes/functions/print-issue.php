@@ -67,6 +67,7 @@ function setup() {
 	add_filter( 'update_post_metadata', ns( 'filter_metadata_no_post_locks_on_rov' ), 9999, 3 );
 	add_filter( 'get_post_metadata', ns( 'filter_metadata_no_post_locks_on_rov' ), 9999, 3 );
 	add_filter( 'admin_title', ns( 'filter_admin_title_for_rov' ) );
+	add_action( 'admin_footer', ns( 'remove_post_locking_notice_for_rov' ), 5 );
 }
 
 /**
@@ -580,6 +581,21 @@ function filter_admin_title_for_rov( $title ) {
 	}
 
 	return $title;
+}
+
+/**
+ * Remove the post locking notice for the RO view on PI editor screen.
+ */
+function remove_post_locking_notice_for_rov() {
+	if (
+		EDW_PRINT_ISSUE_CPT === get_post_type() &&
+		(
+			is_read_only_view()
+			|| ! User\current_user_can_edit_print_issue()
+		)
+	) {
+		remove_action( 'admin_footer', '_admin_notice_post_locked' );
+	}
 }
 
 /**
