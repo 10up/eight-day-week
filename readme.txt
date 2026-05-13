@@ -2,7 +2,7 @@
 Contributors:      10up, observerteam, joshlevinson, brs14ku, jeffpaul
 Tags:              print, workflow, editorial
 Tested up to:      7.0
-Stable tag:        1.2.6
+Stable tag:        1.3.0
 License:           GPL-2.0-or-later
 License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
 
