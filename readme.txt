@@ -211,12 +211,6 @@ Please report security bugs found in the source code of the Eight Day Week Print
 * **Changed:** Bump `qs` from 6.14.1 to 6.14.2 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#190](https://github.com/10up/eight-day-week/pull/190)).
 * **Changed:** Bump `systeminformation` from 5.30.5 to 5.31.6 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#191](https://github.com/10up/eight-day-week/pull/191), [#201](https://github.com/10up/eight-day-week/pull/201)).
 * **Changed:** Bump `picomatch` from 4.0.3 to 4.0.4, `postcss` from 8.5.6 to 8.5.14, `simple-git` from 3.30.0 to 3.36.0 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#200](https://github.com/10up/eight-day-week/pull/200)).
-* **Developer:** Bump `@wordpress/env` from 10.38.0 to 11.5.0, `autoprefixer` from 10.4.23 to 10.5.0, `cypress` from 15.9.0 to 15.14.2, `cypress-mochawesome-reporter` from 3.5.1 to 4.0.2, `grunt` from 1.6.1 to 1.6.2, `grunt-contrib-qunit` from 3.1.0 to 10.2.0, `grunt-sass` from 4.0.1 to 4.1.0, `mochawesome-json-to-md` from 0.7.2 to 2.2.0 and `sass` from 1.97.2 to 1.99.0 (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#198](https://github.com/10up/eight-day-week/pull/198)).
-* **Developer:** Add a `.nvmrc` file to ensure we are using a correct node version (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#198](https://github.com/10up/eight-day-week/pull/198)).
-* **Developer:** Ensure our GitHub Action workflows are all up-to-date (props [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#194](https://github.com/10up/eight-day-week/pull/194)).
-* **Developer:** Add new GitHub Action workflow to run Plugin Checks (props [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#194](https://github.com/10up/eight-day-week/pull/194)).
-* **Developer:** Address all existing PHPCS warnings and errors (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#195](https://github.com/10up/eight-day-week/pull/195)).
-* **Developer:** Fix errors being flagged by WordPress plugin check (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#196](https://github.com/10up/eight-day-week/pull/196)).
 
 = 1.2.6 - 2025-12-16 =
 
