@@ -16,7 +16,7 @@ describe('Issue Status', () => {
 
       it("Edit Issue Status", () => {
         cy.visit(`wp-admin/edit-tags.php?taxonomy=print_issue_status&post_type=print-issue`);
-        cy.get('[aria-label="“Active-01” (Edit)"]').click();
+        cy.get('a.row-title').contains("Active-01").first().click();
         cy.get('#name').clear();
         cy.get('#name').type('Active-02')
         cy.get('.button').click();
@@ -30,7 +30,7 @@ describe('Issue Status', () => {
 
       it("Delete Issue Status", () => {
         cy.visit(`wp-admin/edit-tags.php?taxonomy=print_issue_status&post_type=print-issue`);
-        cy.get('[aria-label="“Active-02” (Edit)"]').click();
+        cy.get('a.row-title').contains("Active-02").first().click();
         cy.get('.delete').click();
 
         // Verify successful deletion

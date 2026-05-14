@@ -6,8 +6,9 @@
  * Licensed under the GPLv2+ license.
  */
 
+@use "article-export";
 
-// Hide status, visibility, move to trash
+// Hide status and visibility in publish metabox since they are not relevant to print issues
 #minor-publishing-actions,
 .misc-pub-section.misc-pub-visibility,
 .misc-pub-section.misc-pub-post-status{
@@ -15,40 +16,6 @@
 }
 
 $box_border: 1px solid #e5e5e5;
-
-//mock publish as separate metabox
-#submitdiv{
-  border: none;
-  display: block;
-  margin-bottom: 20px;
-  background: none !important;
-  .hndle{
-    background: white;
-    border: $box_border;
-  }
-}
-
-#minor-publishing{
-  background: white;
-  border: $box_border;
-  border-top: 0;
-}
-
-#major-publishing-actions{
-  padding: 0;
-  border: none;
-  margin-top: 20px;
-  background: white;
-  .hndle{
-    border: $box_border;
-  }
-}
-
-#publishing-actions{
-  padding: 8px 12px;
-  border: $box_border;
-  border-top: 0;
-}
 
 .timestamp-wrap, #timestamp{
   hide{
@@ -170,5 +137,3 @@ th.column-date{
 th.column-title{
   width: 28%;
 }
-
-@import "article-export";

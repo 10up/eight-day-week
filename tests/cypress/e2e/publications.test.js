@@ -16,7 +16,7 @@ describe('Publications', () => {
 
       it("Edit Publications", () => {
         cy.visit(`wp-admin/edit-tags.php?taxonomy=print_issue_publication&post_type=print-issue`);
-        cy.get('[aria-label="“Weekly Articles” (Edit)"]').click();
+		cy.get('a.row-title').contains("Weekly Articles").first().click();
         cy.get('#name').clear();
         cy.get('#name').type('Monthly Articles')
         cy.get('.button').click();
@@ -30,7 +30,7 @@ describe('Publications', () => {
 
       it("Delete Publications", () => {
         cy.visit(`wp-admin/edit-tags.php?taxonomy=print_issue_publication&post_type=print-issue`);
-        cy.get('[aria-label="“Monthly Articles” (Edit)"]').click();
+        cy.get('a.row-title').contains("Monthly Articles").first().click();
         cy.get('.delete').click();
 
         // Verify successful deletion

@@ -9,6 +9,9 @@ namespace Eight_Day_Week\Taxonomies;
 
 use Eight_Day_Week\User_Roles as User;
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Swaps out default taxonomy metabox for a dropdown metabox
  *
@@ -57,13 +60,18 @@ function create_taxonomy_dropdown_metabox( $post, $metabox ) {
 	$names = get_the_terms( get_the_ID(), $taxonomy->name );
 
 	// Get all terms in this taxonomy.
-	$terms = (array) get_terms( $taxonomy->name, 'hide_empty=0' );
+	$terms = get_terms(
+		array(
+			'taxonomy'   => $taxonomy->name,
+			'hide_empty' => false,
+		)
+	);
 
-	if ( ! $terms ) {
+	if ( is_wp_error( $terms ) || empty( $terms ) ) {
 		echo '<p>' .
 			sprintf(
 				/* translators: %s: Name of the taxonomy. */
-				esc_html_x( 'No %s created.', 'eight-day-week-print-workflow' ),
+				esc_html__( 'No %s created.', 'eight-day-week-print-workflow' ),
 				esc_html( $taxonomy->labels->name )
 			) .
 		'</p>';
@@ -87,7 +95,7 @@ function create_taxonomy_dropdown_metabox( $post, $metabox ) {
 
 	$default_text = sprintf(
 		/* translators: %s: Singular name of the taxonomy. */
-		_x( 'No %s', 'eight-day-week-print-workflow' ),
+		esc_html__( 'No %s', 'eight-day-week-print-workflow' ),
 		esc_html( $taxonomy->labels->singular_name )
 	);
 
@@ -112,7 +120,10 @@ function create_taxonomy_dropdown_metabox( $post, $metabox ) {
 			$select .= '<option value="' . absint( $val ) . '"';
 
 			// If so, they get "checked".
-			$selected = ! empty( $existing ) && in_array( (int) $term->term_id, $existing, true ) || count( $terms ) <= 1;
+			$selected = (
+				! empty( $existing ) &&
+				in_array( (int) $term->term_id, $existing, true )
+			) || count( $terms ) <= 1;
 			$select  .= selected( $selected, true, false );
 
 			$select .= '> ' . esc_html( $term->name ) . '</option>';

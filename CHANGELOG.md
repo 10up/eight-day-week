@@ -4,6 +4,32 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+## [1.3.0] - 2025-05-xx
+**Note that this release bumps the WordPress minimum version from 5.5 to 6.7.**
+
+### Security
+- Resolve GHSA-88cc-x3jq-vwjx (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul) via [GHSA-88cc-x3jq-vwjx](https://github.com/10up/eight-day-week/security/advisories/GHSA-88cc-x3jq-vwjx)).
+- Bump `phpunit/phpunit` from 9.5.28 to 9.6.33 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#189](https://github.com/10up/eight-day-week/pull/189)).
+- Bump `immutable` from 5.1.4 to 5.1.5 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#192](https://github.com/10up/eight-day-week/pull/192)).
+
+### Changed
+- Update to support WordPress 7.0 (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#183](https://github.com/10up/eight-day-week/pull/183), [#199](https://github.com/10up/eight-day-week/pull/199)).
+- Minimum supported version of WordPress is now 6.7 (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#184](https://github.com/10up/eight-day-week/pull/184)).
+- Update npm dependencies (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#186](https://github.com/10up/eight-day-week/pull/186)).
+- Bump `lodash` from 4.17.21 to 4.17.23 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#187](https://github.com/10up/eight-day-week/pull/187)).
+- Bump `qs` from 6.14.1 to 6.14.2 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#190](https://github.com/10up/eight-day-week/pull/190)).
+- Bump `systeminformation` from 5.30.5 to 5.31.6 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#191](https://github.com/10up/eight-day-week/pull/191), [#201](https://github.com/10up/eight-day-week/pull/201)).
+- Bump `picomatch` from 4.0.3 to 4.0.4, `postcss` from 8.5.6 to 8.5.14, `simple-git` from 3.30.0 to 3.36.0 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#200](https://github.com/10up/eight-day-week/pull/200)).
+
+### Developer
+- Bump `@wordpress/env` from 10.38.0 to 11.5.0, `autoprefixer` from 10.4.23 to 10.5.0, `cypress` from 15.9.0 to 15.14.2, `cypress-mochawesome-reporter` from 3.5.1 to 4.0.2, `grunt` from 1.6.1 to 1.6.2, `grunt-contrib-qunit` from 3.1.0 to 10.2.0, `grunt-sass` from 4.0.1 to 4.1.0, `mochawesome-json-to-md` from 0.7.2 to 2.2.0 and `sass` from 1.97.2 to 1.99.0 (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#198](https://github.com/10up/eight-day-week/pull/198)).
+- Add a `.nvmrc` file to ensure we are using a correct node version (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#198](https://github.com/10up/eight-day-week/pull/198)).
+- Ensure our GitHub Action workflows are all up-to-date (props [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#194](https://github.com/10up/eight-day-week/pull/194)).
+- Add new GitHub Action workflow to run Plugin Checks (props [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#194](https://github.com/10up/eight-day-week/pull/194)).
+- Address all existing PHPCS warnings and errors (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#195](https://github.com/10up/eight-day-week/pull/195)).
+- Fix errors being flagged by WordPress plugin check (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#196](https://github.com/10up/eight-day-week/pull/196)).
+
+
 ## [1.2.6] - 2025-12-16
 ### Security
 - Resolve GHSA-c5vw-3gpx-gv22 data exposure to authenticated users (thank you Patchstack for responsibly disclosing this issue; props [@kmgalanakis](https://github.com/kmgalanakis), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-c5vw-3gpx-gv22](https://github.com/10up/eight-day-week/security/advisories/GHSA-c5vw-3gpx-gv22)).
@@ -165,6 +191,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 - Initial Release
 
 [Unreleased]: https://github.com/10up/eight-day-week/compare/trunk...develop
+[1.3.0]: https://github.com/10up/eight-day-week/compare/1.2.6...1.3.0
 [1.2.6]: https://github.com/10up/eight-day-week/compare/1.2.5...1.2.6
 [1.2.5]: https://github.com/10up/eight-day-week/compare/1.2.4...1.2.5
 [1.2.4]: https://github.com/10up/eight-day-week/compare/1.2.3...1.2.4

@@ -1,0 +1,40 @@
+name: PHPCS
+
+# Disable permissions for all available scopes by default.
+# Any needed permissions should be configured at the job level.
+permissions: {}
+
+on:
+  push:
+    branches:
+      - develop
+      - trunk
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  phpcs:
+    name: Run PHPCS coding standards checks
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+    - name: Set PHP version
+      uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2.37.0
+      with:
+        php-version: '7.4'
+        coverage: none
+
+    - name: Install dependencies
+      run: composer install
+
+    - name: Check WordPress Coding Standards
+      run: composer phpcs
+
+    - name: Check PHP Compatibility
+      run: composer phpcs:compat

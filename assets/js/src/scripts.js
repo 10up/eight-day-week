@@ -74,7 +74,7 @@
 
 	var PP_Utils;
 	PP_Utils = {
-		
+
 		$error_msg: $('#pi-section-error'),
 
 		//this is cached + used externally in other objects
@@ -191,7 +191,7 @@
 			this.$error_msg.text(error_msg);
 			this.$error_msg.show().delay(4500).fadeOut();
 		},
-		
+
 	};
 	PP_Utils.handlers();
 
@@ -462,7 +462,7 @@
 				$(document).trigger('postbox-toggled', p);
 			}
 		},
-		
+
 
 		toggle_section_add_inputs: function () {
 			this.toggle_add_info();
@@ -852,18 +852,8 @@
 			this.handlers();
 		},
 		handlers: function() {
-			$(document).ready( this.ready );
 			$(document).ready( this.rov_view );
 		},
-		ready: function() {
-			var $submitdiv = $('#submitdiv');
-			$submitdiv.children('.handlediv').hide();
-			$submitdiv.children('.hndle').off( 'click.postboxes' ).children('span').text('Issue Date');
-			var $mpa = $('#major-publishing-actions');
-			$mpa.wrapInner('<div id="publishing-actions"></div>');
-			$mpa.prepend('<h3 class="hndle">Actions</h3>');
-		},
-
 		rov_view: function() {
 			if( EDW_Vars.rov || ! EDW_Vars.cuc_edit_print_issue ) {
 				Article_Manager.destroy_sortable();
