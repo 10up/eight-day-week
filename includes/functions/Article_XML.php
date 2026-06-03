@@ -72,9 +72,9 @@ class Article_XML {
 
 		$dom = new \DOMDocument();
 		$dom->loadHTML(
-			mb_convert_encoding(
+			mb_encode_numericentity(
 				$content,
-				apply_filters( __NAMESPACE__ . '\dom_encoding_from', 'HTML-ENTITIES' ),
+				array( 0x80, 0x10FFFF, 0, ~0 ),
 				apply_filters( __NAMESPACE__ . '\dom_encoding_to', 'UTF-8' )
 			)
 		);
@@ -123,7 +123,7 @@ class Article_XML {
 		}
 
 		$dom = new \DOMDocument();
-		$dom->loadHTML( $content );
+		$dom->loadHTML( mb_encode_numericentity( $content, array( 0x80, 0x10FFFF, 0, ~0 ), 'UTF-8' ) );
 
 		$captions = $dom->getElementsByTagName( 'caption' );
 
