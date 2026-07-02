@@ -15,6 +15,14 @@ describe('Admin can login and make sure plugin is activated', () => {
 	});
 
 	it('Can activate plugin if it is deactivated', () => {
-		cy.activatePlugin('eight-day-week');
+		cy.visit('/wp-admin/plugins.php');
+		// Depending on how the plugin is installed the slug may be either eight-day-week or eight-day-week-print-workflow.
+		cy.get(`#the-list tr[data-slug^="eight-day-week"]`).then($pluginRow => {
+				if ($pluginRow.find('.activate > a').length > 0) {
+						cy.get(`#the-list tr[data-slug^="eight-day-week"] .activate > a`)
+								.should('have.text', 'Activate')
+								.click();
+				}
+		});
 	});
 });
