@@ -3,8 +3,8 @@
  * Plugin Name:       Eight Day Week
  * Plugin URI:        https://github.com/10up/eight-day-week
  * Description:       Optimize publication workflows by using WordPress as your print CMS.
- * Version:           1.2.4
- * Requires at least: 6.4
+ * Version:           1.3.0
+ * Requires at least: 6.7
  * Requires PHP:      7.4
  * Author:            10up
  * Author URI:        https://10up.com
@@ -32,6 +32,9 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 // Load vip compat functions.
 require_once __DIR__ . '/vip-compat.php';
 
@@ -39,7 +42,7 @@ require_once __DIR__ . '/vip-compat.php';
 require_once __DIR__ . '/plugins.php';
 
 // Useful global constants.
-define( 'EDW_VERSION', '1.2.4' );
+define( 'EDW_VERSION', '1.3.0' );
 define( 'EDW_URL', Eight_Day_Week\plugins_url( __FILE__ ) );
 define( 'EDW_PATH', __DIR__ . '/' );
 define( 'EDW_INC', EDW_PATH . 'includes/' );
@@ -85,7 +88,7 @@ function edw_site_meets_php_requirements() {
 if ( ! edw_site_meets_php_requirements() ) {
 	add_action(
 		'admin_notices',
-		function() {
+		static function () {
 			?>
 			<div class="notice notice-error">
 				<p>
@@ -124,6 +127,7 @@ function edw_bootstrap() {
 		return;
 	}
 
+	// phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
 	require_once $core_file;
 	Eight_Day_Week\Core\setup();
 
@@ -133,6 +137,7 @@ function edw_bootstrap() {
 
 		// Play nice.
 		try {
+			// phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
 			require_once $file;
 			$setup = $namespace . '\setup';
 

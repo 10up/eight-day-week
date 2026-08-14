@@ -1,5 +1,9 @@
 name: Build release zip
 
+# Disable permissions for all available scopes by default.
+# Any needed permissions should be configured at the job level.
+permissions: {}
+
 on:
   workflow_dispatch:
   workflow_call:
@@ -11,11 +15,14 @@ jobs:
   build:
     name: Build release zip
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Generate ZIP file
-        uses: 10up/action-wordpress-plugin-build-zip@stable
+        uses: 10up/action-wordpress-plugin-build-zip@b9e621e1261ccf51592b6f3943e4dc4518fca0d1 # v1.0.2
         env:
           SLUG: eight-day-week-print-workflow

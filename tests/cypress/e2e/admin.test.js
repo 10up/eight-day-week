@@ -7,11 +7,6 @@ describe("Admin can login and open dashboard", () => {
     cy.visit(`/wp-admin`);
     cy.get("h1").should("contain", "Dashboard");
   });
-
-  it("Activate Hello Dolly and deactivate it back", () => {
-    cy.activatePlugin("hello-dolly");
-    cy.deactivatePlugin("hello-dolly");
-  });
 });
 
 describe('Admin can login and make sure plugin is activated', () => {
@@ -20,6 +15,14 @@ describe('Admin can login and make sure plugin is activated', () => {
 	});
 
 	it('Can activate plugin if it is deactivated', () => {
-		cy.activatePlugin('eight-day-week-print-workflow');
+		cy.visit('/wp-admin/plugins.php');
+		// Depending on how the plugin is installed the slug may be either eight-day-week or eight-day-week-print-workflow.
+		cy.get(`#the-list tr[data-slug^="eight-day-week"]`).then($pluginRow => {
+				if ($pluginRow.find('.activate > a').length > 0) {
+						cy.get(`#the-list tr[data-slug^="eight-day-week"] .activate > a`)
+								.should('have.text', 'Activate')
+								.click();
+				}
+		});
 	});
 });

@@ -2,7 +2,7 @@
 
 ![Eight Day Week](https://github.com/10up/eight-day-week/blob/develop/.wordpress-org/banner-1544x500.png "Eight Day Week Print Workflow")
 
-[![Support Level](https://img.shields.io/badge/support-stable-blue.svg)](#support-level) ![Required PHP Version](https://img.shields.io/wordpress/plugin/required-php/eight-day-week-print-workflow?label=Requires%20PHP) ![Required WP Version](https://img.shields.io/wordpress/plugin/wp-version/eight-day-week-print-workflow?label=Requires%20WordPress) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/eight-day-week-print-workflow?label=WordPress) [![GPLv2 License](https://img.shields.io/github/license/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/blob/develop/LICENSE.md) [![Dependency Review](https://github.com/10up/eight-day-week/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/10up/eight-day-week/actions/workflows/dependency-review.yml) [![E2E tests](https://github.com/10up/eight-day-week/actions/workflows/cypress.yml/badge.svg)](https://github.com/10up/eight-day-week/actions/workflows/cypress.yml) [![PHP Standards Scrutinizer](https://github.com/10up/eight-day-week/actions/workflows/php-standards-scrutinizer.yml/badge.svg)](https://github.com/10up/eight-day-week/actions/workflows/php-standards-scrutinizer.yml) [![CodeQL](https://github.com/10up/eight-day-week/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/10up/eight-day-week/actions/workflows/github-code-scanning/codeql) [![WordPress Playground Demo](https://img.shields.io/wordpress/plugin/v/eight-day-week-print-workflow?logo=wordpress&logoColor=FFFFFF&label=Playground%20Demo&labelColor=3858E9&color=3858E9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/10up/eight-day-week/develop/.wordpress-org/blueprints/blueprint.json)
+[![Support Level](https://img.shields.io/badge/support-stable-blue.svg)](#support-level) ![Required PHP Version](https://img.shields.io/wordpress/plugin/required-php/eight-day-week-print-workflow?label=Requires%20PHP) ![Required WP Version](https://img.shields.io/wordpress/plugin/wp-version/eight-day-week-print-workflow?label=Requires%20WordPress) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/eight-day-week-print-workflow?label=WordPress) [![GPLv2 License](https://img.shields.io/github/license/10up/eight-day-week.svg)](https://github.com/10up/eight-day-week/blob/develop/LICENSE.md) [![Dependency Review](https://github.com/10up/eight-day-week/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/10up/eight-day-week/actions/workflows/dependency-review.yml) [![E2E tests](https://github.com/10up/eight-day-week/actions/workflows/cypress.yml/badge.svg)](https://github.com/10up/eight-day-week/actions/workflows/cypress.yml) [![PHP Standards Scrutinizer](https://github.com/10up/eight-day-week/actions/workflows/phpcs.yml/badge.svg)](https://github.com/10up/eight-day-week/actions/workflows/phpcs.yml) [![CodeQL](https://github.com/10up/eight-day-week/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/10up/eight-day-week/actions/workflows/github-code-scanning/codeql) [![WordPress Playground Demo](https://img.shields.io/wordpress/plugin/v/eight-day-week-print-workflow?logo=wordpress&logoColor=FFFFFF&label=Playground%20Demo&labelColor=3858E9&color=3858E9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/10up/eight-day-week/develop/.wordpress-org/blueprints/blueprint.json)
 
 > Optimize publication workflows by using WordPress as your print CMS.
 
@@ -67,7 +67,7 @@ Issue Statuses | Publications | Article Statuses
 ## Requirements
 
 * PHP 7.4+
-* [WordPress](http://wordpress.org) 6.4+
+* [WordPress](http://wordpress.org) 6.5+
 
 ## Installation
 
@@ -199,6 +199,12 @@ add_filter( 'Eight_Day_Week\Plugins\Article_Export\dom', function ( $dom ) {
 
 Gutenberg-based exports include some additional metadata/details that a Classic Editor-based export does not.  [Gutenberg stores block data in HTML comments](https://developer.wordpress.org/block-editor/key-concepts/#delimiters-and-parsing-expression-grammar), so you'll notice those comments (in the form of `<!-- "Gutenberg block data" -->`) appearing in the Eight Day Week XML export.  Note that the XML is still valid--you can test and confirm that yourself using an [XML validator](https://www.xmlvalidation.com/)--though depending on your version of InDesign you may get different results upon importing a Gutenberg export compared to a Classic Editor export.  Our testing showed that those HTML comments in a Gutenberg export did not affect the import into InDesign however.  You can test how this works in your version of InDesign with these sample XML files: [Gutenberg XML](https://raw.githubusercontent.com/wiki/10up/eight-day-week/BlockEditor-sample.xml), [Classic Editor XML](https://raw.githubusercontent.com/wiki/10up/eight-day-week/ClassicEditor-sample.xml).  You can also test how this works with full ZIP exports of Print Issues containing a [Block Editor sample](https://raw.githubusercontent.com/wiki/10up/eight-day-week/BlockEditor-SampleExport.zip) or a [Classic Editor sample](https://raw.githubusercontent.com/wiki/10up/eight-day-week/ClassicEditor-SampleExport.zip).
 
+## Frequently Asked Questions
+
+### Where do I report security bugs found in this plugin?
+
+Please report security bugs found in the source code of the Eight Day Week Print Workflow plugin through the [Patchstack Vulnerability Disclosure  Program](https://patchstack.com/database/vdp/597230e2-c7e4-4ec0-8484-85c6fa9d1bf9).  The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
+
 ## Support Level
 
 **Stable:** 10up is not planning to develop any new features for this, but will still respond to bug reports and security concerns. We welcome PRs, but any that include new features should be small and easy to integrate and should not include breaking changes. We otherwise intend to keep this tested up to the most recent version of WordPress.
@@ -213,4 +219,4 @@ Please read [CODE_OF_CONDUCT.md](https://github.com/10up/eight-day-week/blob/dev
 
 ## Like what you see?
 
-<a href="http://10up.com/contact/"><img src="https://10up.com/uploads/2016/10/10up-Github-Banner.png" width="850" alt="Work with us at 10up"></a>
+<a href="http://10up.com/contact/"><img src="https://github.com/10up/.github/blob/trunk/profile/10up-github-banner.jpg" width="850" alt="Work with the 10up WordPress Practice at Fueled"></a>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ruleset name="Custom Standard">
+	<description>PHP Compatibility checks only</description>
+
+	<!-- Files to check -->
+	<arg name="extensions" value="php"/>
+	<file>.</file>
+
+	<rule ref="PHPCompatibilityWP" />
+
+	<exclude-pattern>release/</exclude-pattern>
+	<exclude-pattern>vendor/</exclude-pattern>
+	<exclude-pattern>tests/</exclude-pattern>
+
+	<config name="minimum_supported_wp_version" value="6.7"/>
+	<config name="testVersion" value="7.4-"/>
+</ruleset>

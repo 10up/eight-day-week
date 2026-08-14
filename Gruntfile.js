@@ -1,3 +1,5 @@
+var sass = require('sass');
+
 module.exports = function( grunt ) {
 
 	// Project configuration
@@ -35,6 +37,9 @@ module.exports = function( grunt ) {
 		},
 
 		sass:   {
+			options: {
+				implementation: sass,
+			},
 			all: {
 				files: {
 					'assets/css/style.css': 'assets/css/sass/style.scss'
@@ -43,10 +48,12 @@ module.exports = function( grunt ) {
 		},
 
 
-		autoprefixer: {
+		postcss: {
 			dist: {
 				options: {
-					browsers: [ 'last 1 version', '> 1%', 'ie 8' ]
+					processors: [
+						require('autoprefixer')()
+					]
 				},
 				files: {
 					'assets/css/style.css': [ 'assets/css/style.css' ]
@@ -77,7 +84,7 @@ module.exports = function( grunt ) {
 			},
 			style: {
 				files: ['assets/css/sass/*.scss'],
-				tasks: ['sass', 'autoprefixer', 'cssmin'],
+				tasks: ['sass', 'postcss', 'cssmin'],
 				options: {
 					debounceDelay: 500
 				}
@@ -148,7 +155,7 @@ module.exports = function( grunt ) {
 	require('load-grunt-tasks')(grunt);
 
 	// Register tasks
-	grunt.registerTask( 'default', ['jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin' ] );
+	grunt.registerTask( 'default', ['jshint', 'concat', 'uglify', 'sass', 'postcss', 'cssmin' ] );
 
 	grunt.registerTask( 'build', ['default', 'clean', 'copy', 'compress'] );
 

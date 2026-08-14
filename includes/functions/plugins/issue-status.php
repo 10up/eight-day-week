@@ -7,8 +7,10 @@
 
 namespace Eight_Day_Week\Plugins\Issue_Status;
 
-use Eight_Day_Week\Core as Core;
 use Eight_Day_Week\Taxonomies as Tax;
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Default setup routine
@@ -118,12 +120,22 @@ function add_issue_status_filters() {
 
 		// Print issues are private, so hide_empty must be false
 		// as private posts don't count towards term count.
-		$terms = get_terms( $tax_slug, array( 'hide_empty' => false ) );
+		$terms = get_terms(
+			array(
+				'taxonomy'   => $tax_slug,
+				'hide_empty' => false,
+			)
+		);
+
+		if ( is_wp_error( $terms ) || empty( $terms ) ) {
+			return;
+		}
 
 		echo '<select name="' . esc_attr( $tax_slug ) . '" id="' . esc_attr( $tax_slug ) . '" class="postform">';
 		/* translators: %s: Name of the taxonomy. Select option for filtering all issue statuses. */
 		echo '<option value="">' . sprintf( esc_html_x( 'Show All %s', 'Select option for filtering all issue statuses', 'eight-day-week-print-workflow' ), esc_html( $tax_name ) ) . '</option>';
 		foreach ( $terms as $term ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Post list tables do not require a nonce check.
 			echo '<option value="' . esc_attr( $term->slug ) . '"' . selected( isset( $_GET[ $tax_slug ] ) ? sanitize_text_field( wp_unslash( $_GET[ $tax_slug ] ) ) : '', $term->slug ) . '>' . esc_html( $term->name ) . '</option>';
 		}
 		echo '</select>';
