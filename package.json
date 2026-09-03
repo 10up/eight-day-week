@@ -15,7 +15,7 @@
     "url": ""
   },
   "devDependencies": {
-    "@10up/cypress-wp-utils": "^0.6.0",
+    "@10up/cypress-wp-utils": "^0.7.2",
     "@lodder/grunt-postcss": "^3.1.1",
     "@wordpress/env": "^11.5.0",
     "autoprefixer": "^10.5.0",
