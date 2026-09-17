@@ -97,6 +97,12 @@ class Article_Zip_Factory {
 			if ( ! $article || ! current_user_can( 'read_post', $id ) ) {
 				continue;
 			}
+
+			// Don't export password protected posts if the user can't edit them.
+			if ( ! empty( $article->post_password ) && ! current_user_can( 'edit_post', $id ) ) {
+				continue;
+			}
+
 			$articles[ $id ] = $article;
 		}
 
