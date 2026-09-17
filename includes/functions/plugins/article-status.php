@@ -265,8 +265,19 @@ function bulk_edit_article_statuses_ajax() {
  * @throws \Exception WP Error message if invalid tax specified.
  */
 function bulk_edit_article_statuses( $status_term_id, $article_ids ) {
+
+	$post_types = \Eight_Day_Week\Articles\get_article_post_types();
+
 	foreach ( (array) $article_ids as $article_id ) {
-		$result = wp_set_object_terms( absint( $article_id ), absint( $status_term_id ), EDW_ARTICLE_STATUS_TAX, false );
+		$article_id = absint( $article_id );
+		$article    = $article_id ? get_post( $article_id ) : null;
+
+		// Ensure the post can be used as an article.
+		if ( ! $article || ! in_array( $article->post_type, $post_types, true ) ) {
+			throw new \Exception( esc_html__( 'One or more invalid article IDs specified in the request.', 'eight-day-week-print-workflow' ) );
+		}
+
+		$result = wp_set_object_terms( $article_id, absint( $status_term_id ), EDW_ARTICLE_STATUS_TAX, false );
 		if ( is_wp_error( $result ) ) {
 			throw new \Exception( esc_html( $result->get_error_message() ) );
 		}

@@ -174,6 +174,25 @@ function get_articles_autocomplete( $title ) {
 }
 
 /**
+ * Gets the post types that should be treated as articles.
+ *
+ * @since x.x.x
+ *
+ * @return string[] Article post types
+ */
+function get_article_post_types() {
+	/**
+	 * Filters the post types that should be treated as articles.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param string[] $post_types The post types that should be treated as articles.
+	 * @return string[] The filtered post types.
+	 */
+	return (array) apply_filters( __NAMESPACE__ . '\\post_types', array( 'post' ) );
+}
+
+/**
  * Retrieves articles based on a given title.
  *
  * @param string $title The title to search for.
@@ -185,12 +204,10 @@ function get_articles( $title ) {
 		throw new \Exception( esc_html__( 'Please enter a valid/non-empty title.', 'eight-day-week-print-workflow' ) );
 	}
 
-	$post_types = apply_filters( __NAMESPACE__ . '\\post_types', array( 'post' ) );
-
 	$args = array(
 		'search_by_title'        => sanitize_text_field( $title ),
 		'posts_per_page'         => 20,
-		'post_type'              => $post_types,
+		'post_type'              => get_article_post_types(),
 		'post_status'            => 'any',
 		'order'                  => 'DESC',
 		'orderby'                => 'post_date',
@@ -294,8 +311,8 @@ function save_section_articles( $post_id ) {
 		$section_id = absint( $section_id );
 
 		// Validate section.
-		$section = get_post( $section_id );
-		if ( ! $section_id || ! $section ) {
+		$section = $section_id ? get_post( $section_id ) : null;
+		if ( ! $section || EDW_SECTION_CPT !== $section->post_type ) {
 			continue;
 		}
 
