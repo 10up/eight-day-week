@@ -83,6 +83,11 @@ function export_articles() {
 
 	Core\check_ajax_referer();
 
+	// A user needs this capability to access the export buttons.
+	if ( ! current_user_can( get_post_type_object( EDW_PRINT_ISSUE_CPT )->cap->edit_posts ) ) {
+		wp_die( -1, 403 );
+	}
+
 	// phpcs:disable WordPress.Security.NonceVerification.Missing -- Nonce is verified in Core\check_ajax_referer() above.
 	if ( ! isset( $_POST['article_ids'] ) ) {
 		die( esc_html__( 'No article IDs sent', 'eight-day-week-print-workflow' ) );

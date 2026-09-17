@@ -122,6 +122,10 @@ class Article_XML {
 			}
 		}
 
+		if ( empty( $content ) ) {
+			return '<p></p>';
+		}
+
 		$dom = new \DOMDocument();
 		$dom->loadHTML( $content );
 

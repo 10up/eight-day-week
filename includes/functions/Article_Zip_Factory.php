@@ -97,6 +97,12 @@ class Article_Zip_Factory {
 			if ( ! $article || ! current_user_can( 'read_post', $id ) ) {
 				continue;
 			}
+
+			// Don't export password protected posts if the user can't edit them.
+			if ( ! empty( $article->post_password ) && ! current_user_can( 'edit_post', $id ) ) {
+				continue;
+			}
+
 			$articles[ $id ] = $article;
 		}
 
@@ -164,8 +170,20 @@ class Article_Zip_Factory {
 
 		$file_contents = $xml->xml_document->saveXML();
 
+		/**
+		 * Filters the full file name for the XML file.
+		 *
+		 * @since 1.1.0
+		 *
+		 * @param string $file_name The file name.
+		 * @param \WP_Post $article The article.
+		 * @return string The filtered file name.
+		 */
+		$file_name = apply_filters( __NAMESPACE__ . '\xml_full_filename', $file_name, $article );
+		$file_name = sanitize_file_name( $file_name );
+
 		$fileset   = array();
-		$fileset[] = new File( $file_contents, apply_filters( __NAMESPACE__ . '\xml_full_filename', $file_name, $article ) );
+		$fileset[] = new File( $file_contents, $file_name );
 
 		return $fileset;
 	}
@@ -229,12 +247,12 @@ class Article_Zip_Factory {
 			foreach ( $files as $file ) {
 				if ( stripos( $file->filename, '.xml' ) !== false ) {
 					$filename                   = explode( '.', $file->filename );
-					$sub_folders[ $article_id ] = $filename[0];
+					$sub_folders[ $article_id ] = sanitize_file_name( $filename[0] );
 					break;
 				}
 			}
 
-			if ( ! $sub_folders[ $article_id ] ) {
+			if ( empty( $sub_folders[ $article_id ] ) ) {
 				$sub_folders[ $article_id ] = $article_id;
 			}
 		}
@@ -247,7 +265,7 @@ class Article_Zip_Factory {
 			// Force an array.
 			$files = is_array( $files ) ? $files : array( $files );
 			foreach ( $files as $file ) {
-				$zip->addFromString( $sub_folders[ $article_id ] . '/' . $file->filename, $file->contents );
+				$zip->addFromString( $sub_folders[ $article_id ] . '/' . sanitize_file_name( $file->filename ), $file->contents );
 			}
 		}
 
@@ -274,7 +292,7 @@ class Article_Zip_Factory {
 	 */
 	public function out_zip_file( $filename ) {
 		header( 'Content-type: application/octet-stream' );
-		header( 'Content-Disposition: attachment; filename="' . $this->get_zip_file_name() . '.zip"' );
+		header( 'Content-Disposition: attachment; filename="' . sanitize_file_name( $this->get_zip_file_name() ) . '.zip"' );
 		$handle = fopen( $filename, 'rb' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fopen, WordPress.WP.AlternativeFunctions.file_system_operations_fopen
 		if ( $handle ) {
 			while ( ! feof( $handle ) ) {

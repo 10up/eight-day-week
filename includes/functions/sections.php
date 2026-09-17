@@ -123,7 +123,7 @@ function add_sections_meta_box( $post ) {
 		}
 
 		$section_id = absint( $section_id );
-		if ( 0 === $i || get_post( $section_id ) ) {
+		if ( 0 === $i || is_section( $section_id ) ) {
 
 			// The "template" is used in metabox saving to retrieve the post ID. So don't remove this!
 			// Don't change the ID either; it's what designates it to retreive the post ID.
@@ -167,6 +167,18 @@ function sections_meta_box( $post, $args ) {
 		</p>
 		<?php
 	endif;
+}
+
+/**
+ * Determines whether a post ID belongs to an existing section
+ *
+ * @param int $id The post ID to check.
+ * @return bool True when the ID belongs to a section post.
+ */
+function is_section( $id ) {
+	$post = get_post( absint( $id ) );
+
+	return $post instanceof \WP_Post && EDW_SECTION_CPT === $post->post_type;
 }
 
 /**
@@ -247,18 +259,26 @@ function update_print_issue_sections( $post_id ) {
 		return;
 	}
 
+	if ( ! User\current_user_can_edit_print_issue() ) {
+		return;
+	}
+
 	// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce is verified in save_print_issues().
 	$section_ids = sanitize_text_field( wp_unslash( $_POST['pi-section-ids'] ) );
 
-	$existing = get_sections( $post_id );
-	$delete   = array_diff( explode( ',', $existing ), explode( ',', $section_ids ) );
-	if ( $delete ) {
-		foreach ( $delete as $id ) {
-			wp_delete_post( absint( $id ), true );
+	$submitted = array_filter( wp_parse_id_list( $section_ids ) );
+	$existing  = array_filter( wp_parse_id_list( get_sections( $post_id ) ) );
+	$delete    = array_diff( $existing, $submitted );
+
+	foreach ( $delete as $id ) {
+		if ( ! is_section( $id ) ) {
+			continue;
 		}
+
+		wp_delete_post( $id, true );
 	}
 
-	set_print_issue_sections( $section_ids, $post_id );
+	set_print_issue_sections( implode( ',', $submitted ), $post_id );
 }
 
 /**
@@ -269,10 +289,15 @@ function update_print_issue_sections( $post_id ) {
  */
 function set_print_issue_sections( $section_ids, $print_issue_id ) {
 
-	// Sanitize - only allow comma delimited integers.
-	if ( ! ctype_digit( str_replace( ',', '', $section_ids ) ) ) {
+	$section_ids = (string) $section_ids;
+
+	// Sanitize - only allow comma delimited integers, or an empty list.
+	if ( '' !== $section_ids && ! ctype_digit( str_replace( ',', '', $section_ids ) ) ) {
 		return;
 	}
+
+	// Store section IDs only.
+	$section_ids = implode( ',', array_filter( wp_parse_id_list( $section_ids ), __NAMESPACE__ . '\\is_section' ) );
 
 	update_post_meta( $print_issue_id, 'sections', $section_ids );
 
