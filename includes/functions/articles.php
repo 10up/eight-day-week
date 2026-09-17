@@ -241,7 +241,14 @@ function title_filter( $where, $wp_query ) {
  * Handles a request for the HTML of a new, post-specific AL_Table row
  */
 function get_article_row_ajax() {
-	check_ajax_referer( EDW_AJAX_NONCE_SLUG, false, false );
+	if ( ! check_ajax_referer( EDW_AJAX_NONCE_SLUG, false, false ) ) {
+		wp_send_json_error(
+			array(
+				'message' => __( 'Invalid nonce.', 'eight-day-week-print-workflow' ),
+			),
+			403
+		);
+	}
 
 	$article_id = isset( $_GET['article_id'] ) ? absint( wp_unslash( $_GET['article_id'] ) ) : false;
 
