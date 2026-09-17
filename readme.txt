@@ -2,7 +2,7 @@
 Contributors:      10up, observerteam, joshlevinson, brs14ku, jeffpaul
 Tags:              print, workflow, editorial
 Tested up to:      7.1
-Stable tag:        1.3.0
+Stable tag:        1.4.0
 License:           GPL-2.0-or-later
 License URI:       https://spdx.org/licenses/GPL-2.0-or-later.html
 
@@ -198,12 +198,21 @@ Please report security bugs found in the source code of the Eight Day Week Print
 
 == Changelog ==
 
-= 1.3.0 - 2025-05-xx =
+= 1.4.0 - 2026-09-17 =
+**Note that this release bumps the WordPress minimum version from 6.7 to 6.9.**
+
+* **Changed:** Bump WordPress "tested up to" version 7.1 (props [@zamanq](https://github.com/zamanq), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#209](https://github.com/10up/eight-day-week/pull/209), [#210](https://github.com/10up/eight-day-week/pull/210)).
+* **Changed:** Bump WordPress minimum to 6.9 (props [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#212](https://github.com/10up/eight-day-week/pull/212)).
+* **Fixed:** PHP Fatal error when exporting an issue that includes a post with empty post content and a featured image (props [@kmgalanakis](https://github.com/kmgalanakis), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#188](https://github.com/10up/eight-day-week/pull/188)).
+* **Security:** Resolve GHSA-43rw-44h9-rvw8 (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-43rw-44h9-rvw8](https://github.com/10up/eight-day-week/security/advisories/GHSA-43rw-44h9-rvw8)).
+* **Security:** Resolve GHSA-86jm-chvc-gcrp (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-86jm-chvc-gcrp](https://github.com/10up/eight-day-week/security/advisories/GHSA-86jm-chvc-gcrp)).
+* **Security:** Resolve GHSA-p46g-f894-26c6 (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-p46g-f894-26c6](https://github.com/10up/eight-day-week/security/advisories/GHSA-p46g-f894-26c6)).
+* **Security:** Resolve GHSA-99cj-2vcr-75qw (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-99cj-2vcr-75qw](https://github.com/10up/eight-day-week/security/advisories/GHSA-99cj-2vcr-75qw)).
+* **Security:** Resolve GHSA-w264-x245-xgqr (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-w264-x245-xgqr](https://github.com/10up/eight-day-week/security/advisories/GHSA-w264-x245-xgqr)).
+
+= 1.3.0 - 2026-05-14 =
 **Note that this release bumps the WordPress minimum version from 5.5 to 6.7.**
 
-* **Security:** Resolve GHSA-88cc-x3jq-vwjx (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul) via [GHSA-88cc-x3jq-vwjx](https://github.com/10up/eight-day-week/security/advisories/GHSA-88cc-x3jq-vwjx)).
-* **Security:** Bump `phpunit/phpunit` from 9.5.28 to 9.6.33 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#189](https://github.com/10up/eight-day-week/pull/189)).
-* **Security:** Bump `immutable` from 5.1.4 to 5.1.5 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#192](https://github.com/10up/eight-day-week/pull/192)).
 * **Changed:** Update to support WordPress 7.0 (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#183](https://github.com/10up/eight-day-week/pull/183), [#199](https://github.com/10up/eight-day-week/pull/199)).
 * **Changed:** Minimum supported version of WordPress is now 6.7 (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#184](https://github.com/10up/eight-day-week/pull/184)).
 * **Changed:** Update npm dependencies (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#186](https://github.com/10up/eight-day-week/pull/186)).
@@ -211,14 +220,15 @@ Please report security bugs found in the source code of the Eight Day Week Print
 * **Changed:** Bump `qs` from 6.14.1 to 6.14.2 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#190](https://github.com/10up/eight-day-week/pull/190)).
 * **Changed:** Bump `systeminformation` from 5.30.5 to 5.31.6 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#191](https://github.com/10up/eight-day-week/pull/191), [#201](https://github.com/10up/eight-day-week/pull/201)).
 * **Changed:** Bump `picomatch` from 4.0.3 to 4.0.4, `postcss` from 8.5.6 to 8.5.14, `simple-git` from 3.30.0 to 3.36.0 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#200](https://github.com/10up/eight-day-week/pull/200)).
+* **Security:** Resolve GHSA-88cc-x3jq-vwjx (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul) via [GHSA-88cc-x3jq-vwjx](https://github.com/10up/eight-day-week/security/advisories/GHSA-88cc-x3jq-vwjx)).
 
 = 1.2.6 - 2025-12-16 =
 
-* **Security:** Resolve GHSA-c5vw-3gpx-gv22 data exposure to authenticated users (thank you Patchstack for responsibly disclosing this issue; props [@kmgalanakis](https://github.com/kmgalanakis), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-c5vw-3gpx-gv22](https://github.com/10up/eight-day-week/security/advisories/GHSA-c5vw-3gpx-gv22)).
 * **Added:** Expand E2E tests to increase coverage  (props [@sudip-md](https://github.com/sudip-md), [@jeffpaul](https://github.com/jeffpaul), [@iamdharmesh](https://github.com/iamdharmesh) via [#148](https://github.com/10up/eight-day-week/pull/148)).
 * **Changed:** Bump WordPress "tested up to" version 6.8 (props [@Sourabh208](https://github.com/Sourabh208), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#171](https://github.com/10up/eight-day-week/pull/171)).
 * **Changed:** Bump tar-fs from 2.1.1 to 2.1.2 (props [@dependabot](https://github.com/apps/dependabot), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#170](https://github.com/10up/eight-day-week/pull/170)).
 * **Changed:** Update CTA to Fueled (props [@jeffpaul](https://github.com/jeffpaul) via [#6ce451a2](https://github.com/10up/eight-day-week/commit/6ce451a22ad65b8518200e81fe33c2d65d448d9d)).
+* **Security:** Resolve GHSA-c5vw-3gpx-gv22 data exposure to authenticated users (thank you Patchstack for responsibly disclosing this issue; props [@kmgalanakis](https://github.com/kmgalanakis), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-c5vw-3gpx-gv22](https://github.com/10up/eight-day-week/security/advisories/GHSA-c5vw-3gpx-gv22)).
 
 = 1.2.5 - 2025-02-03 =
 **Note that this release bumps the WordPress minimum version from 5.7 to 6.5.**
@@ -236,6 +246,10 @@ Please report security bugs found in the source code of the Eight Day Week Print
 [View historical changelog details here](https://github.com/10up/eight-day-week/blob/develop/CHANGELOG.md).
 
 == Upgrade Notice ==
+
+= 1.4.0 =
+
+This includes several security updates. Please update promptly.
 
 = 1.3.0 =
 
