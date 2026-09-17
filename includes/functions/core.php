@@ -158,9 +158,10 @@ function tack_on_ajax_response( $data = array() ) {
  *
  * @param bool $query_arg The query argument.
  * @param bool $kill Whether to die if the referer check fails.
+ * @return false|int False if the nonce is invalid, 1 or 2 if it is valid.
  */
-function check_ajax_referer( $query_arg = false, $kill = false ) {
-	\check_ajax_referer( EDW_AJAX_NONCE_SLUG, $query_arg, $kill );
+function check_ajax_referer( $query_arg = false, $kill = true ) {
+	return \check_ajax_referer( EDW_AJAX_NONCE_SLUG, $query_arg, $kill );
 }
 
 
@@ -171,7 +172,7 @@ function check_ajax_referer( $query_arg = false, $kill = false ) {
  * @param string|false $query_arg The query argument string or false if not provided.
  * @param bool         $kill Whether to die if the referer check fails.
  */
-function check_elevated_ajax_referer( $action = false, $query_arg = false, $kill = false ) {
+function check_elevated_ajax_referer( $action = false, $query_arg = false, $kill = true ) {
 	check_ajax_referer( $query_arg, $kill );
 
 	// If the user didn't pass in an $action, check $_POST. One can pass an empty string to use no cap/action.
