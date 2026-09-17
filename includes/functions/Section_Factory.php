@@ -61,8 +61,6 @@ class Section_Factory {
 
 	/**
 	 * Creates an AJAX request handler for creating a section.
-	 *
-	 * @throws \Exception When the print issue ID is invalid or an exception is thrown during section creation.
 	 */
 	public static function create_ajax() {
 
@@ -78,8 +76,10 @@ class Section_Factory {
 		// phpcs:enable
 
 		$print_issue = get_post( $print_issue_id );
-		if ( ! $print_issue ) {
-			throw new \Exception( 'Invalid print issue specified.' );
+
+		// A section may only ever be attached to a real print issue.
+		if ( ! $print_issue || EDW_PRINT_ISSUE_CPT !== $print_issue->post_type ) {
+			Core\send_json_error( array( 'message' => __( 'Invalid print issue specified.', 'eight-day-week-print-workflow' ) ) );
 		}
 
 		try {
@@ -112,10 +112,12 @@ class Section_Factory {
 			Core\send_json_error( array( 'message' => __( 'Please enter a section name.', 'eight-day-week-print-workflow' ) ) );
 		}
 
-		$post_id = isset( $_POST['post_id'] ) ? sanitize_text_field( wp_unslash( $_POST['post_id'] ) ) : false;
+		$post_id = isset( $_POST['post_id'] ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0;
 		// phpcs:enable
 
-		if ( ! $post_id ) {
+		// Ensure the post is a valid section.
+		$section = $post_id ? get_post( $post_id ) : null;
+		if ( ! $section || EDW_SECTION_CPT !== $section->post_type ) {
 			Core\send_json_error( array( 'message' => __( 'Whoops! This section appears to be invalid.', 'eight-day-week-print-workflow' ) ) );
 		}
 		try {
