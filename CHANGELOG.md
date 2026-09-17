@@ -7,19 +7,19 @@ All notable changes to this project will be documented in this file, per [the Ke
 ## [1.4.0] - 2026-09-17
 **Note that this release bumps the WordPress minimum version from 6.7 to 6.9.**
 
-### Security
-- Resolve GHSA-43rw-44h9-rvw8 (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-43rw-44h9-rvw8](https://github.com/10up/eight-day-week/security/advisories/GHSA-43rw-44h9-rvw8)).
-- Resolve GHSA-86jm-chvc-gcrp (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-86jm-chvc-gcrp](https://github.com/10up/eight-day-week/security/advisories/GHSA-86jm-chvc-gcrp)).
-- Resolve GHSA-p46g-f894-26c6 (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-p46g-f894-26c6](https://github.com/10up/eight-day-week/security/advisories/GHSA-p46g-f894-26c6)).
-- Resolve GHSA-99cj-2vcr-75qw (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-99cj-2vcr-75qw](https://github.com/10up/eight-day-week/security/advisories/GHSA-99cj-2vcr-75qw)).
-- Resolve GHSA-w264-x245-xgqr (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-w264-x245-xgqr](https://github.com/10up/eight-day-week/security/advisories/GHSA-w264-x245-xgqr)).
-
 ### Changed
 - Bump WordPress "tested up to" version 7.1 (props [@zamanq](https://github.com/zamanq), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#209](https://github.com/10up/eight-day-week/pull/209), [#210](https://github.com/10up/eight-day-week/pull/210)).
 - Bump WordPress minimum to 6.9 (props [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#212](https://github.com/10up/eight-day-week/pull/212)).
 
 ### Fixed
 - PHP Fatal error when exporting an issue that includes a post with empty post content and a featured image (props [@kmgalanakis](https://github.com/kmgalanakis), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#188](https://github.com/10up/eight-day-week/pull/188)).
+
+### Security
+- Resolve GHSA-43rw-44h9-rvw8 (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-43rw-44h9-rvw8](https://github.com/10up/eight-day-week/security/advisories/GHSA-43rw-44h9-rvw8)).
+- Resolve GHSA-86jm-chvc-gcrp (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-86jm-chvc-gcrp](https://github.com/10up/eight-day-week/security/advisories/GHSA-86jm-chvc-gcrp)).
+- Resolve GHSA-p46g-f894-26c6 (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-p46g-f894-26c6](https://github.com/10up/eight-day-week/security/advisories/GHSA-p46g-f894-26c6)).
+- Resolve GHSA-99cj-2vcr-75qw (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-99cj-2vcr-75qw](https://github.com/10up/eight-day-week/security/advisories/GHSA-99cj-2vcr-75qw)).
+- Resolve GHSA-w264-x245-xgqr (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-w264-x245-xgqr](https://github.com/10up/eight-day-week/security/advisories/GHSA-w264-x245-xgqr)).
 
 ### Developer
 - Bump `tmp` from 0.2.5 to 0.2.7 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#205](https://github.com/10up/eight-day-week/pull/205)).
@@ -28,11 +28,6 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [1.3.0] - 2026-05-14
 **Note that this release bumps the WordPress minimum version from 5.5 to 6.7.**
-
-### Security
-- Resolve GHSA-88cc-x3jq-vwjx (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul) via [GHSA-88cc-x3jq-vwjx](https://github.com/10up/eight-day-week/security/advisories/GHSA-88cc-x3jq-vwjx)).
-- Bump `phpunit/phpunit` from 9.5.28 to 9.6.33 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#189](https://github.com/10up/eight-day-week/pull/189)).
-- Bump `immutable` from 5.1.4 to 5.1.5 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#192](https://github.com/10up/eight-day-week/pull/192)).
 
 ### Changed
 - Update to support WordPress 7.0 (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#183](https://github.com/10up/eight-day-week/pull/183), [#199](https://github.com/10up/eight-day-week/pull/199)).
@@ -43,7 +38,12 @@ All notable changes to this project will be documented in this file, per [the Ke
 - Bump `systeminformation` from 5.30.5 to 5.31.6 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#191](https://github.com/10up/eight-day-week/pull/191), [#201](https://github.com/10up/eight-day-week/pull/201)).
 - Bump `picomatch` from 4.0.3 to 4.0.4, `postcss` from 8.5.6 to 8.5.14, `simple-git` from 3.30.0 to 3.36.0 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#200](https://github.com/10up/eight-day-week/pull/200)).
 
+### Security
+- Resolve GHSA-88cc-x3jq-vwjx (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul) via [GHSA-88cc-x3jq-vwjx](https://github.com/10up/eight-day-week/security/advisories/GHSA-88cc-x3jq-vwjx)).
+
 ### Developer
+- Bump `phpunit/phpunit` from 9.5.28 to 9.6.33 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#189](https://github.com/10up/eight-day-week/pull/189)).
+- Bump `immutable` from 5.1.4 to 5.1.5 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#192](https://github.com/10up/eight-day-week/pull/192)).
 - Bump `@wordpress/env` from 10.38.0 to 11.5.0, `autoprefixer` from 10.4.23 to 10.5.0, `cypress` from 15.9.0 to 15.14.2, `cypress-mochawesome-reporter` from 3.5.1 to 4.0.2, `grunt` from 1.6.1 to 1.6.2, `grunt-contrib-qunit` from 3.1.0 to 10.2.0, `grunt-sass` from 4.0.1 to 4.1.0, `mochawesome-json-to-md` from 0.7.2 to 2.2.0 and `sass` from 1.97.2 to 1.99.0 (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#198](https://github.com/10up/eight-day-week/pull/198)).
 - Add a `.nvmrc` file to ensure we are using a correct node version (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#198](https://github.com/10up/eight-day-week/pull/198)).
 - Ensure our GitHub Action workflows are all up-to-date (props [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#194](https://github.com/10up/eight-day-week/pull/194)).
@@ -52,9 +52,6 @@ All notable changes to this project will be documented in this file, per [the Ke
 - Fix errors being flagged by WordPress plugin check (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#196](https://github.com/10up/eight-day-week/pull/196)).
 
 ## [1.2.6] - 2025-12-16
-### Security
-- Resolve GHSA-c5vw-3gpx-gv22 data exposure to authenticated users (thank you Patchstack for responsibly disclosing this issue; props [@kmgalanakis](https://github.com/kmgalanakis), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-c5vw-3gpx-gv22](https://github.com/10up/eight-day-week/security/advisories/GHSA-c5vw-3gpx-gv22)).
-
 ### Added
 - Expand E2E tests to increase coverage  (props [@sudip-md](https://github.com/sudip-md), [@jeffpaul](https://github.com/jeffpaul), [@iamdharmesh](https://github.com/iamdharmesh) via [#148](https://github.com/10up/eight-day-week/pull/148)).
 
@@ -62,6 +59,9 @@ All notable changes to this project will be documented in this file, per [the Ke
 - Bump WordPress "tested up to" version 6.8 (props [@Sourabh208](https://github.com/Sourabh208), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#171](https://github.com/10up/eight-day-week/pull/171)).
 - Bump tar-fs from 2.1.1 to 2.1.2 (props [@dependabot](https://github.com/apps/dependabot), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#170](https://github.com/10up/eight-day-week/pull/170)).
 - Update CTA to Fueled (props [@jeffpaul](https://github.com/jeffpaul) via [#6ce451a2](https://github.com/10up/eight-day-week/commit/6ce451a22ad65b8518200e81fe33c2d65d448d9d)).
+
+### Security
+- Resolve GHSA-c5vw-3gpx-gv22 data exposure to authenticated users (thank you Patchstack for responsibly disclosing this issue; props [@kmgalanakis](https://github.com/kmgalanakis), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-c5vw-3gpx-gv22](https://github.com/10up/eight-day-week/security/advisories/GHSA-c5vw-3gpx-gv22)).
 
 ### Developer
 - Update all third-party actions our workflows rely on to use versions based on specific commit hashes (props [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#168](https://github.com/10up/eight-day-week/pull/168)).
