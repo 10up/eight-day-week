@@ -198,7 +198,19 @@ Please report security bugs found in the source code of the Eight Day Week Print
 
 == Changelog ==
 
-= 1.3.0 - 2025-05-xx =
+= 1.4.0 - 2026-09-17 =
+**Note that this release bumps the WordPress minimum version from 6.7 to 6.9.**
+
+* **Security:** Resolve GHSA-43rw-44h9-rvw8 (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-43rw-44h9-rvw8](https://github.com/10up/eight-day-week/security/advisories/GHSA-43rw-44h9-rvw8)).
+* **Security:** Resolve GHSA-86jm-chvc-gcrp (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-86jm-chvc-gcrp](https://github.com/10up/eight-day-week/security/advisories/GHSA-86jm-chvc-gcrp)).
+* **Security:** Resolve GHSA-p46g-f894-26c6 (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-p46g-f894-26c6](https://github.com/10up/eight-day-week/security/advisories/GHSA-p46g-f894-26c6)).
+* **Security:** Resolve GHSA-99cj-2vcr-75qw (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-99cj-2vcr-75qw](https://github.com/10up/eight-day-week/security/advisories/GHSA-99cj-2vcr-75qw)).
+* **Security:** Resolve GHSA-w264-x245-xgqr (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-w264-x245-xgqr](https://github.com/10up/eight-day-week/security/advisories/GHSA-w264-x245-xgqr)).
+* **Changed:** Bump WordPress "tested up to" version 7.1 (props [@zamanq](https://github.com/zamanq), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#209](https://github.com/10up/eight-day-week/pull/209), [#210](https://github.com/10up/eight-day-week/pull/210)).
+* **Changed:** Bump WordPress minimum to 6.9 (props [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#212](https://github.com/10up/eight-day-week/pull/212)).
+* **Fixed:** PHP Fatal error when exporting an issue that includes a post with empty post content and a featured image (props [@kmgalanakis](https://github.com/kmgalanakis), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#188](https://github.com/10up/eight-day-week/pull/188)).
+
+= 1.3.0 - 2026-05-14 =
 **Note that this release bumps the WordPress minimum version from 5.5 to 6.7.**
 
 * **Security:** Resolve GHSA-88cc-x3jq-vwjx (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul) via [GHSA-88cc-x3jq-vwjx](https://github.com/10up/eight-day-week/security/advisories/GHSA-88cc-x3jq-vwjx)).
@@ -236,6 +248,10 @@ Please report security bugs found in the source code of the Eight Day Week Print
 [View historical changelog details here](https://github.com/10up/eight-day-week/blob/develop/CHANGELOG.md).
 
 == Upgrade Notice ==
+
+= 1.4.0 =
+
+This includes a security update. Please update promptly.
 
 = 1.3.0 =
 

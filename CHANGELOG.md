@@ -4,7 +4,29 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
-## [1.3.0] - 2025-05-xx
+## [1.4.0] - 2026-09-17
+**Note that this release bumps the WordPress minimum version from 6.7 to 6.9.**
+
+### Security
+- Resolve GHSA-43rw-44h9-rvw8 (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-43rw-44h9-rvw8](https://github.com/10up/eight-day-week/security/advisories/GHSA-43rw-44h9-rvw8)).
+- Resolve GHSA-86jm-chvc-gcrp (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-86jm-chvc-gcrp](https://github.com/10up/eight-day-week/security/advisories/GHSA-86jm-chvc-gcrp)).
+- Resolve GHSA-p46g-f894-26c6 (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-p46g-f894-26c6](https://github.com/10up/eight-day-week/security/advisories/GHSA-p46g-f894-26c6)).
+- Resolve GHSA-99cj-2vcr-75qw (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-99cj-2vcr-75qw](https://github.com/10up/eight-day-week/security/advisories/GHSA-99cj-2vcr-75qw)).
+- Resolve GHSA-w264-x245-xgqr (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [GHSA-w264-x245-xgqr](https://github.com/10up/eight-day-week/security/advisories/GHSA-w264-x245-xgqr)).
+
+### Changed
+- Bump WordPress "tested up to" version 7.1 (props [@zamanq](https://github.com/zamanq), [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#209](https://github.com/10up/eight-day-week/pull/209), [#210](https://github.com/10up/eight-day-week/pull/210)).
+- Bump WordPress minimum to 6.9 (props [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#212](https://github.com/10up/eight-day-week/pull/212)).
+
+### Fixed
+- PHP Fatal error when exporting an issue that includes a post with empty post content and a featured image (props [@kmgalanakis](https://github.com/kmgalanakis), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#188](https://github.com/10up/eight-day-week/pull/188)).
+
+### Developer
+- Bump `tmp` from 0.2.5 to 0.2.7 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#205](https://github.com/10up/eight-day-week/pull/205)).
+- Bump `wp-coding-standards/wpcs` from 3.3.0 to 3.4.1 (props [@dkotter](https://github.com/dkotter), [@dependabot](https://github.com/apps/dependabot) via [#206](https://github.com/10up/eight-day-week/pull/206)).
+- Bump `@10up/cypress-wp-utils` from 0.6.0 to 0.7.2 (props [@peterwilsoncc](https://github.com/peterwilsoncc), [@dkotter](https://github.com/dkotter) via [#213](https://github.com/10up/eight-day-week/pull/213)).
+
+## [1.3.0] - 2026-05-14
 **Note that this release bumps the WordPress minimum version from 5.5 to 6.7.**
 
 ### Security
@@ -28,7 +50,6 @@ All notable changes to this project will be documented in this file, per [the Ke
 - Add new GitHub Action workflow to run Plugin Checks (props [@dkotter](https://github.com/dkotter), [@jeffpaul](https://github.com/jeffpaul) via [#194](https://github.com/10up/eight-day-week/pull/194)).
 - Address all existing PHPCS warnings and errors (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#195](https://github.com/10up/eight-day-week/pull/195)).
 - Fix errors being flagged by WordPress plugin check (props [@dkotter](https://github.com/dkotter), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#196](https://github.com/10up/eight-day-week/pull/196)).
-
 
 ## [1.2.6] - 2025-12-16
 ### Security
@@ -191,6 +212,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 - Initial Release
 
 [Unreleased]: https://github.com/10up/eight-day-week/compare/trunk...develop
+[1.4.0]: https://github.com/10up/eight-day-week/compare/1.3.0...1.4.0
 [1.3.0]: https://github.com/10up/eight-day-week/compare/1.2.6...1.3.0
 [1.2.6]: https://github.com/10up/eight-day-week/compare/1.2.5...1.2.6
 [1.2.5]: https://github.com/10up/eight-day-week/compare/1.2.4...1.2.5
