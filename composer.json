@@ -29,6 +29,9 @@
 	"require-dev": {
 		"wp-coding-standards/wpcs": "^3.0",
 		"phpcompatibility/phpcompatibility-wp": "^3.0@dev",
-		"automattic/vipwpcs": "^3.0"
+		"automattic/vipwpcs": "^3.0",
+		"phpunit/phpunit": "^9.6",
+		"yoast/phpunit-polyfills": "^4.0",
+		"wp-phpunit/wp-phpunit": "^7.1"
 	}
 }

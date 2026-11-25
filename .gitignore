@@ -7,9 +7,8 @@ release
 vendor
 .DS_Store
 
-# E2E testing
-tests/cypress/downloads
-tests/cypress/screenshots
-tests/cypress/videos
-tests/cypress/reports
+# Tests
+/artifacts
+tests/.phpunit.result.cache
 .wp-env.override.json
+.wp-env.test.override.json
