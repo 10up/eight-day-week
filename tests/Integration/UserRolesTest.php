@@ -7,13 +7,16 @@
 
 namespace Eight_Day_Week\Tests\Integration;
 
+use WPDieException;
 use WP_UnitTestCase;
 
 use function Eight_Day_Week\User_Roles\add_roles;
 use function Eight_Day_Week\User_Roles\current_user_can_edit_print_issue;
+use function Eight_Day_Week\User_Roles\update_users_print_role;
 
 /**
- * Covers who may edit print issues and how print roles survive role changes.
+ * Covers who may edit print issues, how print roles survive role changes and
+ * which roles the Users screen's Print Role select may grant.
  */
 class UserRolesTest extends WP_UnitTestCase {
 
@@ -30,6 +33,11 @@ class UserRolesTest extends WP_UnitTestCase {
 		remove_role( 'print_editor' );
 		remove_role( 'print_production' );
 		add_roles();
+
+		// Creating a role also fills the $wp_user_roles global, which makes every
+		// later roles reload (multisite switches sites) use it instead of the
+		// database. Clear it so later tests see the full set of roles.
+		unset( $GLOBALS['wp_user_roles'] );
 	}
 
 	/**
@@ -65,5 +73,54 @@ class UserRolesTest extends WP_UnitTestCase {
 		$this->assertContains( 'author', $roles );
 		$this->assertNotContains( 'editor', $roles );
 		$this->assertContains( 'print_editor', $roles );
+	}
+
+	/**
+	 * Submits the Users screen's Print Role bulk form and returns the wp_die() message.
+	 *
+	 * @param string $role       Role picked in the top Print Role select.
+	 * @param int    $target_id  User the role is applied to.
+	 * @return string The wp_die() message.
+	 */
+	private function submit_print_role( string $role, int $target_id ): string {
+		$_GET['pp-print-role']  = $role;
+		$_GET['pp-print-role2'] = '-1';
+		$_GET['users']          = array( (string) $target_id );
+		$_REQUEST['_wpnonce']   = wp_create_nonce( 'bulk-users' );
+
+		// The handler redirects and exits once roles change; fail instead of ending the run.
+		add_filter(
+			'wp_redirect',
+			static function () {
+				throw new WPDieException( 'Print roles were changed.' );
+			}
+		);
+
+		try {
+			update_users_print_role();
+		} catch ( WPDieException $e ) {
+			return $e->getMessage();
+		} finally {
+			unset( $_GET['pp-print-role'], $_GET['pp-print-role2'], $_GET['users'], $_REQUEST['_wpnonce'] );
+		}
+
+		$this->fail( 'The request must be refused.' );
+	}
+
+	/**
+	 * The Print Role select can only grant print roles.
+	 */
+	public function test_print_role_select_cannot_grant_other_roles(): void {
+		$target = self::factory()->user->create( array( 'role' => 'author' ) );
+		$admin  = self::factory()->user->create( array( 'role' => 'administrator' ) );
+		if ( is_multisite() ) {
+			grant_super_admin( $admin );
+		}
+		wp_set_current_user( $admin );
+
+		$message = $this->submit_print_role( 'administrator', $target );
+
+		$this->assertStringContainsString( 'give users that print role', $message );
+		$this->assertSame( array( 'author' ), get_userdata( $target )->roles );
 	}
 }
