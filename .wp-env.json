@@ -1,10 +1,11 @@
 {
-  "plugins": ["."],
-  "env": {
-    "tests": {
-      "mappings": {
-        "wp-cli.yml": "./tests/bin/wp-cli.yml"
-      }
-    }
-  }
+	"$schema": "https://schemas.wp.org/trunk/wp-env.json",
+	"testsEnvironment": false,
+	"core": null,
+	"plugins": [ "." ],
+	"config": {
+		"WP_DEVELOPMENT_MODE": "plugin",
+		"WP_ENVIRONMENT_TYPE": "development",
+		"WP_DEBUG": true
+	}
 }
