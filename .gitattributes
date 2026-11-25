@@ -12,6 +12,7 @@
 /.nvmrc export-ignore
 /.wordpress-version-checker.json export-ignore
 /.wp-env.json export-ignore
+/.wp-env.test.json export-ignore
 /CHANGELOG.md export-ignore
 /CODE_OF_CONDUCT.md export-ignore
 /composer.json export-ignore
@@ -24,4 +25,5 @@
 /package.json export-ignore
 /phpcs.xml export-ignore
 /phpcs-compat.xml export-ignore
+/phpunit.xml.dist export-ignore
 /README.md export-ignore
