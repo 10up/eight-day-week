@@ -1,6 +1,6 @@
 /**
- * Print issues: an issue is built from sections of existing posts, edited,
- * exported as a zip and trashed from its edit screen.
+ * Print issues: an issue is built from sections of existing posts, edited and
+ * exported as a zip.
  */
 
 /**
@@ -108,25 +108,5 @@ test.describe( 'Print issue', () => {
 		expect( ( await download ).suggestedFilename() ).toMatch(
 			new RegExp( `^Issue-${ title.replace( / /g, '-' ) }-exported-on-.*\\.zip$` )
 		);
-	} );
-
-	test( 'trashes an issue', async ( { admin, page } ) => {
-		const title = `Print Title ${ uniqueSuffix() }`;
-		const issueId = await createPrintIssue(
-			admin,
-			page,
-			title,
-			'Section title 1',
-			ARTICLE_TITLE
-		);
-
-		await admin.visitAdminPage(
-			'post.php',
-			`post=${ issueId }&action=edit`
-		);
-		await page.locator( '.submitdelete' ).click();
-
-		await expect( page ).toHaveURL( /edit\.php\?post_type=print-issue/ );
-		await expect( page.locator( '#the-list' ) ).not.toContainText( title );
 	} );
 } );

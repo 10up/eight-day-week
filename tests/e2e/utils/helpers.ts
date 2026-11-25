@@ -15,7 +15,7 @@ import type { Admin } from '@wordpress/e2e-test-utils-playwright';
 
 /**
  * A suffix that keeps names unique across tests, retries and repeated runs
- * (the test site keeps terms and print issues between runs).
+ * (the test site keeps terms, print issues and users between runs).
  *
  * @return {string} Unique suffix.
  */
@@ -60,28 +60,6 @@ export async function addTerm(
 		'Item added.'
 	);
 	await expect( page.locator( '#the-list' ) ).toContainText( name );
-}
-
-/**
- * Opens the edit screen of a term listed on the term screen.
- *
- * @param {Admin}  admin    Admin fixture.
- * @param {Page}   page     Page fixture.
- * @param {string} taxonomy Taxonomy name.
- * @param {string} name     Term name.
- */
-export async function openTermEditor(
-	admin: Admin,
-	page: Page,
-	taxonomy: string,
-	name: string
-) {
-	await visitTermScreen( admin, taxonomy );
-	await page
-		.locator( '#the-list a.row-title' )
-		.filter( { hasText: name } )
-		.click();
-	await expect( page.locator( '#name' ) ).toHaveValue( name );
 }
 
 /**
