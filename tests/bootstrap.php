@@ -36,3 +36,9 @@ tests_add_filter(
 
 // Start up the WP testing environment.
 require $_test_root . '/includes/bootstrap.php';
+
+// On a fresh test install the plugin creates its roles during this bootstrap,
+// which also fills the $wp_user_roles global with only those roles. On
+// multisite every later roles reload (any switch_to_blog()) would then use it
+// instead of the database. Clear it so tests start like any later request.
+unset( $GLOBALS['wp_user_roles'] );

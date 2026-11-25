@@ -5,6 +5,7 @@
 /**
  * External dependencies
  */
+import { randomInt } from 'node:crypto';
 import { expect } from '@playwright/test';
 import type { Page } from '@playwright/test';
 
@@ -20,9 +21,7 @@ import type { Admin } from '@wordpress/e2e-test-utils-playwright';
  * @return {string} Unique suffix.
  */
 export function uniqueSuffix(): string {
-	return `${ Date.now().toString( 36 ) }${ Math.floor(
-		Math.random() * 1000
-	) }`;
+	return `${ Date.now().toString( 36 ) }${ randomInt( 1000 ) }`;
 }
 
 /**
